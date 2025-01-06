@@ -1,0 +1,11 @@
+.project-details-overlay {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  .project-details-overlay ul {
+    padding-left: 1.5rem;
+  }
+  .project-details-overlay img {
+    max-height: 300px;
+    object-fit: cover;
+  }
+  

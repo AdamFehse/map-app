@@ -1,0 +1,62 @@
+/* Sidebar container */
+.sidebar {
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Sticky Header */
+  .sidebar-header {
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+    z-index: 10;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Controls Section */
+  .sidebar-controls {
+    position: sticky;
+    top: 64px; /* Adjust based on header height */
+    background-color: inherit;
+    z-index: 9;
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px; /* Add spacing between elements */
+  }
+  
+  /* Controls: Categories Dropdown */
+  .sidebar-controls .categories-dropdown {
+    flex-grow: 1;
+    flex-basis: 60%;
+  }
+  
+  /* Controls: Zoom Out Button */
+  .sidebar-controls .zoom-out-button {
+    flex-basis: 20%;
+    width: 100%;
+  }
+  
+  /* Controls: Dark Mode Toggle */
+  .sidebar-controls .dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 20%;
+  }
+  
+  /* Projects Section */
+  .sidebar-projects {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+  }
+  

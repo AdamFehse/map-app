@@ -1,0 +1,5 @@
+/* map-darkmode.css */
+
+body.dark-mode .leaflet-tile-pane .leaflet-tile {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}

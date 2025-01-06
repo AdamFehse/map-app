@@ -1,0 +1,14 @@
+/* Dark mode styles for the sidebar */
+body.dark-mode .sidebar {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar button,
+body.dark-mode .sidebar .MuiTypography-root {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar .MuiIconButton-root {
+  color: #ffffff;
+}

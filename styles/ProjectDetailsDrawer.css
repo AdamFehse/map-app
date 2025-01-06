@@ -1,0 +1,58 @@
+/* ProjectDetailsDrawer.css */
+
+/* Drawer styles */
+.drawer {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header section */
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .drawer-header .MuiTypography-root {
+    font-weight: bold;
+  }
+  
+  .drawer-header .MuiIconButton-root {
+    color: var(--icon-color, #000);
+  }
+  
+  /* Divider */
+  .drawer-divider {
+    margin-bottom: 16px;
+    background-color: var(--divider-color, #ccc);
+  }
+  
+  /* Grid2 Layout */
+  .drawer-grid-container {
+    flex-grow: 1;
+  }
+  
+  .drawer-grid-left {
+    padding-left: 16px;
+  }
+  
+  .drawer-grid-right img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: var(--image-border, 1px solid #ddd);
+  }
+  
+  .drawer-description {
+    line-height: 1.6;
+  }
+  
+  .drawer-dark-mode {
+    --icon-color: #fff;
+    --divider-color: #555;
+    --image-border: 1px solid #555;
+  }
+  

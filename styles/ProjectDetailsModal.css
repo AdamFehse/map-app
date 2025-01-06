@@ -1,0 +1,53 @@
+.modal-box {
+  padding: 16px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 10%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+}
+
+.modal-description {
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+.modal-info p {
+  margin: 8px 0;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .modal-box {
+  background-color: #333;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .modal-header {
+  border-bottom: 1px solid #555;
+}
+
+body.dark-mode .modal-info p {
+  color: #ddd;
+}
+
+body.dark-mode .modal-image {
+  border: 1px solid #555;
+}
