@@ -10,8 +10,6 @@ import R from "leaflet-responsive-popup";
 import "leaflet-responsive-popup/leaflet.responsive.popup.css";
 import "../styles/map-darkmode.css";
 import "../styles/popup-darkmode.css";
-import ProjectDetailsModal from "../components/ProjectDetailsModal";
-import ProjectDetailsDrawer from "./ProjectDetailsDrawer";
 import ProjectDetailsOverlay from "./ProjectDetailsOverlay";
 
 L.Icon.Default.mergeOptions({
@@ -28,6 +26,13 @@ export default function Map() {
   const [isDarkMode, setIsDarkMode] = useState(false); // Dark mode state
   const [modalOpen, setModalOpen] = useState(false); // State for modal
   const [selectedProject, setSelectedProject] = useState(null); // State for selected project
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedArtwork, setSelectedArtwork] = useState(null);
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category); // Update the selected category
+    filterProjects(category); // Filter projects based on the selected category
+  };
 
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => {
@@ -39,18 +44,20 @@ export default function Map() {
 
   const handleOpenModal = (project) => {
     setSelectedProject(project);
+    setSelectedArtwork(null); // Reset artwork when opening a new modal
     setModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedProject(null);
+    setSelectedArtwork(null); // Clear selected artwork when closing modal
   };
 
   // Attach popups to markers
   useEffect(() => {
     filteredProjects.forEach((project, index) => {
-      const key = `${project["Project Name"]}-${index}`;
+      const key = `${project["Project"]}-${index}`;
       const marker = markerRefs.current[key];
 
       if (marker) {
@@ -62,10 +69,10 @@ export default function Map() {
                   src="${
                     project.ImageUrl || "https://via.placeholder.com/150"
                   }" 
-                  alt="${project["Project Name"]}" 
+                  alt="${project["Project"]}" 
                   class="popup-image" 
                 />
-                <strong>${project["Project Name"]}</strong>
+                <strong>${project["Project"]}</strong>
                 <p class="popup-description">${project["DescriptionShort"]}</p>
                 <button id="more-details-${index}" class="popup-button">
                   More Details
@@ -111,7 +118,7 @@ export default function Map() {
           parseFloat(project.Latitude),
           parseFloat(project.Longitude),
         ];
-        const key = `${project["Project Name"]}-${index}`;
+        const key = `${project["Project"]}-${index}`;
 
         if (!position[0] || !position[1]) return null; // Skip invalid coordinates
 
@@ -135,19 +142,22 @@ export default function Map() {
         onClose={() => setSidebarOpen(false)}
         projects={projects}
         filteredProjects={filteredProjects}
-        onSelectCategory={filterProjects} // Pass filter function
+        onSelectCategory={handleCategoryChange} // Unified handler
+        selectedCategory={selectedCategory} // Pass the selected category here
         markerRefs={markerRefs} // Pass markerRefs as a prop
         isDarkMode={isDarkMode} // Pass dark mode state
         toggleDarkMode={toggleDarkMode} // Pass toggle handler
       />
+
       {/* Modal for Project Details JSX*/}
       <ProjectDetailsOverlay
         open={handleOpenModal}
         onClose={handleCloseModal}
         project={selectedProject}
         isDarkMode={isDarkMode}
+        selectedArtwork={selectedArtwork}
+        setSelectedArtwork={setSelectedArtwork}
       />
-      ; ;
     </MapContainer>
   );
 }

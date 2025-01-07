@@ -12,12 +12,12 @@ import ProjectDropdown from "@/components/ProjectDropdown";
 import "../styles/sidebar-darkmode.css";
 import "../styles/OffCanvasSidebar.css"; // Import the external CSS
 
-
 export default function OffCanvasSidebar({
   open,
   onClose,
   filteredProjects,
   onSelectCategory,
+  selectedCategory, // Destructure selectedCategory here
   markerRefs,
   isDarkMode,
   toggleDarkMode,
@@ -48,7 +48,6 @@ export default function OffCanvasSidebar({
 
         {/* Controls Section */}
         <Box className="sidebar-controls">
-            
           {/* Categories Dropdown */}
           <div className="categories-dropdown">
             <ProjectDropdown onSelectCategory={onSelectCategory} />
@@ -71,22 +70,49 @@ export default function OffCanvasSidebar({
         {/* Projects Section */}
         <Box className="sidebar-projects">
           <Typography variant="body1" gutterBottom>
-            Filtered Projects:
+            {/* Display the selected category */}
+            Filtered Projects: {selectedCategory || "All"}
           </Typography>
+
+          {/* Render the filtered projects */}
           {filteredProjects.map((project, index) => {
             const lat = parseFloat(project.Latitude);
             const lng = parseFloat(project.Longitude);
-            const key = `${project["Project Name"]}-${index}`;
-
+            const key = `${project["Project"]}-${index}`;
             return (
-              <Typography
+              <Box
                 key={key}
-                variant="body2"
-                style={{ cursor: "pointer", marginBottom: "0.5rem" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  marginBottom: "0.5rem",
+                }}
                 onClick={() => handleProjectClick(lat, lng, key)}
               >
-                {project["Project Name"]}
-              </Typography>
+                {/* Profile Image */}
+                {project["Project"] && (
+                  <img
+                    src={
+                      project["Profile Image Url"] ||
+                      "https://via.placeholder.com/40" // Placeholder image
+                    }
+                    alt={project["Project"] || "Placeholder"}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      marginRight: "10px",
+                    }}
+                  />
+                )}
+
+                {/* Project */}
+                <Typography variant="body2">
+                  {project["Project"]}
+                </Typography>
+              </Box>
             );
           })}
         </Box>

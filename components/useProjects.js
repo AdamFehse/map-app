@@ -8,7 +8,7 @@ export function useProjects() {
     // Fetch data only once when the component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch("https://adamfehse.github.io/storymapapp/storymapdata.json");
+        const response = await fetch("https://adamfehse.github.io/map-app/storymapdata.json"); // Local file in the public directory
         const data = await response.json();
         setProjects(data); // Set all projects
         setFilteredProjects(data); // Initialize filtered projects to all projects

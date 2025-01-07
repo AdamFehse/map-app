@@ -1,9 +1,25 @@
-import React from "react";
-import { Modal, Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Typography } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/ProjectDetailsOverlay.css";
+import DynamicAccordions from "./DynamicAccordions";
 
-export default function ProjectDetailsOverlay({ open, onClose, project, isDarkMode }) {
+export default function ProjectDetailsOverlay({
+  open,
+  onClose,
+  project,
+  isDarkMode,
+}) {
+  const [selectedContent, setSelectedContent] = useState(null); // Artwork, Poem, or Outcome
+  const [expandedAccordion, setExpandedAccordion] = useState(null); // Track open accordion
+
+  useEffect(() => {
+    if (!open || !project) {
+      setSelectedContent(null); // Reset content on modal close or new project
+      setExpandedAccordion(null); // Reset accordion state
+    }
+  }, [open, project]);
+
   if (!project) return null;
 
   return (
@@ -23,56 +39,96 @@ export default function ProjectDetailsOverlay({ open, onClose, project, isDarkMo
         className={`container-fluid project-details-overlay ${
           isDarkMode ? "bg-dark text-white" : "bg-light text-dark"
         }`}
-        style={{
-          maxWidth: "90%",
-          maxHeight: "90vh",
-          borderRadius: "8px",
-          padding: "16px",
-          overflowY: "auto",
-        }}
       >
         {/* Header Section */}
-        <div className="row mb-3">
-          <div className="col-12 d-flex justify-content-between align-items-center">
-            <h4>{project["Project Name"]}</h4>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={onClose}
-            >
-              Close
-            </Button>
-          </div>
+        <div className="header">
+          <h4>{project["Project Name"]}</h4>
+          <Button variant="contained" color="secondary" onClick={onClose}>
+            Close
+          </Button>
         </div>
 
         {/* Content Section */}
         <div className="row">
-          {/* Left Column */}
-          <div className="col-md-4 col-12 mb-3">
-            <h5>Details</h5>
-            <ul>
-              <li><strong>Category:</strong> {project["Project Category"]}</li>
-              <li><strong>Artist:</strong> {project.Artist || "Unknown"}</li>
-              <li><strong>Year:</strong> {project.Year || "N/A"}</li>
-              <li><strong>Location:</strong> {project.Location || "Unknown"}</li>
-              <li><strong>Medium:</strong> {project.Medium || "Various"}</li>
-            </ul>
+          {/* Left Panel */}
+          <div className="col-md-4 col-12 left-panel">
+            {/* Dynamic Accordions */}
+            <DynamicAccordions
+              project={project}
+              setSelectedContent={setSelectedContent}
+              expandedAccordion={expandedAccordion}
+              setExpandedAccordion={setExpandedAccordion}
+              isDarkMode={isDarkMode}
+            />
           </div>
 
-          {/* Right Column */}
-          <div className="col-md-8 col-12">
-            {project.ImageUrl && (
-              <img
-                src={project.ImageUrl}
-                alt={project["Project Name"]}
-                className="img-fluid rounded mb-3"
-                style={{ border: isDarkMode ? "1px solid #555" : "1px solid #ddd" }}
-              />
+          {/* Right Panel */}
+          <div className="col-md-8 col-12 right-panel">
+            {selectedContent ? (
+              selectedContent.type === "artwork" ? (
+                <>
+                  <Typography variant="h5" gutterBottom>
+                    {selectedContent.content.title}
+                  </Typography>
+                  <Typography variant="subtitle1" gutterBottom>
+                    <strong>Activity:</strong>{" "}
+                    {selectedContent.content.activity || "N/A"}
+                  </Typography>
+                  <Typography variant="body2" style={{ marginBottom: "16px" }}>
+                    {selectedContent.content.description ||
+                      "No description available."}
+                  </Typography>
+                  <div className="image-container">
+                    <img
+                      src={selectedContent.content.imageUrl}
+                      alt={selectedContent.content.title}
+                    />
+                  </div>
+                </>
+              ) : selectedContent.type === "poem" ? (
+                <>
+                  <Typography variant="h5" gutterBottom>
+                    {selectedContent.content.poemaTitle ||
+                      selectedContent.content.poemTitle ||
+                      "Untitled"}
+                  </Typography>
+                  <Typography variant="subtitle1" gutterBottom>
+                    <strong>Activity:</strong>{" "}
+                    {selectedContent.content.activityTitle || "N/A"}
+                  </Typography>
+                  <Typography variant="body2" style={{ marginBottom: "16px" }}>
+                    {selectedContent.content.description ||
+                      "No description available."}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    style={{ lineHeight: "1.8", marginBottom: "16px" }}
+                  >
+                    {selectedContent.content.text || "No text available."}
+                  </Typography>
+                </>
+              ) : selectedContent.type === "outcome" ? (
+                <>
+                  <Typography variant="h5" gutterBottom>
+                    {selectedContent.content.title}
+                  </Typography>
+                  <Typography variant="body2" style={{ marginBottom: "16px" }}>
+                    {selectedContent.content.summary || "No summary available."}
+                  </Typography>
+                  {selectedContent.content.link && (
+                    <a
+                      href={selectedContent.content.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Outcome
+                    </a>
+                  )}
+                </>
+              ) : null
+            ) : (
+              <Typography>Select an item to view details.</Typography>
             )}
-            <h5>Description</h5>
-            <p style={{ lineHeight: "1.6" }}>
-              {project.DescriptionLong || "No detailed description available."}
-            </p>
           </div>
         </div>
       </div>
