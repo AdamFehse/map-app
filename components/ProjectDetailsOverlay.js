@@ -43,7 +43,7 @@ export default function ProjectDetailsOverlay({
         {/* Header Section */}
         <div className="header">
           <h4>{project["Project Name"]}</h4>
-          <Button variant="contained" color="secondary" onClick={onClose}>
+          <Button variant="contained" color="primary" onClick={onClose}>
             Close
           </Button>
         </div>

@@ -49,3 +49,8 @@ body.dark-mode .leaflet-popup-content-wrapper .leaflet-popup-content {
 body.dark-mode .leaflet-popup-close-button {
   color: #ffffff; /* Close button color in dark mode */
 }
+
+body.dark-mode .popup-description {
+  font-size: 0.9em;
+  color: #ffffff; /* Darkmode text color for descriptions */
+}

@@ -5,6 +5,11 @@ import {
   IconButton,
   Button,
   Switch,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemAvatar,
+  Avatar,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMap } from "react-leaflet";
@@ -40,7 +45,21 @@ export default function OffCanvasSidebar({
       <Box className="sidebar">
         {/* Header Section */}
         <Box className="sidebar-header">
-          <Typography variant="h6">Sidebar</Typography>
+          <a
+            href="https://confluencenter.arizona.edu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <img
+              src="https://confluencenter.arizona.edu/sites/default/files/2025-01/cnflnctrLogo.png"
+              alt="Confluencenter Logo"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "50px",
+              }}
+            />
+          </a>
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
@@ -55,7 +74,7 @@ export default function OffCanvasSidebar({
 
           {/* Zoom Out Button */}
           <div className="zoom-out-button">
-            <Button variant="contained" onClick={handleZoomOut}>
+            <Button variant="outlined" onClick={handleZoomOut}>
               Zoom Out
             </Button>
           </div>
@@ -68,6 +87,7 @@ export default function OffCanvasSidebar({
         </Box>
 
         {/* Projects Section */}
+
         <Box className="sidebar-projects">
           <Typography variant="body1" gutterBottom>
             {/* Display the selected category */}
@@ -75,46 +95,65 @@ export default function OffCanvasSidebar({
           </Typography>
 
           {/* Render the filtered projects */}
-          {filteredProjects.map((project, index) => {
-            const lat = parseFloat(project.Latitude);
-            const lng = parseFloat(project.Longitude);
-            const key = `${project["Project"]}-${index}`;
-            return (
-              <Box
-                key={key}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  marginBottom: "0.5rem",
-                }}
-                onClick={() => handleProjectClick(lat, lng, key)}
-              >
-                {/* Profile Image */}
-                {project["Project"] && (
-                  <img
-                    src={
-                      project["Profile Image Url"] ||
-                      "https://via.placeholder.com/40" // Placeholder image
-                    }
-                    alt={project["Project"] || "Placeholder"}
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      marginRight: "10px",
-                    }}
-                  />
-                )}
+          <List>
+            {filteredProjects.map((project, index) => {
+              const lat = parseFloat(project.Latitude);
+              const lng = parseFloat(project.Longitude);
+              const key = `${project["Project"]}-${index}`;
 
-                {/* Project */}
-                <Typography variant="body2">
-                  {project["Project"]}
-                </Typography>
-              </Box>
-            );
-          })}
+              return (
+                <ListItem
+                  key={key}
+                  disablePadding
+                  style={{
+                    marginBottom: "0.5rem",
+                    borderRadius: "8px",
+                    border: "1px solid #ddd",
+                    backgroundColor: isDarkMode ? "#333" : "#fff",
+                    boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  <ListItemButton
+                    onClick={() => handleProjectClick(lat, lng, key)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "10px",
+                      gap: "10px",
+                    }}
+                  >
+                    {/* Profile Image */}
+                    <ListItemAvatar>
+                      <Avatar
+                        src={
+                          project["Profile Image Url"] ||
+                          "https://via.placeholder.com/40"
+                        }
+                        alt={project["Project"] || "Placeholder"}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </ListItemAvatar>
+
+                    {/* Project Name */}
+                    <Typography
+                      variant="body2"
+                      style={{
+                        fontWeight: "bold",
+                        color: isDarkMode ? "#fff" : "#000",
+                      }}
+                    >
+                      {project["Project"]}
+                    </Typography>
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+          </List>
         </Box>
       </Box>
     </Drawer>
