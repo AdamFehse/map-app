@@ -53,5 +53,5 @@ npm run build
 
 ## License
 
-This project is licensed under [https://opensource.org/license/mit](LICENSE).
+This project is licensed under [MIT License](https://opensource.org/license/mit).
 
