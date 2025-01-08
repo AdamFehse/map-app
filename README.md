@@ -6,7 +6,7 @@ This is an interactive story map application built with **Next.js**, **React**, 
 
 - Interactive map powered by **Leaflet**.
 - Dynamic project filtering and categorization.
-- Beautiful and responsive UI with **Bootstrap** styling.
+- Responsive UI with **Bootstrap** styling.
 - Modals and accordions for detailed project information.
 - Dark mode toggle for better accessibility.
 
