@@ -3,12 +3,15 @@ import { Modal, Button, Typography } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/ProjectDetailsOverlay.css";
 import DynamicAccordions from "./DynamicAccordions";
+import ResetLikeButton from "./ResetLikesButton";
+import LikeButton from "./LikeButton";
 
 export default function ProjectDetailsOverlay({
   open,
   onClose,
   project,
   isDarkMode,
+  
 }) {
   const [selectedContent, setSelectedContent] = useState(null); // Artwork, Poem, or Outcome
   const [expandedAccordion, setExpandedAccordion] = useState(null); // Track open accordion
@@ -23,6 +26,8 @@ export default function ProjectDetailsOverlay({
   if (!project) return null;
 
   return (
+    <>
+    <ResetLikeButton />
     <Modal
       open={open}
       onClose={onClose}
@@ -35,6 +40,7 @@ export default function ProjectDetailsOverlay({
         overflowY: "auto",
       }}
     >
+      
       <div
         className={`container-fluid project-details-overlay ${
           isDarkMode ? "bg-dark text-white" : "bg-light text-dark"
@@ -49,89 +55,110 @@ export default function ProjectDetailsOverlay({
         </div>
 
         {/* Content Section */}
-        <div className="row">
-          {/* Left Panel */}
-          <div className="col-md-4 col-12 left-panel">
-            {/* Dynamic Accordions */}
-            <DynamicAccordions
-              project={project}
-              setSelectedContent={setSelectedContent}
-              expandedAccordion={expandedAccordion}
-              setExpandedAccordion={setExpandedAccordion}
-              isDarkMode={isDarkMode}
+        {/* Content Section */}
+<div className="row">
+  {/* Left Panel */}
+  <div className="col-md-4 col-12 left-panel">
+    {/* Dynamic Accordions */}
+    <DynamicAccordions
+      project={project}
+      setSelectedContent={setSelectedContent}
+      expandedAccordion={expandedAccordion}
+      setExpandedAccordion={setExpandedAccordion}
+      isDarkMode={isDarkMode}
+    />
+  </div>
+
+  {/* Right Panel */}
+  <div className="col-md-8 col-12 right-panel">
+    {selectedContent ? (
+      selectedContent.type === "artwork" ? (
+        <>
+          <Typography variant="h5" gutterBottom>
+            {selectedContent.content.title}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            <strong>Activity:</strong>{" "}
+            {selectedContent.content.activity || "N/A"}
+          </Typography>
+          <Typography variant="body2" style={{ marginBottom: "16px" }}>
+            {selectedContent.content.description ||
+              "No description available."}
+          </Typography>
+
+          {/* Unique Like Button for Each Artwork */}
+          <LikeButton
+            projectId={`${project["Project"]}-${selectedContent.content.title}-${project["Latitude"]}-${project["Longitude"]}`}
+          />
+          <div className="image-container">
+            <img
+              src={selectedContent.content.imageUrl}
+              alt={selectedContent.content.title}
             />
           </div>
+        </>
+      ) : selectedContent.type === "poem" ? (
+        <>
+          <Typography variant="h5" gutterBottom>
+            {selectedContent.content.poemaTitle ||
+              selectedContent.content.poemTitle ||
+              "Untitled"}
+          </Typography>
+          <Typography
+            variant="body2"
+            style={{ marginBottom: "16px" }}
+          >
+            {selectedContent.content.description || "No description available."}
+          </Typography>
+          <Typography
+            variant="body1"
+            style={{ marginBottom: "16px" }}
+          >
+            {selectedContent.content.text || "No text available."}
+          </Typography>
 
-          {/* Right Panel */}
-          <div className="col-md-8 col-12 right-panel">
-            {selectedContent ? (
-              selectedContent.type === "artwork" ? (
-                <>
-                  <Typography variant="h5" gutterBottom>
-                    {selectedContent.content.title}
-                  </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    <strong>Activity:</strong>{" "}
-                    {selectedContent.content.activity || "N/A"}
-                  </Typography>
-                  <Typography variant="body2" style={{ marginBottom: "16px" }}>
-                    {selectedContent.content.description ||
-                      "No description available."}
-                  </Typography>
-                  <div className="image-container">
-                    <img
-                      src={selectedContent.content.imageUrl}
-                      alt={selectedContent.content.title}
-                    />
-                  </div>
-                </>
-              ) : selectedContent.type === "poem" ? (
-                <>
-                  <Typography variant="h5" gutterBottom>
-                    {selectedContent.content.poemaTitle ||
-                      selectedContent.content.poemTitle ||
-                      "Untitled"}
-                  </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    <strong>Activity:</strong>{" "}
-                    {selectedContent.content.activityTitle || "N/A"}
-                  </Typography>
-                  <Typography variant="body2" style={{ marginBottom: "16px" }}>
-                    {selectedContent.content.description ||
-                      "No description available."}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    style={{ lineHeight: "1.8", marginBottom: "16px" }}
-                  >
-                    {selectedContent.content.text || "No text available."}
-                  </Typography>
-                </>
-              ) : selectedContent.type === "outcome" ? (
-                <>
-                  <Typography variant="h5" gutterBottom>
-                    {selectedContent.content.title}
-                  </Typography>
-                  <Typography variant="body2" style={{ marginBottom: "16px" }}>
-                    {selectedContent.content.summary || "No summary available."}
-                  </Typography>
-                  {selectedContent.content.link && (
-                    <a
-                      href={selectedContent.content.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View Outcome
-                    </a>
-                  )}
-                </>
-              ) : null
-            ) : (
-              <Typography>Select an item to view details.</Typography>
-            )}
-          </div>
-        </div>
+          {/* Unique Like Button for Each Poem */}
+          <LikeButton
+            projectId={`${project["Project"]}-poem-${selectedContent.content.poemaTitle || selectedContent.content.poemTitle}`}
+          />
+        </>
+      ) : (
+        <>
+          <Typography variant="h5" gutterBottom>
+            {selectedContent.content.title}
+          </Typography>
+          <Typography
+            variant="body2"
+            style={{ marginBottom: "16px" }}
+          >
+            {selectedContent.content.summary || "No summary available."}
+          </Typography>
+          {selectedContent.content.link && (
+            <a
+              href={selectedContent.content.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Outcome
+            </a>
+          )}
+
+          {/* Unique Like Button for Each Outcome */}
+          <LikeButton
+            projectId={`${project["Project"]}-outcome-${selectedContent.content.title}`}
+          />
+        </>
+      )
+    ) : (
+      <Typography>
+        Select an artwork, poem, or outcome to view details.
+      </Typography>
+    )}
+  </div>
+</div>
+
       </div>
     </Modal>
+    </>
   );
 }
