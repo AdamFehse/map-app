@@ -1,6 +1,6 @@
 # Confluencenter Story Map
 
-This is an interactive story map application built with **Next.js**, **React**, **Leaflet**, and **Bootstrap**. It features a dynamic, responsive interface for exploring projects visually on a map.
+This is an interactive story map application built with **Next.js**, **React**, **Leaflet**, and **Bootstrap**. It features a dynamic, responsive interface for exploring projects visually on a map. See it https://adamfehse.github.io/map-app/
 
 ## Features
 
