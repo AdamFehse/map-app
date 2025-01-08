@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Confluencenter Story Map
+
+This is an interactive story map application built with **Next.js**, **React**, **Leaflet**, and **Bootstrap**. It features a dynamic, responsive interface for exploring projects visually on a map.
+
+## Features
+
+- Interactive map powered by **Leaflet**.
+- Dynamic project filtering and categorization.
+- Beautiful and responsive UI with **Bootstrap** styling.
+- Modals and accordions for detailed project information.
+- Dark mode toggle for better accessibility.
 
 ## Getting Started
 
-First, run the development server:
+### Development Server
+
+To run the project locally:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Editing the Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Modify components in the `components/` directory or pages in the `pages/` directory to customize the app.
 
-## Learn More
+### Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Deploy your application on **Vercel** for seamless hosting.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
+- **Next.js**: Framework for server-side rendering and routing.
+- **React**: Component-based user interface library.
+- **Leaflet**: Interactive maps and markers.
+- **Bootstrap**: Styling for a responsive and visually appealing UI.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+/components    # Reusable React components (Map, Sidebar, Modal, etc.)
+/pages         # Next.js pages
+/public        # Static assets like images and JSON data
+/styles        # CSS and SCSS stylesheets
+```
+
+## License
+
+This project is licensed under [MIT License](LICENSE).
+
