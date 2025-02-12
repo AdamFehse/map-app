@@ -11,6 +11,10 @@ import "leaflet-responsive-popup/leaflet.responsive.popup.css";
 import "../styles/map-darkmode.css";
 import "../styles/popup-darkmode.css";
 import ProjectDetailsOverlay from "./ProjectDetailsOverlay";
+import D3Layer from "./D3Layer";
+import VoronoiD3Layer from "./VoronoiD3Layer";
+
+import MiniSidebar from "./MiniSidebar";
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -105,11 +109,12 @@ export default function Map() {
   return (
     <MapContainer
       center={[31.916004, -110.990274]}
-      zoom={9}
+      zoom={10}
       style={{ height: "100vh", width: "100%" }}
     >
+
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         attribution="&copy; OpenStreetMap contributors"
       />
       {/* Render markers for filtered projects */}
@@ -134,10 +139,24 @@ export default function Map() {
           />
         );
       })}
-      {/* Sidebar Toggle Button */}
-      <SidebarToggleButton onClick={() => setSidebarOpen(true)} />
-      {/* Sidebar */}
-      <OffCanvasSidebar
+
+      {/* Add D3 Layer 
+      <D3Layer data={filteredProjects} />*/}
+      
+
+      {/*<VoronoiD3Layer/> */}
+      <MiniSidebar
+        filteredProjects={filteredProjects || []}
+        onSelectCategory={handleCategoryChange}
+        selectedCategory={selectedCategory}
+        markerRefs={markerRefs}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
+
+      {/* Sidebar Toggle Button       <SidebarToggleButton onClick={() => setSidebarOpen(true)} />
+       */}
+      {/* Sidebar       <OffCanvasSidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         projects={projects}
@@ -147,7 +166,7 @@ export default function Map() {
         markerRefs={markerRefs} // Pass markerRefs as a prop
         isDarkMode={isDarkMode} // Pass dark mode state
         toggleDarkMode={toggleDarkMode} // Pass toggle handler
-      />
+      />*/}
 
       {/* Modal for Project Details JSX*/}
       <ProjectDetailsOverlay

@@ -10,7 +10,7 @@ export default function PopupContent({ project }) {
   return (
     <>
       <div className="popup-content">
-        <img
+        <image
           src={project.ImageUrl || "https://via.placeholder.com/150"}
           alt={project["Project Name"]}
           className="popup-image"
