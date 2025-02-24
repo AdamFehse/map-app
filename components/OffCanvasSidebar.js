@@ -127,7 +127,7 @@ export default function OffCanvasSidebar({
                       <Avatar
                         src={
                           project["Profile Image Url"] ||
-                          "https://via.placeholder.com/40"
+                          "https://placehold.co/40X40"
                         }
                         alt={project["Project"] || "Placeholder"}
                         style={{
