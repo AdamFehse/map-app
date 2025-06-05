@@ -1,0 +1,6 @@
+@StoryMapApi_HostAddress = http://localhost:5136
+
+GET {{StoryMapApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
