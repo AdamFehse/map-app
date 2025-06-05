@@ -61,7 +61,8 @@ export default function Map() {
   // Attach popups to markers
   useEffect(() => {
     filteredProjects.forEach((project, index) => {
-      const key = `${project["Project"]}-${index}`;
+      // Updated to use new property names
+      const key = `${project.Name}-${index}`;
       const marker = markerRefs.current[key];
 
       if (marker) {
@@ -73,11 +74,11 @@ export default function Map() {
                   src="${
                     project.ImageUrl || "https://via.placeholder.com/150"
                   }" 
-                  alt="${project["Project"]}" 
+                  alt="${project.Name}" 
                   class="popup-image" 
                 />
-                <strong>${project["Project"]}</strong>
-                <p class="popup-description">${project["DescriptionShort"]}</p>
+                <strong>${project.Name}</strong>
+                <p class="popup-description">${project.DescriptionShort || project.Description || ''}</p>
                 <button id="more-details-${index}" class="popup-button">
                   More Details
                 </button>
@@ -91,11 +92,12 @@ export default function Map() {
         marker.bindPopup(popup);
 
         // Add event listener for the button
-        popupContent
-          .querySelector(`#more-details-${index}`)
-          .addEventListener("click", () => {
+        const button = popupContent.querySelector(`#more-details-${index}`);
+        if (button) {
+          button.addEventListener("click", () => {
             handleMoreDetails(project);
           });
+        }
       }
     });
   }, [filteredProjects]); // Re-run when filteredProjects changes
@@ -112,18 +114,19 @@ export default function Map() {
       zoom={10}
       style={{ height: "100vh", width: "100%" }}
     >
-
       <TileLayer
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         attribution="&copy; OpenStreetMap contributors"
       />
+      
       {/* Render markers for filtered projects */}
       {filteredProjects.map((project, index) => {
+        // Updated to use new coordinate property names
         const position = [
           parseFloat(project.Latitude),
           parseFloat(project.Longitude),
         ];
-        const key = `${project["Project"]}-${index}`;
+        const key = `${project.Name}-${index}`;
 
         if (!position[0] || !position[1]) return null; // Skip invalid coordinates
 
@@ -142,9 +145,9 @@ export default function Map() {
 
       {/* Add D3 Layer 
       <D3Layer data={filteredProjects} />*/}
-      
-
       {/*<VoronoiD3Layer/> */}
+
+      
       <MiniSidebar
         filteredProjects={filteredProjects || []}
         onSelectCategory={handleCategoryChange}
@@ -170,7 +173,7 @@ export default function Map() {
 
       {/* Modal for Project Details JSX*/}
       <ProjectDetailsOverlay
-        open={handleOpenModal}
+        open={modalOpen}
         onClose={handleCloseModal}
         project={selectedProject}
         isDarkMode={isDarkMode}
