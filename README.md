@@ -51,6 +51,7 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
 - Integrate a cloud-hosted database for scalability.
 - Implement offline caching for the frontend.
 - Enhance map interactions and clustering for large datasets.
+- Integrate AI analysys and project managment.
 
 
 ### Development Server
