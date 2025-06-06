@@ -10,14 +10,12 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
 
 - Interactive map powered by **Leaflet** with markers for project locations.
 - Dynamic project filtering and categorization.
-- Responsive UI with **Bootstrap** styling.
-- Modals and accordions to display detailed project information.
-- Dark mode toggle for improved accessibility.
-- Backend API built with **.NET 6** serving project data dynamically.
+- Responsive UI with **Bootstrap**
+- Modals and accordions to display project information.
+- Dark mode toggle.
+- C# / ASP.NET Core - Backend API serving project data (JSON) dynamically.
 - Data loaded from a local JSON file on the backend and exposed via a REST API endpoint.
 - Frontend fetches project data from the backend API to ensure up-to-date information.
-- Deployment-ready static frontend with backend API dependency for dynamic data.
-- Clear error handling for missing or invalid coordinates.
 
 ---
 
@@ -38,7 +36,6 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
 
 ## Notes
 
-- Project data is currently public and contains no sensitive information.
 - Backend API enforces camelCase JSON serialization to match frontend expectations.
 - SQLite or other databases can be added for scalable backend data storage if needed.
 - API and frontend are loosely coupled; frontend can switch data sources by updating the fetch URL.
@@ -50,7 +47,7 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
 - Add authentication and authorization for managing project data.
 - Integrate a cloud-hosted database for scalability.
 - Implement offline caching for the frontend.
-- Enhance map interactions and clustering for large datasets.
+- Enhance map interactions and clustering.
 - Integrate AI-powered analysis and project management features.
 
 ### Development Server
