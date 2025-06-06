@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 
-// Script to convert your current numbered JSON structure to a better array-based structure
+// Script to convert current numbered JSON structure to a better array-based structure
 
 function convertProjectData(oldProject) {
   const newProject = {
