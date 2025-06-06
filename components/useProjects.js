@@ -10,7 +10,7 @@ export function useProjects() {
         // Update the URL to point to your converted data file
         // https://raw.githubusercontent.com/AdamFehse/map-app/main/StoryMapApi/Data/storymapdata_converted.json
         // http://localhost:5136/api/projects
-        const response = await fetch("http://localhost:5136/api/projects");
+        const response = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/main/StoryMapApi/Data/storymapdata_converted.json");
         const data = await response.json();
         
         console.log(`Loaded ${data.length} projects`);
