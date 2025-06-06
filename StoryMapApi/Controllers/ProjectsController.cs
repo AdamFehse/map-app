@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using StoryMapApi.Models;
+using System.Text.Json;
 
 namespace StoryMapApi.Controllers
 {
@@ -8,30 +9,30 @@ namespace StoryMapApi.Controllers
     public class ProjectsController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<IEnumerable<Project>> Get()
+        public async Task<ActionResult<IEnumerable<Project>>> Get()
         {
-            var projects = new List<Project>
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "storymapdata_converted.json");
+
+            if (!System.IO.File.Exists(filePath))
             {
-                new Project 
-                { 
-                    Id = 1, 
-                    Title = "Sonoran Soundscapes", 
-                    Description = "An audio exploration of desert ecosystems",
-                    Category = "Art", 
-                    Latitude = 32.2217, 
-                    Longitude = -110.9265 
-                },
-                new Project 
-                { 
-                    Id = 2, 
-                    Title = "Desert Data Vis", 
-                    Description = "Visualizing climate data from the Sonoran Desert",
-                    Category = "Science", 
-                    Latitude = 32.2345, 
-                    Longitude = -110.9444 
-                }
-            };
-            return Ok(projects);
+                return NotFound("Data file not found.");
+            }
+
+            try
+            {
+                var json = await System.IO.File.ReadAllTextAsync(filePath);
+                var projects = JsonSerializer.Deserialize<List<Project>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return Ok(projects);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Failed to load data: {ex.Message}");
+            }
         }
+
     }
 }

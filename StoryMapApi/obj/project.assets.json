@@ -80,11 +80,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/adamfehse/Documents/gitrepos/mapWIP/StoryMapApi/StoryMapApi.csproj",
+      "projectUniqueName": "/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/StoryMapApi.csproj",
       "projectName": "StoryMapApi",
-      "projectPath": "/Users/adamfehse/Documents/gitrepos/mapWIP/StoryMapApi/StoryMapApi.csproj",
+      "projectPath": "/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/StoryMapApi.csproj",
       "packagesPath": "/Users/adamfehse/.nuget/packages/",
-      "outputPath": "/Users/adamfehse/Documents/gitrepos/mapWIP/StoryMapApi/obj/",
+      "outputPath": "/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/adamfehse/.nuget/NuGet/NuGet.Config"

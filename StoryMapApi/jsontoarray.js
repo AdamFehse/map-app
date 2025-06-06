@@ -1,5 +1,4 @@
 import fs from 'fs/promises';
-import path from 'path';
 
 // Script to convert your current numbered JSON structure to a better array-based structure
 
@@ -83,7 +82,7 @@ function convertProjectData(oldProject) {
   
   newProject.Activities = Array.from(activityTitles).map(title => ({
     Title: title,
-    Type: "Workshop" // You might want to add more specific types
+    Type: "Workshop" // need to add more specific types
   }));
   
   return newProject;

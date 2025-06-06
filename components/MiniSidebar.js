@@ -56,7 +56,8 @@ export default function MiniSidebar({
     const longitude = parseFloat(project.Longitude);
     console.log("Navigating to:", latitude, longitude);
 
-    const key = `${project["Project"]}-${index}`; // Ensure index is passed and consistent
+    // Updated to match the key format used in Map.js
+    const key = `${project.Name}-${index}`;
     if (!isNaN(latitude) && !isNaN(longitude)) {
       if (markerRefs?.current[key]) {
         map.flyTo([latitude, longitude], 13, { animate: true });
@@ -248,11 +249,11 @@ export default function MiniSidebar({
               >
                 <ListItemIcon>
                   <Avatar
-                    src={project["Profile Image Url"] || ""}
-                    alt={project["Project"] || "Placeholder"}
+                    src={project.ProfileImageUrl || project.ImageUrl || ""}
+                    alt={project.Name || "Placeholder"}
                   />
                 </ListItemIcon>
-                <ListItemText primary={project["Project"]} />
+                <ListItemText primary={project.Name} />
               </ListItemButton>
             </ListItem>
           ))}

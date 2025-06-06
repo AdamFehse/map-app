@@ -31,7 +31,6 @@ export default function Map() {
   const [modalOpen, setModalOpen] = useState(false); // State for modal
   const [selectedProject, setSelectedProject] = useState(null); // State for selected project
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedArtwork, setSelectedArtwork] = useState(null);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category); // Update the selected category
@@ -48,14 +47,12 @@ export default function Map() {
 
   const handleOpenModal = (project) => {
     setSelectedProject(project);
-    setSelectedArtwork(null); // Reset artwork when opening a new modal
     setModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedProject(null);
-    setSelectedArtwork(null); // Clear selected artwork when closing modal
   };
 
   // Attach popups to markers
@@ -102,10 +99,9 @@ export default function Map() {
     });
   }, [filteredProjects]); // Re-run when filteredProjects changes
 
-  // Handler for "More Details" button
+  // Handler for "More Details" button - Fixed to use handleOpenModal
   const handleMoreDetails = (project) => {
-    setSelectedProject(project);
-    setModalOpen(true);
+    handleOpenModal(project);
   };
 
   return (
@@ -177,8 +173,6 @@ export default function Map() {
         onClose={handleCloseModal}
         project={selectedProject}
         isDarkMode={isDarkMode}
-        selectedArtwork={selectedArtwork}
-        setSelectedArtwork={setSelectedArtwork}
       />
     </MapContainer>
   );

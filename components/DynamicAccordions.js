@@ -18,68 +18,48 @@ export default function DynamicAccordions({
 
   const sections = [];
 
-  // Add Artwork Accordion
-  if (project.HasArtwork === "TRUE") {
-    const artworkList = [];
-    for (let i = 1; i <= 8; i++) {
-      if (project[`Artwork Title ${i}`] && project[`Artwork ImageUrl ${i}`]) {
-        artworkList.push({
-          title: project[`Artwork Title ${i}`],
-          description: project[`Artwork Description ${i}`],
-          imageUrl: project[`Artwork ImageUrl ${i}`],
-          activity: project[`Activity Title ${i}`],
-        });
-      }
-    }
-
+  // Artwork Accordion
+  if (project.HasArtwork && Array.isArray(project.Artworks)) {
     sections.push({
       type: "artwork",
       title: "Artwork Library",
-      items: artworkList,
+      items: project.Artworks.map((art) => ({
+        title: art.Title,
+        description: art.Description,
+        imageUrl: art.ImageUrl,
+        activity: art.ActivityTitle,
+      })),
     });
   }
 
-  // Add Poem Accordion
-  if (project.HasPoems === "TRUE") {
-    const poemList = [];
-    for (let i = 1; i <= 2; i++) {
-      if (project[`Poema ${i}`] || project[`Poem ${i}`]) {
-        poemList.push({
-          poemaTitle: project[`Poema ${i}`],
-          poemTitle: project[`Poem ${i}`],
-          activityTitle: project[`Activity Title Poem ${i}`],
-          description: project[`Poem Description ${i}`],
-          text: project[`Poema ${i}`] || project[`Poem ${i}`], // Full text
-        });
-      }
-    }
-
+  // Poem Accordion
+  if (project.HasPoems && Array.isArray(project.Poems)) {
     sections.push({
       type: "poem",
       title: "Poems",
-      items: poemList,
+      items: project.Poems.map((poem) => ({
+        poemaTitle: poem.ContentSpanish,
+        poemTitle: poem.Content,
+        activityTitle: poem.ActivityTitle,
+        description: poem.Description,
+        text: poem.Content || poem.ContentSpanish,
+      })),
     });
   }
 
-  // Add Outcomes Accordion
-  if (project.HasOutcomes === "TRUE") {
-    const outcomes = project["Project Outcome"]
-      ? [
-          {
-            title: project["Outcome Title"],
-            summary: project["Outcome Summary"],
-            link: project["Outcome Link"],
-          },
-        ]
-      : [];
-
-    if (outcomes.length > 0) {
-      sections.push({
-        type: "outcome",
-        title: "Outcomes",
-        items: outcomes,
-      });
-    }
+  // Outcomes Accordion
+  if (project.HasOutcomes && project.Outcome) {
+    sections.push({
+      type: "outcome",
+      title: "Outcomes",
+      items: [
+        {
+          title: project.Title, // You can use a specific Outcome title if it exists
+          summary: project.Outcome.Summary,
+          link: project.Outcome.Link,
+        },
+      ],
+    });
   }
 
   const handleAccordionChange = (accordion) => {

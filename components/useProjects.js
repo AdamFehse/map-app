@@ -6,13 +6,15 @@ export function useProjects() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
+      try {// https://github.com/AdamFehse/map-app/blob/main/StoryMapApi/Data/storymapdata_converted.json
         // Update the URL to point to your converted data file
-        const response = await fetch("https://adamfehse.github.io/map-app/storymapdata_converted.json");
+        // https://raw.githubusercontent.com/AdamFehse/map-app/main/StoryMapApi/Data/storymapdata_converted.json
+        // http://localhost:5136/api/projects
+        const response = await fetch("http://localhost:5136/api/projects");
         const data = await response.json();
         
         console.log(`Loaded ${data.length} projects`);
-        console.log('Sample project structure:', data[0]); // Debug log
+        console.log('Sample project structure:', data[0]); // #DEBUG log
         
         setProjects(data);
         setFilteredProjects(data);
