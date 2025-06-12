@@ -28,15 +28,14 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
   - Start backend server with `dotnet run` in the API project directory.
   - Run frontend with `npm run dev`.
 - For production deployment:
-  - Frontend can be built and deployed on GitHub Pages or any static host.
-  - Backend API must be hosted separately (e.g., Azure, Render, or local server) to serve dynamic project data.
+  - Frontend can be built and deployed on GitHub Pages or some static host.
+  - Backend API must be hosted separately to serve dynamic project data.
   - Frontend fetch URL should point to the hosted backend API.
 
 ---
 
 ## Notes
 
-- Backend API enforces camelCase JSON serialization to match frontend expectations.
 - SQLite or other databases can be added for scalable backend data storage if needed.
 - API and frontend are loosely coupled; frontend can switch data sources by updating the fetch URL.
 
@@ -45,9 +44,9 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
 ## Future Improvements
 
 - Add authentication and authorization for managing project data.
-- Integrate a cloud-hosted database for scalability.
+- Integrate a cloud-hosted database.
 - Implement offline caching for the frontend.
-- Enhance map interactions and clustering.
+- Enhance map interactions and features/UI/UX.
 - Integrate AI-powered analysis and project management features.
 
 ### Development Server
@@ -63,7 +62,7 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Editing the Project
 
-Modify components in the `components/` directory or pages in the `pages/` directory to customize the app.
+Modify components in the `components/` directory to customize the app.
 
 ### Deployment
 
