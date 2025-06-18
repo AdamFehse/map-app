@@ -9,8 +9,8 @@ export function useProjects() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch projects from backend API (to avoid CORS issues)
-        const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/gh-pages/storymapdata_db_ready.json");
+        // Fetch projects from GitHub Pages URL (works better for deployed version)
+        const projectsResponse = await fetch("https://adamfehse.github.io/map-app/storymapdata_db_ready.json");
         if (!projectsResponse.ok) {
           throw new Error(`HTTP error! status: ${projectsResponse.status}`);
         }
