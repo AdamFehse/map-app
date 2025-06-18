@@ -18,13 +18,18 @@ export function useProjects() {
         setProjects(projectsData);
         setFilteredProjects(projectsData);
 
-        // Set categories based on the data
-        const uniqueCategories = [...new Set(projectsData.map(project => project.ProjectCategory))].filter(Boolean);
-        const categoryObjects = uniqueCategories.map(category => ({
-          Value: category,
-          Label: category.replace(/([A-Z])/g, ' $1').trim() // Convert camelCase to readable format
-        }));
-        setCategories(categoryObjects);
+        // Set predefined categories
+        const predefinedCategories = [
+          { Value: "ArtExhibition", Label: "Art Exhibition" },
+          { Value: "Research", Label: "Research" },
+          { Value: "CommunityEngagement", Label: "Community Engagement" },
+          { Value: "Performance", Label: "Performance" },
+          { Value: "Workshop", Label: "Workshop" },
+          { Value: "Conference", Label: "Conference" },
+          { Value: "Publication", Label: "Publication" },
+          { Value: "Other", Label: "Other" }
+        ];
+        setCategories(predefinedCategories);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(error.message);
