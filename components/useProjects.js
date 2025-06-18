@@ -9,8 +9,8 @@ export function useProjects() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch projects
-        const projectsResponse = await fetch("http://localhost:3001/api/projects");
+        // Fetch projects from backend API (to avoid CORS issues)
+        const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/gh-pages/storymapdata_db_ready.json");
         if (!projectsResponse.ok) {
           throw new Error(`HTTP error! status: ${projectsResponse.status}`);
         }
@@ -18,13 +18,13 @@ export function useProjects() {
         setProjects(projectsData);
         setFilteredProjects(projectsData);
 
-        // Fetch categories
-        const categoriesResponse = await fetch("http://localhost:3001/api/projects/categories");
-        if (!categoriesResponse.ok) {
-          throw new Error(`HTTP error! status: ${categoriesResponse.status}`);
-        }
-        const categoriesData = await categoriesResponse.json();
-        setCategories(categoriesData);
+        // Set categories based on the data
+        const uniqueCategories = [...new Set(projectsData.map(project => project.ProjectCategory))].filter(Boolean);
+        const categoryObjects = uniqueCategories.map(category => ({
+          Value: category,
+          Label: category.replace(/([A-Z])/g, ' $1').trim() // Convert camelCase to readable format
+        }));
+        setCategories(categoryObjects);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(error.message);

@@ -28,13 +28,13 @@ export default function ProjectDropdown({ categories = [], onSelectCategory, sel
           value={selectedCategory || ""}
           label="Category"
         >
-          <MenuItem onClick={() => handleClose("")}>All Projects</MenuItem>
-          {categories.map((category) => (
+          <MenuItem key="all" onClick={() => handleClose("")}>All Projects</MenuItem>
+          {categories.map((category, index) => (
             <MenuItem 
-              key={category.value} 
-              onClick={() => handleClose(category.value)}
+              key={category.Value || category.value || `category-${index}`}
+              onClick={() => handleClose(category.Value || category.value)}
             >
-              {category.label}
+              {category.Label || category.label || category.Value || category.value}
             </MenuItem>
           ))}
         </Select>
