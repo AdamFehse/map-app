@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using System.Net.Http;
 
 namespace StoryMapApi.Controllers
 {
@@ -8,27 +9,27 @@ namespace StoryMapApi.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly ILogger<ProjectsController> _logger;
-        private readonly IWebHostEnvironment _environment;
+        private readonly HttpClient _httpClient;
 
-        public ProjectsController(ILogger<ProjectsController> logger, IWebHostEnvironment environment)
+        public ProjectsController(ILogger<ProjectsController> logger, HttpClient httpClient)
         {
             _logger = logger;
-            _environment = environment;
+            _httpClient = httpClient;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var jsonPath = Path.Combine(_environment.ContentRootPath, "Data", "storymapdata_db_ready.json");
-                var jsonContent = System.IO.File.ReadAllText(jsonPath);
+                var jsonUrl = "https://raw.githubusercontent.com/AdamFehse/map-app/gh-pages/storymapdata_db_ready.json";
+                var jsonContent = await _httpClient.GetStringAsync(jsonUrl);
                 var projects = JsonSerializer.Deserialize<List<object>>(jsonContent);
                 return Ok(projects);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error reading data");
+                _logger.LogError(ex, "Error reading data from GitHub Pages");
                 return StatusCode(500, $"Failed to load data: {ex.Message}");
             }
         }
