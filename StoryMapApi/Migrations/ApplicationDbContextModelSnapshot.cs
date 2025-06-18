@@ -31,17 +31,12 @@ namespace StoryMapApi.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProjectId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("ProjectId1");
 
                     b.ToTable("Activities");
                 });
@@ -64,17 +59,12 @@ namespace StoryMapApi.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProjectId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("ProjectId1");
 
                     b.ToTable("Artworks");
                 });
@@ -91,9 +81,6 @@ namespace StoryMapApi.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProjectId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Summary")
                         .HasColumnType("TEXT");
 
@@ -107,8 +94,6 @@ namespace StoryMapApi.Migrations
 
                     b.HasIndex("ProjectId")
                         .IsUnique();
-
-                    b.HasIndex("ProjectId1");
 
                     b.ToTable("Outcomes");
                 });
@@ -128,17 +113,12 @@ namespace StoryMapApi.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProjectId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("ProjectId1");
 
                     b.ToTable("Poems");
                 });
@@ -152,13 +132,25 @@ namespace StoryMapApi.Migrations
                     b.Property<string>("Affiliation")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Background")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("College")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescriptionLong")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescriptionShort")
+                        .HasColumnType("TEXT");
+
+                    b.PrimitiveCollection<string>("Education")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("HasArtwork")
@@ -173,20 +165,20 @@ namespace StoryMapApi.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Latitude")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Location")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Longitude")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ProjectCategory")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("ProjectCategory")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ProjectName")
                         .HasColumnType("TEXT")
@@ -195,67 +187,87 @@ namespace StoryMapApi.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("StoryMapApi.Models.RelatedUrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("RelatedUrl");
+                });
+
             modelBuilder.Entity("StoryMapApi.Models.Activity", b =>
                 {
-                    b.HasOne("StoryMapApi.Models.Project", null)
+                    b.HasOne("StoryMapApi.Models.Project", "Project")
                         .WithMany("Activities")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("StoryMapApi.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId1");
 
                     b.Navigation("Project");
                 });
 
             modelBuilder.Entity("StoryMapApi.Models.Artwork", b =>
                 {
-                    b.HasOne("StoryMapApi.Models.Project", null)
+                    b.HasOne("StoryMapApi.Models.Project", "Project")
                         .WithMany("Artworks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("StoryMapApi.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId1");
 
                     b.Navigation("Project");
                 });
 
             modelBuilder.Entity("StoryMapApi.Models.Outcome", b =>
                 {
-                    b.HasOne("StoryMapApi.Models.Project", null)
+                    b.HasOne("StoryMapApi.Models.Project", "Project")
                         .WithOne("Outcome")
                         .HasForeignKey("StoryMapApi.Models.Outcome", "ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("StoryMapApi.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId1");
 
                     b.Navigation("Project");
                 });
 
             modelBuilder.Entity("StoryMapApi.Models.Poem", b =>
                 {
-                    b.HasOne("StoryMapApi.Models.Project", null)
+                    b.HasOne("StoryMapApi.Models.Project", "Project")
                         .WithMany("Poems")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("StoryMapApi.Models.RelatedUrl", b =>
+                {
                     b.HasOne("StoryMapApi.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId1");
+                        .WithMany("RelatedUrls")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
                 });
@@ -269,6 +281,8 @@ namespace StoryMapApi.Migrations
                     b.Navigation("Outcome");
 
                     b.Navigation("Poems");
+
+                    b.Navigation("RelatedUrls");
                 });
 #pragma warning restore 612, 618
         }

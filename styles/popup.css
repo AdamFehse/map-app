@@ -1,0 +1,111 @@
+.responsive-popup {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 0;
+  max-width: 300px !important;
+  min-width: 200px !important;
+}
+
+.responsive-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.responsive-popup .leaflet-popup-content {
+  margin: 0;
+  width: 100% !important;
+}
+
+.popup-content {
+  padding: 12px;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.popup-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.popup-button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.popup-button:hover {
+  background-color: #0056b3;
+}
+
+.popup-title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.popup-description {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .responsive-popup {
+  background: #2d2d2d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .popup-content {
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
+[data-theme="dark"] .popup-title {
+  color: #fff;
+}
+
+[data-theme="dark"] .popup-description {
+  color: #ccc;
+}
+
+[data-theme="dark"] .popup-button {
+  background-color: #4a90e2;
+}
+
+[data-theme="dark"] .popup-button:hover {
+  background-color: #357abd;
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+  .responsive-popup {
+    max-width: 250px !important;
+    min-width: 180px !important;
+  }
+
+  .popup-image {
+    height: 120px;
+  }
+
+  .popup-title {
+    font-size: 14px;
+  }
+
+  .popup-description {
+    font-size: 12px;
+  }
+} 

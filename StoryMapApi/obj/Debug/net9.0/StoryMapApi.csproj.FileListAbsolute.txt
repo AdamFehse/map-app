@@ -40,7 +40,6 @@
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/appsettings.Development.json
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/appsettings.json
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Data/storymapdata.json
-/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Data/storymapdata_converted.json
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/StoryMapApi.staticwebassets.endpoints.json
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/StoryMapApi
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/StoryMapApi.deps.json
@@ -178,3 +177,10 @@
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/runtimes/win-arm64/native/e_sqlite3.dll
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
 /Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Data/enrichment_tracking.json
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Data/storymapdata_db_ready.json
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Data/test-data.json
+/Users/adamfehse/Documents/gitrepos/mapWIP/map-app/StoryMapApi/bin/Debug/net9.0/Data/storymapdata_converted_enriched_v21.json

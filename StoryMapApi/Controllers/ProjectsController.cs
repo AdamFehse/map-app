@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using StoryMapApi.Data;
-using StoryMapApi.Models;
+using System.Text.Json;
 
 namespace StoryMapApi.Controllers
 {
@@ -9,105 +7,55 @@ namespace StoryMapApi.Controllers
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly ILogger<ProjectsController> _logger;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProjectsController(ApplicationDbContext context, ILogger<ProjectsController> logger)
+        public ProjectsController(ILogger<ProjectsController> logger, IWebHostEnvironment environment)
         {
-            _context = context;
             _logger = logger;
+            _environment = environment;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> Get(
-            [FromQuery] string? category = null,
-            [FromQuery] bool? hasArtwork = null,
-            [FromQuery] bool? hasPoems = null,
-            [FromQuery] bool? hasOutcomes = null)
+        public IActionResult Get()
         {
             try
             {
-                var query = _context.Projects
-                    .Include(p => p.Outcome)
-                    .Include(p => p.Artworks)
-                    .Include(p => p.Poems)
-                    .Include(p => p.Activities)
-                    .AsQueryable();
-
-                // Apply filters
-                if (!string.IsNullOrEmpty(category))
-                {
-                    query = query.Where(p => p.ProjectCategory == category);
-                }
-
-                if (hasArtwork.HasValue)
-                {
-                    query = query.Where(p => p.HasArtwork == hasArtwork.Value);
-                }
-
-                if (hasPoems.HasValue)
-                {
-                    query = query.Where(p => p.HasPoems == hasPoems.Value);
-                }
-
-                if (hasOutcomes.HasValue)
-                {
-                    query = query.Where(p => p.HasOutcomes == hasOutcomes.Value);
-                }
-
-                var projects = await query.ToListAsync();
+                var jsonPath = Path.Combine(_environment.ContentRootPath, "Data", "storymapdata_db_ready.json");
+                var jsonContent = System.IO.File.ReadAllText(jsonPath);
+                var projects = JsonSerializer.Deserialize<List<object>>(jsonContent);
                 return Ok(projects);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving projects from database");
+                _logger.LogError(ex, "Error reading data");
                 return StatusCode(500, $"Failed to load data: {ex.Message}");
             }
         }
 
         [HttpGet("categories")]
-        public async Task<ActionResult<IEnumerable<string>>> GetCategories()
+        public IActionResult GetCategories()
         {
             try
             {
-                var categories = await _context.Projects
-                    .Select(p => p.ProjectCategory)
-                    .Distinct()
-                    .Where(c => c != null)
-                    .ToListAsync();
+                var categories = new[]
+                {
+                    new { Value = "ArtExhibition", Label = "Art Exhibition" },
+                    new { Value = "Research", Label = "Research" },
+                    new { Value = "CommunityEngagement", Label = "Community Engagement" },
+                    new { Value = "Performance", Label = "Performance" },
+                    new { Value = "Workshop", Label = "Workshop" },
+                    new { Value = "Conference", Label = "Conference" },
+                    new { Value = "Publication", Label = "Publication" },
+                    new { Value = "Other", Label = "Other" }
+                };
 
                 return Ok(categories);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving categories from database");
+                _logger.LogError(ex, "Error retrieving categories");
                 return StatusCode(500, $"Failed to load categories: {ex.Message}");
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetById(int id)
-        {
-            try
-            {
-                var project = await _context.Projects
-                    .Include(p => p.Outcome)
-                    .Include(p => p.Artworks)
-                    .Include(p => p.Poems)
-                    .Include(p => p.Activities)
-                    .FirstOrDefaultAsync(p => p.Id == id);
-
-                if (project == null)
-                {
-                    return NotFound($"Project with ID {id} not found");
-                }
-
-                return Ok(project);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving project {Id} from database", id);
-                return StatusCode(500, $"Failed to load project: {ex.Message}");
             }
         }
     }

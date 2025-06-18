@@ -3,23 +3,31 @@ import { useState, useEffect } from "react";
 export function useProjects() {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {// https://github.com/AdamFehse/map-app/blob/main/StoryMapApi/Data/storymapdata_converted.json
-        // Update the URL to point to your converted data file
-        // https://raw.githubusercontent.com/AdamFehse/map-app/main/StoryMapApi/Data/storymapdata_converted.json
-        // http://localhost:5136/api/projects
-        const response = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/main/StoryMapApi/Data/storymapdata_converted.json");
-        const data = await response.json();
-        
-        console.log(`Loaded ${data.length} projects`);
-        console.log('Sample project structure:', data[0]); // #DEBUG log
-        
-        setProjects(data);
-        setFilteredProjects(data);
+      try {
+        // Fetch projects
+        const projectsResponse = await fetch("http://localhost:3001/api/projects");
+        if (!projectsResponse.ok) {
+          throw new Error(`HTTP error! status: ${projectsResponse.status}`);
+        }
+        const projectsData = await projectsResponse.json();
+        setProjects(projectsData);
+        setFilteredProjects(projectsData);
+
+        // Fetch categories
+        const categoriesResponse = await fetch("http://localhost:3001/api/projects/categories");
+        if (!categoriesResponse.ok) {
+          throw new Error(`HTTP error! status: ${categoriesResponse.status}`);
+        }
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
       } catch (error) {
-        console.error("Error fetching project data:", error);
+        console.error("Error fetching data:", error);
+        setError(error.message);
       }
     };
 
@@ -27,81 +35,46 @@ export function useProjects() {
   }, []);
 
   const filterProjects = (category) => {
-    if (!projects.length) return;
-    
-    const filtered =
-      category === "All" || category === ""
-        ? projects
-        : projects.filter((project) => project.ProjectCategory === category); // Note: no spaces in property name now
-    
+    if (!category) {
+      setFilteredProjects(projects);
+      return;
+    }
+
+    const filtered = projects.filter((project) => {
+      return project.projectCategory === category;
+    });
+
     setFilteredProjects(filtered);
   };
 
-  // Helper function to get projects with artworks
   const getProjectsWithArtworks = () => {
-    return filteredProjects.filter(project => project.Artworks && project.Artworks.length > 0);
+    return projects.filter((project) => project.artworks && project.artworks.length > 0);
   };
 
-  // Helper function to get projects with poems
   const getProjectsWithPoems = () => {
-    return filteredProjects.filter(project => project.Poems && project.Poems.length > 0);
+    return projects.filter((project) => project.poems && project.poems.length > 0);
   };
 
-  // Helper function to get all artworks across projects
-  const getAllArtworks = () => {
-    return filteredProjects.reduce((allArtworks, project) => {
-      if (project.Artworks) {
-        const artworksWithProjectInfo = project.Artworks.map(artwork => ({
-          ...artwork,
-          ProjectName: project.Name,
-          ProjectLocation: project.Location
-        }));
-        return [...allArtworks, ...artworksWithProjectInfo];
+  const getUniqueActivities = () => {
+    const activities = new Set();
+    projects.forEach((project) => {
+      if (project.activities) {
+        project.activities.forEach((activity) => {
+          activities.add(activity);
+        });
       }
-      return allArtworks;
-    }, []);
+    });
+    return Array.from(activities);
   };
 
-  // Helper function to get all poems across projects
-  const getAllPoems = () => {
-    return filteredProjects.reduce((allPoems, project) => {
-      if (project.Poems) {
-        const poemsWithProjectInfo = project.Poems.map(poem => ({
-          ...poem,
-          ProjectName: project.Name,
-          ProjectLocation: project.Location
-        }));
-        return [...allPoems, ...poemsWithProjectInfo];
-      }
-      return allPoems;
-    }, []);
-  };
-
-  // Helper function to get all unique activities
-  const getAllActivities = () => {
-    const allActivities = filteredProjects.reduce((activities, project) => {
-      if (project.Activities) {
-        return [...activities, ...project.Activities];
-      }
-      return activities;
-    }, []);
-    
-    // Remove duplicates based on title
-    const uniqueActivities = allActivities.filter((activity, index, self) => 
-      index === self.findIndex(a => a.Title === activity.Title)
-    );
-    
-    return uniqueActivities;
-  };
-
-  return { 
-    projects, 
-    filteredProjects, 
+  return {
+    projects,
+    filteredProjects,
+    categories,
+    error,
     filterProjects,
     getProjectsWithArtworks,
     getProjectsWithPoems,
-    getAllArtworks,
-    getAllPoems,
-    getAllActivities
+    getUniqueActivities,
   };
 }

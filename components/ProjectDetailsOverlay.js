@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Typography } from "@mui/material";
+import { Modal, Button, Typography, Chip } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/ProjectDetailsOverlay.css";
 import DynamicAccordions from "./DynamicAccordions";
 import ResetLikeButton from "./ResetLikesButton";
 import LikeButton from "./LikeButton";
+import { getCategoryInfo } from "../constants/projectCategories";
 
 export default function ProjectDetailsOverlay({
   open,
@@ -84,10 +85,19 @@ export default function ProjectDetailsOverlay({
             </Typography>
           )}
           
-          {project.Category && (
-            <Typography variant="body2" paragraph>
-              <strong>Category:</strong> {project.Category}
-            </Typography>
+          {project.ProjectCategory && (
+            <div style={{ marginBottom: "16px" }}>
+              <Chip
+                label={getCategoryInfo(project.ProjectCategory).label}
+                icon={<span>{getCategoryInfo(project.ProjectCategory).icon}</span>}
+                color="primary"
+                variant="outlined"
+                style={{ marginRight: "8px" }}
+              />
+              <Typography variant="caption" color="textSecondary">
+                {getCategoryInfo(project.ProjectCategory).description}
+              </Typography>
+            </div>
           )}
           
           <Typography variant="body2" color="textSecondary" style={{ marginTop: "16px" }}>

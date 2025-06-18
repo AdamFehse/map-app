@@ -26,11 +26,11 @@ export default function Sidebar({ projects, onProjectClick, isOpen }) {
             <ListItemButton onClick={() => onProjectClick(project)}>
               <ListItemIcon>
                 <Avatar
-                  src={project["Profile Image Url"] || ""}
-                  alt={project["Project"] || "Placeholder"}
+                  src={project.imageUrl || ""}
+                  alt={project.Project || "Placeholder"}
                 />
               </ListItemIcon>
-              <ListItemText primary={project["Project"]} />
+              <ListItemText primary={project.Project} />
             </ListItemButton>
           </ListItem>
         ))}

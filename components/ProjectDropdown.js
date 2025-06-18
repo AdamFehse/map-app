@@ -1,51 +1,44 @@
-import React, { useState } from "react";
-import { Menu, MenuItem, Button } from "@mui/material";
+import React, { useState } from 'react';
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  Box
+} from '@mui/material';
 
-export default function ProjectDropdown({ onSelectCategory }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+export default function ProjectDropdown({ categories = [], onSelectCategory, selectedCategory }) {
+  const [open, setOpen] = useState(false);
 
   const handleClose = (category) => {
-    setAnchorEl(null);
-    if (category !== null) {
-      onSelectCategory(category);
-    }
+    setOpen(false);
+    onSelectCategory(category);
   };
 
   return (
-    <div>
-      <Button
-        variant="outlined"
-        onClick={handleOpen}
-        aria-controls={open ? "category-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-      >
-        Select Category
-      </Button>
-      <Menu
-        id="category-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={() => handleClose(null)}
-      >
-        <MenuItem onClick={() => handleClose("")}>All Projects</MenuItem>
-        <MenuItem onClick={() => handleClose("Art-Based Projects")}>
-          Art-Based Projects
-        </MenuItem>
-        <MenuItem onClick={() => handleClose("Research Projects")}>
-          Research Projects
-        </MenuItem>
-        <MenuItem
-          onClick={() => handleClose("Education and Community Outreach")}
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="category-select-label">Category</InputLabel>
+        <Select
+          labelId="category-select-label"
+          id="category-select"
+          open={open}
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          value={selectedCategory || ""}
+          label="Category"
         >
-          Education and Community Outreach
-        </MenuItem>
-      </Menu>
-    </div>
+          <MenuItem onClick={() => handleClose("")}>All Projects</MenuItem>
+          {categories.map((category) => (
+            <MenuItem 
+              key={category.value} 
+              onClick={() => handleClose(category.value)}
+            >
+              {category.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
   );
 }

@@ -15,88 +15,39 @@ namespace StoryMapApi.Data
             _logger = logger;
         }
 
-        public async Task MigrateDataFromJson(string jsonFilePath)
+        public async Task MigrateDataAsync()
         {
             try
             {
-                _logger.LogInformation("Starting data migration from {FilePath}", jsonFilePath);
-
-                // Read the JSON file
-                string jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-                _logger.LogInformation("Successfully read JSON file, size: {Size} bytes", jsonContent.Length);
-
-                var options = new JsonSerializerOptions
+                // Check if we already have data
+                if (await _context.Projects.AnyAsync())
                 {
-                    PropertyNameCaseInsensitive = true
-                };
-
-                var projects = JsonSerializer.Deserialize<List<Project>>(jsonContent, options);
-
-                if (projects == null)
-                {
-                    _logger.LogError("No projects found in JSON file");
-                    throw new Exception("No projects found in JSON file");
+                    _logger.LogInformation("Database already contains data. Skipping migration.");
+                    return;
                 }
 
-                _logger.LogInformation("Found {Count} projects in JSON file", projects.Count);
+                // Read the converted data file
+                var jsonPath = Path.Combine(AppContext.BaseDirectory, "Data", "storymapdata_converted.json");
+                var jsonContent = await File.ReadAllTextAsync(jsonPath);
+                var projects = JsonSerializer.Deserialize<List<Project>>(jsonContent);
 
-                // Clear existing data
-                _logger.LogInformation("Clearing existing data from database");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Activities");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Poems");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Artworks");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Outcomes");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Projects");
-
-                // Add new data
-                foreach (var project in projects)
+                if (projects == null || !projects.Any())
                 {
-                    try
-                    {
-                        // Ensure navigation properties are initialized
-                        project.Artworks ??= new List<Artwork>();
-                        project.Poems ??= new List<Poem>();
-                        project.Activities ??= new List<Activity>();
-
-                        // Set up relationships
-                        if (project.Outcome != null)
-                        {
-                            project.Outcome.Project = project;
-                        }
-
-                        foreach (var artwork in project.Artworks)
-                        {
-                            artwork.Project = project;
-                        }
-
-                        foreach (var poem in project.Poems)
-                        {
-                            poem.Project = project;
-                        }
-
-                        foreach (var activity in project.Activities)
-                        {
-                            activity.Project = project;
-                        }
-
-                        _context.Projects.Add(project);
-                        _logger.LogDebug("Added project: {ProjectName}", project.Name);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Error processing project {ProjectName}: {Message}", project.Name, ex.Message);
-                        throw;
-                    }
+                    _logger.LogError("No projects found in the data file.");
+                    return;
                 }
 
-                // Save changes
-                _logger.LogInformation("Saving changes to database");
+                _logger.LogInformation($"Found {projects.Count} projects to migrate.");
+
+                // Add projects to the database
+                await _context.Projects.AddRangeAsync(projects);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("Successfully migrated {Count} projects to the database", projects.Count);
+
+                _logger.LogInformation("Data migration completed successfully.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred during data migration: {Message}", ex.Message);
+                _logger.LogError(ex, "Error during data migration");
                 throw;
             }
         }

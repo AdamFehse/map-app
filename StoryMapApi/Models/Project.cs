@@ -11,24 +11,32 @@ namespace StoryMapApi.Models
         public string? Title { get; set; }
         public string? Affiliation { get; set; }
         public string? College { get; set; }
+        public string? Department { get; set; }
+        public int Year { get; set; }
 
         [JsonPropertyName("Project")]  // field can be called ProjectName instead of Project
         public string? ProjectName { get; set; }
 
         public string? ImageUrl { get; set; }
         public string? Location { get; set; }
-        public string? Latitude { get; set; }
-        public string? Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
-
+        public string? Description { get; set; }
         public string? DescriptionShort { get; set; }
         public string? DescriptionLong { get; set; }
 
-        public string? ProjectCategory { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ProjectCategory? ProjectCategory { get; set; }
 
         public bool HasArtwork { get; set; }
         public bool HasPoems { get; set; }
         public bool HasOutcomes { get; set; }
+
+        // New fields for faculty fellow data
+        public string? Background { get; set; }
+        public List<string>? Education { get; set; }
+        public List<RelatedUrl>? RelatedUrls { get; set; }
 
         public Outcome? Outcome { get; set; }
         public List<Artwork>? Artworks { get; set; }
@@ -82,4 +90,13 @@ namespace StoryMapApi.Models
         public Project? Project { get; set; }
     }
 
+    public class RelatedUrl
+    {
+        [Key]
+        public int Id { get; set; }
+        public string? Title { get; set; }
+        public string? Url { get; set; }
+        public int ProjectId { get; set; }
+        public Project? Project { get; set; }
+    }
 }

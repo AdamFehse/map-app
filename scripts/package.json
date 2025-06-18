@@ -1,0 +1,13 @@
+{
+  "name": "project-scraper",
+  "version": "1.0.0",
+  "description": "Script to scrape project data and save to database",
+  "main": "scrapeProjects.js",
+  "scripts": {
+    "start": "node scrapeProjects.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12"
+  }
+} 

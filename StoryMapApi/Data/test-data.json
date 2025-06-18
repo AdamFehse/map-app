@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Test Project 1",
+    "title": "Test Title 1",
+    "projectName": "Test Project Name 1",
+    "imageUrl": "https://picsum.photos/200/300",
+    "location": "Test Location 1",
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "descriptionShort": "Short description 1",
+    "descriptionLong": "Long description 1",
+    "projectCategory": "ArtExhibition",
+    "hasArtwork": true,
+    "hasPoems": false,
+    "hasOutcomes": true
+  },
+  {
+    "id": 2,
+    "name": "Test Project 2",
+    "title": "Test Title 2",
+    "projectName": "Test Project Name 2",
+    "imageUrl": "https://picsum.photos/200/300",
+    "location": "Test Location 2",
+    "latitude": 37.7833,
+    "longitude": -122.4167,
+    "descriptionShort": "Short description 2",
+    "descriptionLong": "Long description 2",
+    "projectCategory": "Research",
+    "hasArtwork": false,
+    "hasPoems": true,
+    "hasOutcomes": false
+  }
+] 

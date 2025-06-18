@@ -1,92 +1,116 @@
 // components/Map.js
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import OffCanvasSidebar from "./OffCanvasSidebar";
-import SidebarToggleButton from "./SidebarToggleButton";
-import { useProjects } from "../components/useProjects";
-import R from "leaflet-responsive-popup";
-import "leaflet-responsive-popup/leaflet.responsive.popup.css";
-import "../styles/map-darkmode.css";
-import "../styles/popup-darkmode.css";
-import ProjectDetailsOverlay from "./ProjectDetailsOverlay";
-import D3Layer from "./D3Layer";
-import VoronoiD3Layer from "./VoronoiD3Layer";
-
+import React, { useState, useRef, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon, divIcon } from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { useProjects } from "./useProjects";
 import MiniSidebar from "./MiniSidebar";
+import ProjectModal from "./ProjectModal";
+import * as R from "leaflet-responsive-popup";
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+const tucsonCenter = [32.2217, -110.9265];
+
+const defaultIcon = divIcon({
+  className: 'custom-div-icon',
+  html: `<div style="background-color: #e74c3c; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>`,
+  iconSize: [12, 12],
+  iconAnchor: [6, 6],
+  popupAnchor: [0, -5]
+});
+
+const selectedIcon = divIcon({
+  className: 'custom-div-icon',
+  html: `<div style="background-color:rgb(0, 255, 247); width: 16px; height: 16px; border-radius: 50%; border: 3px solid blue; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);"></div>`,
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+  popupAnchor: [0, -5]
 });
 
 export default function Map() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { projects, filteredProjects, filterProjects } = useProjects();
-  const markerRefs = useRef({}); // Store references to markers
-  const [isDarkMode, setIsDarkMode] = useState(false); // Dark mode state
-  const [modalOpen, setModalOpen] = useState(false); // State for modal
-  const [selectedProject, setSelectedProject] = useState(null); // State for selected project
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { projects, filteredProjects, filterProjects, categories } = useProjects();
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const markerRefs = useRef({});
+  const currentPopup = useRef(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category); // Update the selected category
-    filterProjects(category); // Filter projects based on the selected category
-  };
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prev) => {
-      const newMode = !prev;
-      document.body.classList.toggle("dark-mode", newMode); // Add or remove the class
-      return newMode;
-    });
-  };
-
-  const handleOpenModal = (project) => {
+  const handleMoreDetails = (project) => {
     setSelectedProject(project);
-    setModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false);
+    setIsModalOpen(false);
     setSelectedProject(null);
   };
 
   // Attach popups to markers
   useEffect(() => {
+    if (!filteredProjects) return;
+
     filteredProjects.forEach((project, index) => {
-      // Updated to use new property names
       const key = `${project.Name}-${index}`;
       const marker = markerRefs.current[key];
 
       if (marker) {
         const popupContent = document.createElement("div");
-
         popupContent.innerHTML = `
-              <div class="popup-content">
-                <img 
-                  src="${
-                    project.ImageUrl || "https://via.placeholder.com/150"
-                  }" 
-                  alt="${project.Name}" 
-                  class="popup-image" 
-                />
-                <strong>${project.Name}</strong>
-                <p class="popup-description">${project.DescriptionShort || project.Description || ''}</p>
-                <button id="more-details-${index}" class="popup-button">
-                  More Details
-                </button>
-              </div>
-            `;
+          <div class="popup-content">
+            <img 
+              src="${project.ImageUrl || "https://via.placeholder.com/150"}" 
+              alt="${project.Name}" 
+              class="popup-image" 
+            />
+            <strong>${project.Name}</strong>
+            <p class="popup-description">${project.DescriptionShort || project.Description || ''}</p>
+            <button id="more-details-${index}" class="popup-button">
+              More Details
+            </button>
+          </div>
+        `;
 
         const popup = R.responsivePopup({
-          hasTip: true,
+          hasTip: false,
           autoPan: true,
         }).setContent(popupContent);
+        
         marker.bindPopup(popup);
+
+        // Add event listeners for the marker and popup
+        marker.on('click', () => {
+          // Reset all markers to default icon
+          Object.values(markerRefs.current).forEach(m => {
+            if (m) {
+              m.setIcon(defaultIcon);
+            }
+          });
+          
+          // Set new selected marker
+          marker.setIcon(selectedIcon);
+          setSelectedMarker(marker);
+        });
+
+        // Listen for popup open/close events
+        marker.on('popupopen', () => {
+          // Reset all markers to default icon
+          Object.values(markerRefs.current).forEach(m => {
+            if (m) {
+              m.setIcon(defaultIcon);
+            }
+          });
+          // Highlight the marker with the open popup
+          marker.setIcon(selectedIcon);
+          setSelectedMarker(marker);
+        });
+
+        marker.on('popupclose', () => {
+          // Reset the marker when popup closes
+          marker.setIcon(defaultIcon);
+          setSelectedMarker(null);
+        });
 
         // Add event listener for the button
         const button = popupContent.querySelector(`#more-details-${index}`);
@@ -97,83 +121,49 @@ export default function Map() {
         }
       }
     });
-  }, [filteredProjects]); // Re-run when filteredProjects changes
-
-  // Handler for "More Details" button - Fixed to use handleOpenModal
-  const handleMoreDetails = (project) => {
-    handleOpenModal(project);
-  };
+  }, [filteredProjects]);
 
   return (
-    <MapContainer
-      center={[31.916004, -110.990274]}
-      zoom={10}
-      style={{ height: "100vh", width: "100%" }}
-    >
-      <TileLayer
-        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        attribution="&copy; OpenStreetMap contributors"
-      />
-      
-      {/* Render markers for filtered projects */}
-      {filteredProjects.map((project, index) => {
-        // Updated to use new coordinate property names
-        const position = [
-          parseFloat(project.Latitude),
-          parseFloat(project.Longitude),
-        ];
-        const key = `${project.Name}-${index}`;
-
-        if (!position[0] || !position[1]) return null; // Skip invalid coordinates
-
-        return (
-          <Marker
-            key={key}
-            position={position}
-            ref={(ref) => {
-              if (ref) {
-                markerRefs.current[key] = ref;
-              }
-            }}
-          />
-        );
-      })}
-
-      {/* Add D3 Layer 
-      <D3Layer data={filteredProjects} />*/}
-      {/*<VoronoiD3Layer/> */}
-
-      
-      <MiniSidebar
-        filteredProjects={filteredProjects || []}
-        onSelectCategory={handleCategoryChange}
-        selectedCategory={selectedCategory}
-        markerRefs={markerRefs}
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-      />
-
-      {/* Sidebar Toggle Button       <SidebarToggleButton onClick={() => setSidebarOpen(true)} />
-       */}
-      {/* Sidebar       <OffCanvasSidebar
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        projects={projects}
-        filteredProjects={filteredProjects}
-        onSelectCategory={handleCategoryChange} // Unified handler
-        selectedCategory={selectedCategory} // Pass the selected category here
-        markerRefs={markerRefs} // Pass markerRefs as a prop
-        isDarkMode={isDarkMode} // Pass dark mode state
-        toggleDarkMode={toggleDarkMode} // Pass toggle handler
-      />*/}
-
-      {/* Modal for Project Details JSX*/}
-      <ProjectDetailsOverlay
-        open={modalOpen}
-        onClose={handleCloseModal}
-        project={selectedProject}
-        isDarkMode={isDarkMode}
-      />
-    </MapContainer>
+    <div className="map-container">
+      <MapContainer
+        center={tucsonCenter}
+        zoom={11}
+        style={{ height: "100vh", width: "100%" }}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        {filteredProjects?.map((project, index) => {
+          const key = `${project.Name}-${index}`;
+          return (
+            <Marker
+              key={key}
+              position={[project.Latitude, project.Longitude]}
+              icon={defaultIcon}
+              ref={(marker) => {
+                if (marker) {
+                  markerRefs.current[key] = marker;
+                }
+              }}
+            />
+          );
+        })}
+        <MiniSidebar
+          filteredProjects={filteredProjects}
+          onSelectCategory={filterProjects}
+          selectedCategory={selectedCategory}
+          markerRefs={markerRefs}
+          categories={categories}
+        />
+      </MapContainer>
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          open={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
+    </div>
   );
 }

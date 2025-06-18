@@ -20,17 +20,22 @@ namespace StoryMapApi.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Affiliation = table.Column<string>(type: "TEXT", nullable: true),
                     College = table.Column<string>(type: "TEXT", nullable: true),
+                    Department = table.Column<string>(type: "TEXT", nullable: true),
+                    Year = table.Column<int>(type: "INTEGER", nullable: false),
                     ProjectName = table.Column<string>(type: "TEXT", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Location = table.Column<string>(type: "TEXT", nullable: true),
-                    Latitude = table.Column<string>(type: "TEXT", nullable: true),
-                    Longitude = table.Column<string>(type: "TEXT", nullable: true),
+                    Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Longitude = table.Column<double>(type: "REAL", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
                     DescriptionShort = table.Column<string>(type: "TEXT", nullable: true),
                     DescriptionLong = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectCategory = table.Column<string>(type: "TEXT", nullable: true),
+                    ProjectCategory = table.Column<int>(type: "INTEGER", nullable: true),
                     HasArtwork = table.Column<bool>(type: "INTEGER", nullable: false),
                     HasPoems = table.Column<bool>(type: "INTEGER", nullable: false),
-                    HasOutcomes = table.Column<bool>(type: "INTEGER", nullable: false)
+                    HasOutcomes = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Background = table.Column<string>(type: "TEXT", nullable: true),
+                    Education = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,8 +51,7 @@ namespace StoryMapApi.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Date = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,11 +62,6 @@ namespace StoryMapApi.Migrations
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Activities_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
-                        principalTable: "Projects",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -75,8 +74,7 @@ namespace StoryMapApi.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,11 +85,6 @@ namespace StoryMapApi.Migrations
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Artworks_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
-                        principalTable: "Projects",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -104,8 +97,7 @@ namespace StoryMapApi.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Link = table.Column<string>(type: "TEXT", nullable: true),
                     Summary = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,11 +108,6 @@ namespace StoryMapApi.Migrations
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Outcomes_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
-                        principalTable: "Projects",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -132,8 +119,7 @@ namespace StoryMapApi.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Author = table.Column<string>(type: "TEXT", nullable: true),
                     Content = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,11 +130,27 @@ namespace StoryMapApi.Migrations
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RelatedUrl",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Url = table.Column<string>(type: "TEXT", nullable: true),
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RelatedUrl", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Poems_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
+                        name: "FK_RelatedUrl_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -157,19 +159,9 @@ namespace StoryMapApi.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activities_ProjectId1",
-                table: "Activities",
-                column: "ProjectId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Artworks_ProjectId",
                 table: "Artworks",
                 column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Artworks_ProjectId1",
-                table: "Artworks",
-                column: "ProjectId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Outcomes_ProjectId",
@@ -178,19 +170,14 @@ namespace StoryMapApi.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Outcomes_ProjectId1",
-                table: "Outcomes",
-                column: "ProjectId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Poems_ProjectId",
                 table: "Poems",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Poems_ProjectId1",
-                table: "Poems",
-                column: "ProjectId1");
+                name: "IX_RelatedUrl_ProjectId",
+                table: "RelatedUrl",
+                column: "ProjectId");
         }
 
         /// <inheritdoc />
@@ -207,6 +194,9 @@ namespace StoryMapApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Poems");
+
+            migrationBuilder.DropTable(
+                name: "RelatedUrl");
 
             migrationBuilder.DropTable(
                 name: "Projects");

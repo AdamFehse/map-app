@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoryMapApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2ad575e85220ec5d0c6d68b9230f537e0bdb28a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a1bcb26d7d220c079e37cf84985de7782dceb2b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoryMapApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoryMapApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

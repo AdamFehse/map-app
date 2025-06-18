@@ -4,36 +4,84 @@ using StoryMapApi.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure the port
-builder.WebHost.UseUrls("http://localhost:5000");
+builder.WebHost.UseUrls("http://localhost:3001");
 
-// Add database context
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add services
+// Add DataMigrationService
 builder.Services.AddScoped<DataMigrationService>();
 
-// Add CORS policy
+// Add CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
-        policy => policy.WithOrigins("http://localhost:3000") // React dev server URL
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    });
-
-builder.Services.AddControllers();
+// Configure Kestrel
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.AllowSynchronousIO = true;
+    options.Limits.MaxRequestBodySize = 10 * 1024 * 1024; // 10 MB
+});
 
 var app = builder.Build();
 
-app.UseCors("AllowReactApp"); // Use the policy
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+app.UseAuthorization();
 app.MapControllers();
+
+// Migrate database and seed data
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+        await context.SeedDataAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+    }
+}
+
+// Add this after app.Build()
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        var seeder = new DatabaseSeeder(context);
+        await seeder.SeedEnrichedData();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 app.Run();
