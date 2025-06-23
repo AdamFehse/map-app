@@ -21,3 +21,14 @@ body.dark-mode .MuiDrawer-paper {
 .dark-modal .MuiDialogTitle-root {
   color: #fff !important;
 }
+
+.map-color-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Match the MapContainer height */
+  background: rgba(255, 0, 0, 0.5); /* Red for testing */
+  pointer-events: none;
+  z-index: 400;
+}

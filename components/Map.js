@@ -10,7 +10,9 @@ import MiniSidebar from "./MiniSidebar";
 import ProjectModal from "./ProjectModal";
 import * as R from "leaflet-responsive-popup";
 import { useDarkMode } from "../contexts/DarkModeContext";
+import ProjectPathsD3Layer from "./ProjectPathsD3Layer";
 
+// default center
 const tucsonCenter = [32.2217, -110.9265];
 
 const defaultIcon = divIcon({
@@ -138,7 +140,7 @@ export default function Map() {
   }, [filteredProjects, isDarkMode]);
 
   return (
-    <div className="map-container">
+    <div className="map-container" style={{ position: "relative", height: "100vh", width: "100%" }}>
       <MapContainer
         center={tucsonCenter}
         zoom={11}
@@ -147,10 +149,10 @@ export default function Map() {
         <TileLayer
           url={
             isDarkMode
-              ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-              : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           }
-          attribution="Imagery provided by NASA GIBS, OpenStreetMap contributors"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           minZoom={0}
           maxZoom={20}
         />
@@ -176,7 +178,26 @@ export default function Map() {
           markerRefs={markerRefs}
           categories={categories}
         />
+
+      {/* voronoi layer */}
+      <ProjectPathsD3Layer />
+
       </MapContainer>
+      <div
+  className="map-color-overlay"
+  style={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: "100%",
+    width: "100%",
+    background: "rgba(192, 128, 248, 0.1)",
+    pointerEvents: "none",
+    zIndex: 400,
+  }}
+/>
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

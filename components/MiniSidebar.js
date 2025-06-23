@@ -193,7 +193,6 @@ export default function MiniSidebar({
 
   return (
     <div style={{ position: "relative", height: "100%" }}>
-      <SidebarParticles />
       {/* Permanent Drawer */}
       <Drawer
         variant="permanent"
