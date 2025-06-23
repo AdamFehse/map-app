@@ -1,45 +1,45 @@
-/* Project Modal Styles */
+/* Project Modal Styles - Tabbed Layout */
 .project-modal {
-    font-family: 'Inter', -apple-system, BlinkMacMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern font */
-    background: #f9fafb; /* Light background for the modal container */
-    border-radius: 16px;
-    overflow: hidden; /* Ensures content respects border-radius */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* More prominent shadow for depth */
-    display: flex; /* Use flexbox for main layout */
-    flex-direction: column;
-    --modal-border-radius: 12px;
-    --header-height: 300px;
-    --header-height-collapsed: 120px;
-    --transition-duration: 0.3s ease;
+    font-family: 'Inter', -apple-system, BlinkMacMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f9fafb00;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    --modal-border-radius: 20px;
+    --header-height: 80px;
+    --header-height-collapsed: 60px;
+    --transition-duration: 0.4s ease;
 }
 
 .project-modal .MuiDialog-paper {
     border-radius: var(--modal-border-radius);
     overflow: hidden;
-    max-height: 90vh;
+    max-height: 95vh;
     position: relative;
+    background: transparent;
 }
 
-/* Modal Header - Combined Title and Image */
+/* Modal Header */
 .modal-header-visual {
     position: relative;
     width: 100%;
     height: var(--header-height);
+    min-height: var(--header-height);
+    max-height: var(--header-height);
+    padding: 0;
     overflow: hidden;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
     display: flex;
-    align-items: flex-end; /* Align content to the bottom */
-    padding: 32px; /* More padding */
-    box-sizing: border-box;
-    color: #ffffff; /* White text over image */
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Text shadow for readability */
-    background-color: #3b82f6; /* Fallback background if no image */
+    align-items: flex-end;
+    color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     transition: height var(--transition-duration);
 }
 
 .modal-header-visual.collapsed {
     height: var(--header-height-collapsed);
+    min-height: var(--header-height-collapsed);
+    max-height: var(--header-height-collapsed);
 }
 
 .project-image-header {
@@ -49,13 +49,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.7) blur(2px); /* Slightly darker and blurred for text readability */
-    transform: scale(1.05); /* Slight zoom for a dynamic feel */
+    filter: brightness(0.6) contrast(1.1);
+    transform: scale(1.05);
     transition: transform var(--transition-duration);
 }
 
 .modal-header-visual.collapsed .project-image-header {
     transform: scale(1.1);
+    filter: brightness(0.5) contrast(1.2);
 }
 
 .modal-title-overlay {
@@ -65,23 +66,29 @@
     right: 0;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
     color: white;
-    padding: 2rem 1.5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
     transition: all var(--transition-duration);
 }
 
 .modal-header-visual.collapsed .modal-title-overlay {
-    padding: 1rem 1.5rem;
+    padding: 0.25rem 1rem;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
 }
 
-.modal-title-h2 { /* Targeted class for the h2 Typography component */
+.modal-title-h2 {
     margin: 0 !important;
-    font-weight: 700; /* Bolder title */
-    font-size: 2.5rem !important; /* Larger title */
-    line-height: 1.2;
-    color: #ffffff !important; /* Ensure title is white */
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    line-height: 1.1;
+    color: #ffffff !important;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: font-size var(--transition-duration);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-header-visual.collapsed .modal-title-h2 {
@@ -89,432 +96,261 @@
 }
 
 .faculty-fellow {
-    margin-top: 8px !important; /* More space from title */
-    color: rgba(255, 255, 255, 0.9) !important; /* Slightly transparent white */
-    font-style: normal; /* Remove italic for a cleaner look */
-    font-weight: 400;
-    font-size: 1.15rem !important; /* Slightly larger */
-    opacity: 0.9;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 12px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    font-size: 1.2rem !important;
+    opacity: 0.95;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Tabs Container */
+.modal-tabs-container {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    position: relative;
+    z-index: 10;
+}
+
+.modal-tabs {
+    min-height: 64px;
+}
+
+.modal-tabs .MuiTabs-flexContainer {
+    justify-content: flex-start;
+    padding: 0 1rem;
+}
+
+.modal-tab {
+    min-height: 64px !important;
+    padding: 12px 24px !important;
+    margin: 0 4px !important;
+    border-radius: 12px 12px 0 0 !important;
+    transition: all 0.3s ease !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    color: #64748b !important;
+    opacity: 1 !important;
+}
+
+.modal-tab:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+    color: #6366f1 !important;
+}
+
+.modal-tab.Mui-selected {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+.modal-tab .MuiSvgIcon-root {
+    margin-bottom: 4px !important;
+    font-size: 1.2rem !important;
+}
+
+.modal-tabs .MuiTabs-indicator {
+    display: none;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 2rem;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Modal Content */
 .modal-content {
     padding: 0 !important;
     overflow-y: auto;
-    max-height: calc(90vh - var(--header-height-collapsed));
     background: #ffffff;
-    position: relative;
-    z-index: 5; /* Ensure content is above header elements if any overlap */
-    border-bottom-left-radius: 16px; /* Match modal border-radius */
-    border-bottom-right-radius: 16px; /* Match modal border-radius */
+    max-height: calc(95vh - var(--header-height) - 64px - 80px);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
 }
 
-.modal-content .MuiGrid2-container {
-    padding: 2rem;
+.modal-content::-webkit-scrollbar {
+    width: 6px;
 }
 
-/* Info Sections */
-.info-section {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.section-title {
-    font-weight: 600 !important;
-    margin-bottom: 1rem !important;
-    color: #1976d2;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 60px; /* Slightly longer underline */
-    height: 4px; /* Thicker underline */
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); /* Blue gradient underline */
-    border-radius: 2px;
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
-.section-content {
-    line-height: 1.6 !important;
-    color: inherit;
-}
-
-.education-item {
-    padding: 0.5rem 0;
-    border-left: 3px solid #1976d2;
-    padding-left: 1rem;
-    margin-bottom: 0.5rem;
-    background: rgba(25, 118, 210, 0.05);
-    border-radius: 0 8px 8px 0;
-}
-
-/* Section Dividers */
-.section-divider {
-    margin: 2rem 0 !important;
-    opacity: 0.3;
-}
-
-/* Cards (Outcome, Artwork, Poem, Activity) */
-.outcome-card,
-.artwork-card,
-.poem-card,
-.activity-card {
-    padding: 24px !important; /* Increased padding */
-    border-radius: 16px !important; /* More rounded corners */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important; /* Softer, larger shadow */
-    border: 1px solid #e2e8f0 !important; /* Lighter border */
-    background: #ffffff !important;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation curve */
-    margin-bottom: 0 !important; /* Grid handles spacing */
-}
-
-.outcome-card:hover,
-.artwork-card:hover,
-.poem-card:hover,
-.activity-card:hover {
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12) !important; /* More pronounced hover shadow */
-    transform: translateY(-3px); /* More noticeable lift */
-    border-color: #a8d1ff !important; /* Subtle blue highlight on hover */
-}
-
-/* Outcome Card */
-.outcome-title {
-    font-weight: 700 !important;
-    color: #1a202c !important;
-    margin-bottom: 10px !important;
-    font-size: 1.25rem !important; /* Increased font size for importance */
-}
-
-.outcome-summary {
-    color: #64748b !important; /* Softer text */
-    line-height: 1.7 !important;
-    margin-bottom: 20px !important; /* More space before button */
-    font-size: 1.05rem !important;
-}
-
-.outcome-button {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4) !important; /* Stronger shadow */
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    border-radius: 8px; /* Rounded button */
-    padding: 12px 24px; /* More padding */
-    font-weight: 600 !important;
-    text-transform: none !important; /* Keep original casing */
-    color: #ffffff !important; /* Ensure text is white */
-}
-
-.outcome-button:hover {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-    transform: translateY(-2px) !important; /* More lift */
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5) !important; /* Enhanced hover shadow */
-}
-
-/* Artwork Cards */
-.artwork-image {
-    width: 100%;
-    height: 220px; /* Slightly taller */
-    object-fit: cover;
-    border-radius: 12px; /* More rounded */
-    margin-bottom: 16px; /* More space */
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); /* Softer, larger shadow */
-    transition: transform 0.3s ease-out; /* Add transition */
-}
-
-.artwork-image:hover {
-    transform: scale(1.02); /* Slight zoom on hover */
-}
-
-.artwork-title {
-    font-weight: 700 !important;
-    color: #1a202c !important;
-    margin-bottom: 10px !important;
-    font-size: 1.15rem !important;
-}
-
-.artwork-description {
-    color: #64748b !important;
-    line-height: 1.6 !important;
-    font-size: 1rem !important;
-}
-
-/* Poem Cards */
-.poem-title {
-    font-weight: 700 !important;
-    color: #1a202c !important;
-    margin-bottom: 16px !important; /* More space */
-    font-size: 1.3rem !important; /* Larger title for poems */
-}
-
-.poem-content {
-    color: #4a5568 !important;
-    line-height: 1.9 !important; /* Increased line height for poetry */
-    white-space: pre-line !important;
-    margin-bottom: 16px !important;
-    font-style: normal; /* Remove italic for core content */
-    font-size: 1.05rem !important;
-}
-
-.poem-author {
-    color: #94a3b8 !important; /* Slightly softer */
-    font-style: italic !important; /* Keep italic for author */
-    text-align: right !important;
-    font-size: 0.95rem !important;
-}
-
-/* Activity Cards */
-.activity-title {
-    font-weight: 700 !important;
-    color: #1a202c !important;
-    margin-bottom: 10px !important;
-    font-size: 1.15rem !important;
-}
-
-.activity-description {
-    color: #64748b !important;
-    line-height: 1.6 !important;
-    margin-bottom: 16px !important;
-    font-size: 1rem !important;
-}
-
-.activity-date {
-    color: #94a3b8 !important;
-    display: block !important;
-    margin-bottom: 10px !important;
-    font-size: 0.95rem !important;
-}
-
-.activity-link {
-    margin-top: 12px !important; /* More space */
-    text-transform: none !important;
-    font-weight: 600 !important;
-    color: #3b82f6 !important; /* Consistent link color */
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.activity-link:hover {
-    color: #2563eb !important;
-    text-decoration: underline;
-}
-
-/* Related Links */
-.related-link-button {
-    text-transform: none !important;
-    font-weight: 600 !important;
-    border-radius: 10px !important; /* More rounded */
-    padding: 14px 20px !important; /* More padding */
-    transition: all 0.2s ease !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    border: 1px solid #cbd5e1 !important; /* Subtle border */
-    background: #f0f4f8 !important; /* Light background */
-    color: #334155 !important;
-}
-
-.related-link-button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12) !important;
-    background: #e2e8f0 !important; /* Slightly darker on hover */
-}
-
-/* Modal Actions */
-.MuiDialogActions-root.modal-actions {
-    padding: 4px 16px !important; /* Drastically reduced padding */
-    background: rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    min-height: auto;
-}
-
-.close-button {
-    background: linear-gradient(135deg, #f44336, #d32f2f) !important;
-    color: white !important;
-    border-radius: 8px !important;
-    padding: 0.75rem 2rem !important;
-    text-transform: none !important;
-    font-weight: 600 !important;
+/* Info Cards */
+.info-card {
+    padding: 1.5rem !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    border-radius: 16px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
     transition: all 0.3s ease !important;
 }
 
-.close-button:hover {
-    background: linear-gradient(135deg, #d32f2f, #b71c1c) !important;
+.info-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+    border-color: #c7d2fe !important;
 }
 
-/* Dark Mode Styles */
-.project-modal.dark-mode {
-    background: #1e293b; /* Darker background */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.info-card.compact {
+    padding: 1rem !important;
+    text-align: center;
 }
 
-.project-modal.dark-mode .MuiDialog-paper {
-    background: #1a1a1a;
-    color: #ffffff;
+.card-title {
+    font-weight: 700 !important;
+    margin-bottom: 1rem !important;
+    color: #1e293b !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem !important;
 }
 
-.project-modal.dark-mode .info-section {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
+.card-content {
+    line-height: 1.7 !important;
+    color: #475569 !important;
+    font-size: 1rem !important;
 }
 
-.project-modal.dark-mode .modal-header-visual {
-    /* Image filter will adjust for dark mode automatically */
-    background-color: #4c1d95; /* Darker fallback for dark mode */
+/* Education List */
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
-.project-modal.dark-mode .modal-title-h2, /* Target the specific title class */
-.project-modal.dark-mode .faculty-fellow {
-    color: #f8fafc !important; /* Lighter text */
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+.education-item {
+    padding: 0.75rem 1rem !important;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+    border-left: 4px solid #0ea5e9 !important;
+    border-radius: 0 12px 12px 0 !important;
+    color: #0c4a6e !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease;
 }
 
-.project-modal.dark-mode .modal-content {
-    background: #1f2937;
+.education-item:hover {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%) !important;
+    transform: translateX(4px);
 }
 
-.project-modal.dark-mode .section-title {
-    color: #f8fafc !important;
+/* Outcome Card */
+.outcome-card {
+    padding: 2rem !important;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%) !important;
+    border: 2px solid #c7d2fe !important;
+    border-radius: 20px !important;
+    position: relative;
+    overflow: hidden;
 }
 
-.project-modal.dark-mode .section-title::after {
-    background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%); /* Lighter blue gradient */
+.outcome-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
 }
 
-.project-modal.dark-mode .section-content,
-.project-modal.dark-mode .education-item {
-    color: #cbd5e1 !important; /* Lighter gray text */
+.outcome-title {
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin-bottom: 1rem !important;
+    font-size: 1.4rem !important;
 }
 
-.project-modal.dark-mode .section-divider {
-    border-color: #334155 !important;
+.outcome-summary {
+    color: #475569 !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 1.1rem !important;
 }
 
-.project-modal.dark-mode .outcome-card,
-.project-modal.dark-mode .artwork-card,
-.project-modal.dark-mode .poem-card,
-.project-modal.dark-mode .activity-card {
-    background: #2d3a4b !important; /* Slightly lighter dark background for cards */
-    border-color: #3b4b5d !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+.outcome-button {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 0.875rem 2rem !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3) !important;
 }
 
-.project-modal.dark-mode .outcome-card:hover,
-.project-modal.dark-mode .artwork-card:hover,
-.project-modal.dark-mode .poem-card:hover,
-.project-modal.dark-mode .activity-card:hover {
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3) !important;
-    border-color: #60a5fa !important; /* Lighter blue highlight */
-}
-
-.project-modal.dark-mode .outcome-title,
-.project-modal.dark-mode .artwork-title,
-.project-modal.dark-mode .poem-title,
-.project-modal.dark-mode .activity-title {
-    color: #f8fafc !important;
-}
-
-.project-modal.dark-mode .outcome-summary,
-.project-modal.dark-mode .artwork-description,
-.project-modal.dark-mode .activity-description {
-    color: #aebfd0 !important;
-}
-
-.project-modal.dark-mode .poem-content {
-    color: #c0ccda !important;
-}
-
-.project-modal.dark-mode .poem-author,
-.project-modal.dark-mode .activity-date {
-    color: #94a3b8 !important;
-}
-
-.project-modal.dark-mode .activity-link {
-    color: #60a5fa !important; /* Lighter blue link */
-}
-
-.project-modal.dark-mode .activity-link:hover {
-    color: #3b82f6 !important;
-}
-
-.project-modal.dark-mode .related-link-button {
-    background: #3b4b5d !important;
-    border-color: #475569 !important;
-    color: #e2e8f0 !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-}
-
-.project-modal.dark-mode .related-link-button:hover {
-    background: #475569 !important;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
-}
-
-.project-modal.dark-mode .MuiDialogActions-root.modal-actions {
-    background: rgba(255, 255, 255, 0.05);
-    border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-.project-modal.dark-mode .close-button {
-    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%) !important; /* Purple gradient for dark mode close button */
-    box-shadow: 0 6px 18px rgba(168, 85, 247, 0.3) !important;
-}
-
-.project-modal.dark-mode .close-button:hover {
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
-    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4) !important;
+.outcome-button:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.4) !important;
 }
 
 /* Artwork Gallery */
 .artwork-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
     margin-top: 1rem;
 }
 
 .artwork-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 12px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     cursor: pointer;
-    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .artwork-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-    border-color: rgba(25, 118, 210, 0.3) !important;
+    /* No transform, no shadow, no border color change */
 }
 
 .artwork-image-container {
     position: relative;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    flex-shrink: 0;
 }
 
 .artwork-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 .artwork-card:hover .artwork-image {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .artwork-image-overlay {
@@ -523,12 +359,13 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .artwork-card:hover .artwork-image-overlay {
@@ -536,305 +373,187 @@
 }
 
 .artwork-image-overlay .MuiSvgIcon-root {
-    color: white;
-    font-size: 2rem;
+    color: rgba(255, 255, 255, 0);
+    font-size: 3;
 }
 
 .artwork-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     padding: 1.5rem;
 }
 
-.artwork-title {
-    font-weight: 600 !important;
-    margin-bottom: 0.75rem !important;
-    color: #1976d2;
-}
-
 .artwork-description {
-    line-height: 1.5 !important;
-    color: inherit;
-    opacity: 0.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3.6em;
 }
 
-/* Image Lightbox */
+.project-modal.dark-mode .artwork-card {
+    background: #23293a !important;
+    border-color: #374151 !important;
+    color: #f3f4f6 !important;
+}
+
+.project-modal.dark-mode .artwork-title {
+    color: #f9fafb !important;
+}
+
+.project-modal.dark-mode .artwork-description {
+    color: #d1d5db !important;
+}
+
+.project-modal.dark-mode .artwork-content {
+    color: #f3f4f6 !important;
+}
+
+.project-modal.dark-mode .info-card,
+.project-modal.dark-mode .info-card.compact {
+    background: linear-gradient(135deg, #23293a 0%, #1a2233 100%) !important;
+    border-color: #374151 !important;
+    color: #f3f4f6 !important;
+}
+
+.project-modal.dark-mode .card-title {
+    color: #f9fafb !important;
+}
+
+.project-modal.dark-mode .card-content {
+    color: #d1d5db !important;
+}
+
+.project-modal.dark-mode .modal-content {
+    background: #181e2a !important;
+    color: #f3f4f6 !important;
+}
+
+.project-modal.dark-mode .modal-tabs-container {
+    background: #1a2233 !important;
+    border-bottom: 1px solid #23293a !important;
+}
+
+.project-modal.dark-mode .modal-tab {
+    color: #aebfd0 !important;
+}
+
+.project-modal.dark-mode .modal-tab.Mui-selected {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+.project-modal.dark-mode .modal-tabs {
+    background: transparent !important;
+}
+
+.project-modal.dark-mode .tab-content {
+    background: transparent !important;
+    color: #f3f4f6 !important;
+}
+
+.project-modal.dark-mode .outcome-card {
+    background: linear-gradient(135deg, #23293a 0%, #1a2233 100%) !important;
+    border-color: #6366f1 !important;
+}
+
+.project-modal.dark-mode .outcome-title {
+    color: #f9fafb !important;
+}
+
+.project-modal.dark-mode .outcome-summary {
+    color: #d1d5db !important;
+}
+
+.project-modal.dark-mode .outcome-button {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: #fff !important;
+}
+
+.project-modal.dark-mode .close-button {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: #fff !important;
+}
+
 .image-lightbox {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.95);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 1300;
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 .image-lightbox.open {
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
 }
 
 .lightbox-content {
     position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
+    max-width: 90%;
+    max-height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .lightbox-image {
     max-width: 100%;
     max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .lightbox-title {
-    color: white;
+    color: #fff;
+    font-size: 1.25rem;
     margin-top: 1rem;
     text-align: center;
-    font-size: 1.2rem;
-    font-weight: 600;
+    max-width: 80%;
+}
+
+.lightbox-close,
+.lightbox-nav {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    z-index: 2;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
-}
-
-.lightbox-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
-}
-
-.lightbox-nav:hover {
-    background: rgba(255, 255, 255, 0.2);
+    top: 1rem;
+    right: 1rem;
 }
 
 .lightbox-nav.prev {
-    left: 20px;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
 }
 
 .lightbox-nav.next {
-    right: 20px;
-}
-
-/* Outcome Card */
-.outcome-card {
-    background: linear-gradient(135deg, rgba(25, 118, 210, 0.1), rgba(156, 39, 176, 0.1)) !important;
-    border: 1px solid rgba(25, 118, 210, 0.2) !important;
-    border-radius: 12px !important;
-    padding: 1.5rem !important;
-    margin-top: 1rem;
-}
-
-.outcome-title {
-    color: #1976d2 !important;
-    font-weight: 600 !important;
-    margin-bottom: 1rem !important;
-}
-
-.outcome-summary {
-    line-height: 1.6 !important;
-    margin-bottom: 1.5rem !important;
-}
-
-.outcome-button {
-    background: linear-gradient(135deg, #1976d2, #1565c0) !important;
-    color: white !important;
-    border-radius: 8px !important;
-    padding: 0.75rem 1.5rem !important;
-    text-transform: none !important;
-    font-weight: 600 !important;
-    transition: all 0.3s ease !important;
-}
-
-.outcome-button:hover {
-    background: linear-gradient(135deg, #1565c0, #0d47a1) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3) !important;
-}
-
-/* Poem Cards */
-.poem-card {
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.1)) !important;
-    border: 1px solid rgba(76, 175, 80, 0.2) !important;
-    border-radius: 12px !important;
-    padding: 1.5rem !important;
-    margin-bottom: 1rem;
-}
-
-.poem-title {
-    color: #2e7d32 !important;
-    font-weight: 600 !important;
-    margin-bottom: 1rem !important;
-}
-
-.poem-content {
-    line-height: 1.8 !important;
-    font-style: italic;
-    margin-bottom: 1rem !important;
-    white-space: pre-wrap;
-}
-
-.poem-author {
-    color: #666 !important;
-    font-style: italic;
-    text-align: right;
-}
-
-/* Activity Cards */
-.activity-card {
-    background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 193, 7, 0.1)) !important;
-    border: 1px solid rgba(255, 152, 0, 0.2) !important;
-    border-radius: 12px !important;
-    padding: 1.5rem !important;
-    margin-bottom: 1rem;
-}
-
-.activity-title {
-    color: #f57c00 !important;
-    font-weight: 600 !important;
-    margin-bottom: 1rem !important;
-}
-
-.activity-description {
-    line-height: 1.6 !important;
-    margin-bottom: 1rem !important;
-}
-
-.activity-date {
-    color: #666 !important;
-    font-style: italic;
-    margin-bottom: 1rem !important;
-}
-
-.activity-link {
-    color: #f57c00 !important;
-    text-transform: none !important;
-    font-weight: 600 !important;
-}
-
-/* Related Links */
-.related-link-button {
-    border-radius: 8px !important;
-    padding: 0.75rem 1.5rem !important;
-    text-transform: none !important;
-    font-weight: 600 !important;
-    transition: all 0.3s ease !important;
-}
-
-.related-link-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Modal Actions */
-.modal-actions {
-    padding: 1rem 2rem !important;
-    background: rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.close-button {
-    background: linear-gradient(135deg, #f44336, #d32f2f) !important;
-    color: white !important;
-    border-radius: 8px !important;
-    padding: 0.75rem 2rem !important;
-    text-transform: none !important;
-    font-weight: 600 !important;
-    transition: all 0.3s ease !important;
-}
-
-.close-button:hover {
-    background: linear-gradient(135deg, #d32f2f, #b71c1c) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3) !important;
-}
-
-/* Education Items */
-.education-item {
-    padding: 0.5rem 0;
-    border-left: 3px solid #1976d2;
-    padding-left: 1rem;
-    margin-bottom: 0.5rem;
-    background: rgba(25, 118, 210, 0.05);
-    border-radius: 0 8px 8px 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .project-modal {
-        --header-height: 200px;
-        --header-height-collapsed: 100px;
-    }
-    
-    .modal-content .MuiGrid2-container {
-        padding: 1rem;
-    }
-    
-    .artwork-gallery {
-        grid-template-columns: 1fr;
-    }
-    
-    .lightbox-nav {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .lightbox-nav.prev {
-        left: 10px;
-    }
-    
-    .lightbox-nav.next {
-        right: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .modal-title-overlay {
-        padding: 1.5rem 1rem 1rem;
-    }
-    
-    .modal-header-visual.collapsed .modal-title-overlay {
-        padding: 0.75rem 1rem;
-    }
-    
-    .info-section {
-        padding: 1rem;
-    }
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
 }

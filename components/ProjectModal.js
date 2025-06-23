@@ -6,13 +6,26 @@ import {
   DialogActions,
   Button,
   Typography,
-  Box, // Use Box for flexible spacing and layout
+  Box,
   Paper,
   Divider,
   IconButton,
+  Tabs,
+  Tab,
+  Badge,
 } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
-import { Close, NavigateBefore, NavigateNext, ZoomIn } from '@mui/icons-material';
+import { 
+  Close, 
+  NavigateBefore, 
+  NavigateNext, 
+  ZoomIn,
+  InfoOutlined,
+  Palette,
+  MenuBook,
+  Event,
+  Link as LinkIcon
+} from '@mui/icons-material';
 import '../styles/ProjectModal.css';
 
 const ProjectModal = ({ open, onClose, project }) => {
@@ -21,6 +34,7 @@ const ProjectModal = ({ open, onClose, project }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [allImages, setAllImages] = useState([]);
+  const [activeTab, setActiveTab] = useState(0);
   const contentRef = useRef(null);
 
   // Collect all images for lightbox
@@ -84,6 +98,13 @@ const ProjectModal = ({ open, onClose, project }) => {
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [lightboxOpen]);
+
+  // Reset active tab when modal opens
+  useEffect(() => {
+    if (open) {
+      setActiveTab(0);
+    }
+  }, [open]);
   
   if (!project) return null;
 
@@ -104,16 +125,347 @@ const ProjectModal = ({ open, onClose, project }) => {
     setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
   };
 
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
+  // Define available tabs based on project content
+  const tabs = [
+    { label: 'Overview', icon: InfoOutlined, content: 'overview' },
+    ...(project.HasArtwork && project.Artworks?.length > 0 ? [{ 
+      label: 'Artworks', 
+      icon: Palette, 
+      content: 'artworks',
+      count: project.Artworks.length 
+    }] : []),
+    ...(project.HasPoems && project.Poems?.length > 0 ? [{ 
+      label: 'Poems', 
+      icon: MenuBook, 
+      content: 'poems',
+      count: project.Poems.length 
+    }] : []),
+    ...(project.Activities?.length > 0 ? [{ 
+      label: 'Activities', 
+      icon: Event, 
+      content: 'activities',
+      count: project.Activities.length 
+    }] : []),
+    ...(project.relatedUrls?.length > 0 ? [{ 
+      label: 'Links', 
+      icon: LinkIcon, 
+      content: 'links',
+      count: project.relatedUrls.length 
+    }] : [])
+  ];
+
+  const renderOverviewTab = () => (
+    <div className="tab-content">
+      <Grid2 container spacing={3}>
+        {/* Description */}
+        {(project.DescriptionLong || project.DescriptionShort) && (
+          <Grid2 xs={12}>
+            <Paper className="info-card">
+              <Typography variant="h6" className="card-title">
+                📝 Description
+              </Typography>
+              <Typography variant="body1" className="card-content">
+                {project.DescriptionLong || project.DescriptionShort}
+              </Typography>
+            </Paper>
+          </Grid2>
+        )}
+
+        {/* Background */}
+        {project.Background && (
+          <Grid2 xs={12}>
+            <Paper className="info-card">
+              <Typography variant="h6" className="card-title">
+                🎯 Background
+              </Typography>
+              <Typography variant="body1" className="card-content">
+                {project.Background}
+              </Typography>
+            </Paper>
+          </Grid2>
+        )}
+
+        {/* Education */}
+        {project.Education && project.Education.length > 0 && (
+          <Grid2 xs={12}>
+            <Paper className="info-card">
+              <Typography variant="h6" className="card-title">
+                🎓 Education
+              </Typography>
+              <div className="education-list">
+                {project.Education.map((edu, index) => (
+                  <Typography key={index} variant="body1" className="education-item">
+                    {edu}
+                  </Typography>
+                ))}
+              </div>
+            </Paper>
+          </Grid2>
+        )}
+
+        {/* Affiliation Info Grid */}
+        <Grid2 xs={12}>
+          <Grid2 container spacing={2}>
+            {project.Affiliation && (
+              <Grid2 xs={12} sm={6} md={3}>
+                <Paper className="info-card compact">
+                  <Typography variant="h6" className="card-title">
+                    🏢 Affiliation
+                  </Typography>
+                  <Typography variant="body1" className="card-content">
+                    {project.Affiliation}
+                  </Typography>
+                </Paper>
+              </Grid2>
+            )}
+            {project.College && (
+              <Grid2 xs={12} sm={6} md={3}>
+                <Paper className="info-card compact">
+                  <Typography variant="h6" className="card-title">
+                    🏛️ College
+                  </Typography>
+                  <Typography variant="body1" className="card-content">
+                    {project.College}
+                  </Typography>
+                </Paper>
+              </Grid2>
+            )}
+            {project.Department && (
+              <Grid2 xs={12} sm={6} md={3}>
+                <Paper className="info-card compact">
+                  <Typography variant="h6" className="card-title">
+                    📚 Department
+                  </Typography>
+                  <Typography variant="body1" className="card-content">
+                    {project.Department}
+                  </Typography>
+                </Paper>
+              </Grid2>
+            )}
+            {project.Year && (
+              <Grid2 xs={12} sm={6} md={3}>
+                <Paper className="info-card compact">
+                  <Typography variant="h6" className="card-title">
+                    📅 Year
+                  </Typography>
+                  <Typography variant="body1" className="card-content">
+                    {project.Year}
+                  </Typography>
+                </Paper>
+              </Grid2>
+            )}
+          </Grid2>
+        </Grid2>
+
+        {/* Location */}
+        {project.Location && (
+          <Grid2 xs={12}>
+            <Paper className="info-card">
+              <Typography variant="h6" className="card-title">
+                📍 Location
+              </Typography>
+              <Typography variant="body1" className="card-content">
+                {project.Location}
+              </Typography>
+            </Paper>
+          </Grid2>
+        )}
+
+        {/* Outcome */}
+        {project.Outcome && project.Outcome.Type && (
+          <Grid2 xs={12}>
+            <Paper className="outcome-card">
+              <Typography variant="h6" className="card-title">
+                🎯 Outcome
+              </Typography>
+              <Typography variant="h6" className="outcome-title">
+                {project.Outcome.Title}
+              </Typography>
+              <Typography variant="body1" className="outcome-summary">
+                {project.Outcome.Summary}
+              </Typography>
+              {project.Outcome.Link && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href={project.Outcome.Link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="outcome-button"
+                >
+                  View Outcome
+                </Button>
+              )}
+            </Paper>
+          </Grid2>
+        )}
+      </Grid2>
+    </div>
+  );
+
+  const renderArtworksTab = () => (
+    <div className="tab-content">
+      <div className="artwork-gallery">
+        {project.Artworks?.map((artwork, index) => (
+          <Paper key={index} className="artwork-card" onClick={() => {
+            let imageIndex = allImages.findIndex(img => img.src === artwork.ImageUrl);
+            console.log('card clicked', artwork.ImageUrl, imageIndex, allImages);
+            if (imageIndex === -1) {
+              imageIndex = index + (project.ImageUrl ? 1 : 0);
+            }
+            openLightbox(imageIndex);
+          }}>
+            {artwork.ImageUrl && (
+              <div className="artwork-image-container">
+                <img
+                  src={artwork.ImageUrl}
+                  alt={artwork.Title}
+                  className="artwork-image"
+                />
+                <div className="artwork-image-overlay">
+                  <ZoomIn />
+                </div>
+              </div>
+            )}
+            <div className="artwork-content">
+              <Typography variant="h6" className="artwork-title">
+                {artwork.Title}
+              </Typography>
+              <Typography variant="body2" className="artwork-description">
+                {artwork.Description}
+              </Typography>
+            </div>
+          </Paper>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderPoemsTab = () => (
+    <div className="tab-content">
+      <Grid2 container spacing={3}>
+        {project.Poems?.map((poem, index) => (
+          <Grid2 xs={12} key={index}>
+            <Paper className="poem-card">
+              <Typography variant="h6" className="poem-title">
+                {poem.Title}
+              </Typography>
+              <Typography variant="body1" className="poem-content">
+                {poem.Content}
+              </Typography>
+              {poem.Author && (
+                <Typography variant="subtitle2" className="poem-author">
+                  - {poem.Author}
+                </Typography>
+              )}
+            </Paper>
+          </Grid2>
+        ))}
+      </Grid2>
+    </div>
+  );
+
+  const renderActivitiesTab = () => (
+    <div className="tab-content">
+      <Grid2 container spacing={3}>
+        {project.Activities?.map((activity, index) => (
+          <Grid2 xs={12} key={index}>
+            <Paper className="activity-card">
+              <Typography variant="h6" className="activity-title">
+                {activity.Title}
+              </Typography>
+              <Typography variant="body1" className="activity-description">
+                {activity.Description}
+              </Typography>
+              {activity.Date && (
+                <Typography variant="caption" className="activity-date">
+                  📅 {activity.Date}
+                </Typography>
+              )}
+              {activity.Link && (
+                <Button
+                  variant="text"
+                  color="primary"
+                  href={activity.Link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="activity-link"
+                >
+                  Learn More
+                </Button>
+              )}
+            </Paper>
+          </Grid2>
+        ))}
+      </Grid2>
+    </div>
+  );
+
+  const renderLinksTab = () => (
+    <div className="tab-content">
+      <Grid2 container spacing={2}>
+        {project.relatedUrls?.map((url, index) => (
+          <Grid2 xs={12} sm={6} key={index}>
+            <Button
+              href={url.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outlined"
+              fullWidth
+              className="related-link-button"
+              startIcon={<LinkIcon />}
+            >
+              {url.title}
+            </Button>
+          </Grid2>
+        ))}
+      </Grid2>
+    </div>
+  );
+
+  const renderTabContent = () => {
+    const currentTab = tabs[activeTab];
+    if (!currentTab) return null;
+
+    switch (currentTab.content) {
+      case 'overview':
+        return renderOverviewTab();
+      case 'artworks':
+        return renderArtworksTab();
+      case 'poems':
+        return renderPoemsTab();
+      case 'activities':
+        return renderActivitiesTab();
+      case 'links':
+        return renderLinksTab();
+      default:
+        return renderOverviewTab();
+    }
+  };
+
   return (
     <>
       <Dialog
         open={open}
         onClose={onClose}
-        maxWidth="md"
+        maxWidth="lg"
         fullWidth
         className={`project-modal ${isDarkMode ? 'dark-mode' : ''}`}
+        slotProps={{
+          backdrop: {
+            sx: {
+              backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.3)',
+              backdropFilter: 'blur(15px) saturate(1.5)',
+              WebkitBackdropFilter: 'blur(15px) saturate(1.5)',
+            },
+          },
+        }}
       >
-        {/* Custom Header Section for Image and Title */}
+        {/* Header Section */}
         <Box className={`modal-header-visual ${isHeaderCollapsed ? 'collapsed' : ''}`}>
           {project.ImageUrl && (
             <img
@@ -133,293 +485,40 @@ const ProjectModal = ({ open, onClose, project }) => {
             )}
           </Box>
         </Box>
+
+        {/* Tabs Navigation */}
+        <Box className="modal-tabs-container">
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            className="modal-tabs"
+          >
+            {tabs.map((tab, index) => {
+              const IconComponent = tab.icon;
+              return (
+                <Tab
+                  key={index}
+                  icon={<IconComponent />}
+                  label={
+                    tab.count ? (
+                      <Badge badgeContent={tab.count} color="primary">
+                        {tab.label}
+                      </Badge>
+                    ) : (
+                      tab.label
+                    )
+                  }
+                  className="modal-tab"
+                />
+              );
+            })}
+          </Tabs>
+        </Box>
         
         <DialogContent className="modal-content" ref={contentRef}>
-          <Grid2 container spacing={4}>
-            
-            {project.Location && (
-              <Grid2 xs={12}>
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    📍 Location
-                  </Typography>
-                  <Typography variant="body1" className="section-content">
-                    {project.Location}
-                  </Typography>
-                </Box>
-              </Grid2>
-            )}
-
-            {project.DescriptionLong || project.DescriptionShort ? (
-              <Grid2 xs={12}>
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    📝 Description
-                  </Typography>
-                  <Typography variant="body1" className="section-content">
-                    {project.DescriptionLong || project.DescriptionShort}
-                  </Typography>
-                </Box>
-              </Grid2>
-            ) : null}
-
-            {project.Background && (
-              <Grid2 xs={12}>
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    🎯 Background
-                  </Typography>
-                  <Typography variant="body1" className="section-content">
-                    {project.Background}
-                  </Typography>
-                </Box>
-              </Grid2>
-            )}
-
-            {project.Education && project.Education.length > 0 && (
-              <Grid2 xs={12}>
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    🎓 Education
-                  </Typography>
-                  {project.Education.map((edu, index) => (
-                    <Typography key={index} variant="body1" className="education-item">
-                      {edu}
-                    </Typography>
-                  ))}
-                </Box>
-              </Grid2>
-            )}
-
-            {/* Grouping Affiliation, College, Department, Year into a single Grid container */}
-            {(project.Affiliation || project.College || project.Department || project.Year) && (
-              <Grid2 xs={12}>
-                <Grid2 container spacing={3}>
-                  {project.Affiliation && (
-                    <Grid2 xs={12} sm={6}>
-                      <Box className="info-section">
-                        <Typography variant="h6" className="section-title">
-                          🏢 Affiliation
-                        </Typography>
-                        <Typography variant="body1" className="section-content">
-                          {project.Affiliation}
-                        </Typography>
-                      </Box>
-                    </Grid2>
-                  )}
-
-                  {project.College && (
-                    <Grid2 xs={12} sm={6}>
-                      <Box className="info-section">
-                        <Typography variant="h6" className="section-title">
-                          🏛️ College
-                        </Typography>
-                        <Typography variant="body1" className="section-content">
-                          {project.College}
-                        </Typography>
-                      </Box>
-                    </Grid2>
-                  )}
-
-                  {project.Department && (
-                    <Grid2 xs={12} sm={6}>
-                      <Box className="info-section">
-                        <Typography variant="h6" className="section-title">
-                          📚 Department
-                        </Typography>
-                        <Typography variant="body1" className="section-content">
-                          {project.Department}
-                        </Typography>
-                      </Box>
-                    </Grid2>
-                  )}
-
-                  {project.Year && (
-                    <Grid2 xs={12} sm={6}>
-                      <Box className="info-section">
-                        <Typography variant="h6" className="section-title">
-                          📅 Year
-                        </Typography>
-                        <Typography variant="body1" className="section-content">
-                          {project.Year}
-                        </Typography>
-                      </Box>
-                    </Grid2>
-                  )}
-                </Grid2>
-              </Grid2>
-            )}
-
-            {project.Outcome && project.Outcome.Type && (
-              <Grid2 xs={12}>
-                <Divider className="section-divider" />
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    🎯 Outcome
-                  </Typography>
-                  <Paper className="outcome-card">
-                    <Typography variant="h6" className="outcome-title">
-                      {project.Outcome.Title}
-                    </Typography>
-                    <Typography variant="body1" className="outcome-summary">
-                      {project.Outcome.Summary}
-                    </Typography>
-                    {project.Outcome.Link && (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={project.Outcome.Link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="outcome-button"
-                      >
-                        View Outcome
-                      </Button>
-                    )}
-                  </Paper>
-                </Box>
-              </Grid2>
-            )}
-
-            {project.HasArtwork && project.Artworks && project.Artworks.length > 0 && (
-              <Grid2 xs={12}>
-                <Divider className="section-divider" />
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    🎨 Artworks ({project.Artworks.length})
-                  </Typography>
-                  <div className="artwork-gallery">
-                    {project.Artworks.map((artwork, index) => (
-                      <Paper key={index} className="artwork-card" onClick={() => {
-                        const imageIndex = allImages.findIndex(img => img.src === artwork.ImageUrl);
-                        if (imageIndex !== -1) openLightbox(imageIndex);
-                      }}>
-                        {artwork.ImageUrl && (
-                          <div className="artwork-image-container">
-                            <img
-                              src={artwork.ImageUrl}
-                              alt={artwork.Title}
-                              className="artwork-image"
-                            />
-                            <div className="artwork-image-overlay">
-                              <ZoomIn />
-                            </div>
-                          </div>
-                        )}
-                        <div className="artwork-content">
-                          <Typography variant="h6" className="artwork-title">
-                            {artwork.Title}
-                          </Typography>
-                          <Typography variant="body2" className="artwork-description">
-                            {artwork.Description}
-                          </Typography>
-                        </div>
-                      </Paper>
-                    ))}
-                  </div>
-                </Box>
-              </Grid2>
-            )}
-
-            {project.HasPoems && project.Poems && project.Poems.length > 0 && (
-              <Grid2 xs={12}>
-                <Divider className="section-divider" />
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    📜 Poems ({project.Poems.length})
-                  </Typography>
-                  <Grid2 container spacing={3}>
-                    {project.Poems.map((poem, index) => (
-                      <Grid2 xs={12} key={index}>
-                        <Paper className="poem-card">
-                          <Typography variant="h6" className="poem-title">
-                            {poem.Title}
-                          </Typography>
-                          <Typography variant="body1" className="poem-content">
-                            {poem.Content}
-                          </Typography>
-                          {poem.Author && (
-                            <Typography variant="subtitle2" className="poem-author">
-                              - {poem.Author}
-                            </Typography>
-                          )}
-                        </Paper>
-                      </Grid2>
-                    ))}
-                  </Grid2>
-                </Box>
-              </Grid2>
-            )}
-
-            {project.Activities && project.Activities.length > 0 && (
-              <Grid2 xs={12}>
-                <Divider className="section-divider" />
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    🎪 Activities ({project.Activities.length})
-                  </Typography>
-                  <Grid2 container spacing={3}>
-                    {project.Activities.map((activity, index) => (
-                      <Grid2 xs={12} key={index}>
-                        <Paper className="activity-card">
-                          <Typography variant="h6" className="activity-title">
-                            {activity.Title}
-                          </Typography>
-                          <Typography variant="body1" className="activity-description">
-                            {activity.Description}
-                          </Typography>
-                          {activity.Date && (
-                            <Typography variant="caption" className="activity-date">
-                              📅 {activity.Date}
-                            </Typography>
-                          )}
-                          {activity.Link && (
-                            <Button
-                              variant="text"
-                              color="primary"
-                              href={activity.Link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="activity-link"
-                            >
-                              Learn More
-                            </Button>
-                          )}
-                        </Paper>
-                      </Grid2>
-                    ))}
-                  </Grid2>
-                </Box>
-              </Grid2>
-            )}
-
-            {project.relatedUrls && project.relatedUrls.length > 0 && (
-              <Grid2 xs={12}>
-                <Divider className="section-divider" />
-                <Box className="info-section">
-                  <Typography variant="h6" className="section-title">
-                    🔗 Related Links ({project.relatedUrls.length})
-                  </Typography>
-                  <Grid2 container spacing={2}>
-                    {project.relatedUrls.map((url, index) => (
-                      <Grid2 xs={12} key={index}>
-                        <Button
-                          href={url.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          variant="outlined"
-                          fullWidth
-                          className="related-link-button"
-                        >
-                          {url.title}
-                        </Button>
-                      </Grid2>
-                    ))}
-                  </Grid2>
-                </Box>
-              </Grid2>
-            )}
-          </Grid2>
+          {renderTabContent()}
         </DialogContent>
         
         <DialogActions className="modal-actions">
@@ -429,43 +528,37 @@ const ProjectModal = ({ open, onClose, project }) => {
         </DialogActions>
       </Dialog>
 
-      {/* Image Lightbox */}
-      <div className={`image-lightbox ${lightboxOpen ? 'open' : ''}`} onClick={closeLightbox}>
-        <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-          {allImages.length > 0 && (
-            <>
-              <img
-                src={allImages[currentImageIndex].src}
-                alt={allImages[currentImageIndex].title}
-                className="lightbox-image"
-              />
-              <Typography className="lightbox-title">
-                {allImages[currentImageIndex].title}
-              </Typography>
-              {allImages[currentImageIndex].description && (
-                <Typography variant="body2" style={{ color: 'white', textAlign: 'center', marginTop: '0.5rem', opacity: 0.8 }}>
-                  {allImages[currentImageIndex].description}
-                </Typography>
-              )}
-            </>
-          )}
-          
-          <button className="lightbox-close" onClick={closeLightbox}>
-            <Close />
-          </button>
-          
-          {allImages.length > 1 && (
-            <>
-              <button className="lightbox-nav prev" onClick={prevImage}>
-                <NavigateBefore />
-              </button>
-              <button className="lightbox-nav next" onClick={nextImage}>
-                <NavigateNext />
-              </button>
-            </>
-          )}
+      {/* Simplified Image Lightbox for debugging */}
+      {lightboxOpen && allImages.length > 0 && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.9)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}
+          onClick={closeLightbox}
+        >
+          <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }} onClick={e => e.stopPropagation()}>
+            <img
+              src={allImages[currentImageIndex].src}
+              alt={allImages[currentImageIndex].title}
+              style={{ maxWidth: '90vw', maxHeight: '70vh', borderRadius: 8, background: '#fff', marginBottom: 12 }}
+            />
+            {allImages[currentImageIndex].description && (
+              <div style={{ color: '#e5e7eb', marginTop: 4, fontSize: 14, fontWeight: 400, maxWidth: '60vw', marginLeft: 'auto', marginRight: 'auto', whiteSpace: 'pre-line', opacity: 0.85, textAlign: 'center' }}>
+                {allImages[currentImageIndex].description}
+              </div>
+            )}
+            <button style={{ position: 'absolute', top: 10, right: 10, zIndex: 3 }} onClick={closeLightbox}>Close</button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
