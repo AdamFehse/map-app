@@ -11,8 +11,6 @@ import ProjectModal from "./ProjectModal";
 import * as R from "leaflet-responsive-popup";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import ProjectPathsD3Layer from "./ProjectPathsD3Layer";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 
 // default center
 const tucsonCenter = [32.2217, -110.9265];
@@ -42,129 +40,84 @@ export default function Map() {
   const currentPopup = useRef(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const { isDarkMode } = useDarkMode();
-  
-  // Add URL state management
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
-  // Handle opening modal with URL update
+  // --- HASH ROUTING STATE MANAGEMENT ---
+  // Update hash when state changes
   const handleMoreDetails = (project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
-    
-    // Add project to URL and create browser history entry
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set('project', project.Name);
-    newParams.set('lat', project.Latitude);
-    newParams.set('lng', project.Longitude);
-    
-    // Push new state to history
-    router.push(`${window.location.pathname}?${newParams.toString()}`);
+    window.location.hash = `project=${encodeURIComponent(project.Name)}&lat=${project.Latitude}&lng=${project.Longitude}`;
   };
 
-  // Handle closing modal with URL update
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
-    
-    // Remove project from URL (this allows back navigation)
-    const newParams = new URLSearchParams(searchParams);
-    newParams.delete('project');
-    newParams.delete('lat');
-    newParams.delete('lng');
-    
-    if (newParams.toString()) {
-      router.push(`${window.location.pathname}?${newParams.toString()}`);
-    } else {
-      router.push(window.location.pathname);
-    }
+    window.location.hash = '';
   };
 
-  // Handle category selection with URL
   const handleCategorySelect = (category) => {
-    console.log("Map component received category selection:", category);
     setSelectedCategory(category);
     filterProjects(category);
-    
-    // Update URL with category
-    const newParams = new URLSearchParams(searchParams);
     if (category) {
-      newParams.set('category', category);
+      window.location.hash = `category=${encodeURIComponent(category)}`;
     } else {
-      newParams.delete('category');
+      window.location.hash = '';
     }
-    
-    // Replace current state (don't create history entry for category changes)
-    router.replace(`${window.location.pathname}?${newParams.toString()}`);
   };
 
-  // Handle marker click with URL update
   const handleMarkerClick = (marker, project, index) => {
-    // Reset all markers to default icon
     Object.values(markerRefs.current).forEach((m) => {
       if (m) {
         m.setIcon(defaultIcon);
       }
     });
-
-    // Set new selected marker
     marker.setIcon(selectedIcon);
     setSelectedMarker(marker);
-    
-    // Update URL with selected marker info
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set('selected', project.Name);
-    
-    // Replace current state (don't create history for marker selection)
-    router.replace(`${window.location.pathname}?${newParams.toString()}`);
+    window.location.hash = `selected=${encodeURIComponent(project.Name)}`;
   };
 
-  // Initialize state from URL on component mount
+  // Restore state from hash on load and hash change
   useEffect(() => {
-    const projectParam = searchParams.get('project');
-    const categoryParam = searchParams.get('category');
-    const selectedParam = searchParams.get('selected');
-    
-    // Restore category filter
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
-      filterProjects(categoryParam);
-    }
-    
-    // Restore selected project modal
-    if (projectParam && filteredProjects) {
-      const project = filteredProjects.find(p => p.Name === projectParam);
-      if (project) {
-        setSelectedProject(project);
-        setIsModalOpen(true);
+    const updateStateFromHash = () => {
+      const params = new URLSearchParams(window.location.hash.slice(1));
+      const projectParam = params.get('project');
+      const categoryParam = params.get('category');
+      const selectedParam = params.get('selected');
+
+      if (categoryParam) {
+        setSelectedCategory(categoryParam);
+        filterProjects(categoryParam);
       }
-    }
-    
-    // Restore selected marker
-    if (selectedParam && filteredProjects) {
-      const project = filteredProjects.find(p => p.Name === selectedParam);
-      if (project) {
-        const index = filteredProjects.indexOf(project);
-        const key = `${project.Name}-${index}`;
-        const marker = markerRefs.current[key];
-        if (marker) {
-          marker.setIcon(selectedIcon);
-          setSelectedMarker(marker);
+
+      if (projectParam && filteredProjects) {
+        const project = filteredProjects.find(p => p.Name === projectParam);
+        if (project) {
+          setSelectedProject(project);
+          setIsModalOpen(true);
+        }
+      } else {
+        setIsModalOpen(false);
+        setSelectedProject(null);
+      }
+
+      if (selectedParam && filteredProjects) {
+        const project = filteredProjects.find(p => p.Name === selectedParam);
+        if (project) {
+          const index = filteredProjects.indexOf(project);
+          const key = `${project.Name}-${index}`;
+          const marker = markerRefs.current[key];
+          if (marker) {
+            marker.setIcon(selectedIcon);
+            setSelectedMarker(marker);
+          }
         }
       }
-    }
-  }, [searchParams, filteredProjects]);
-
-  // Handle browser back/forward navigation
-  useEffect(() => {
-    const handlePopState = () => {
-      // Let the URL params effect handle the state restoration
-      // This will automatically close modals, restore selections, etc.
     };
 
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+    updateStateFromHash();
+    window.addEventListener('hashchange', updateStateFromHash);
+    return () => window.removeEventListener('hashchange', updateStateFromHash);
+  }, [filteredProjects]);
 
   // Attach popups to markers
   useEffect(() => {
@@ -217,9 +170,7 @@ export default function Map() {
           setSelectedMarker(null);
           
           // Remove selection from URL
-          const newParams = new URLSearchParams(searchParams);
-          newParams.delete('selected');
-          router.replace(`${window.location.pathname}?${newParams.toString()}`);
+          window.location.hash = '';
         });
 
         // Add event listener for the button
@@ -231,7 +182,7 @@ export default function Map() {
         }
       }
     });
-  }, [filteredProjects, isDarkMode, searchParams]);
+  }, [filteredProjects, isDarkMode]);
 
   return (
     <div className="map-container" style={{ position: "relative", height: "100vh", width: "100%" }}>
