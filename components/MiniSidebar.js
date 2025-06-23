@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import {
   Box,
@@ -35,14 +33,69 @@ import {
   Search as SearchIcon,
 } from "@mui/icons-material";
 import ProjectDropdown from "./ProjectDropdown";
+import { useDarkMode } from "../contexts/DarkModeContext";
+
+// Add global styles for keyframes
+const globalStyles = `
+  @keyframes intense-pulse-glow {
+    0% {
+      filter: drop-shadow(0 0 8px rgb(255, 0, 0)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 0, 0, 0.4));
+      transform: scale(1);
+    }
+    25% {
+      filter: drop-shadow(0 0 12px rgb(0, 255, 17)) drop-shadow(0 0 30px rgba(255, 255, 0, 0.9)) drop-shadow(0 0 50px rgba(255, 255, 0, 0.5));
+      transform: scale(1.05);
+    }
+    50% {
+      filter: drop-shadow(0 0 15px rgb(0, 255, 255)) drop-shadow(0 0 40px rgba(0, 255, 255, 1)) drop-shadow(0 0 65px rgba(0, 255, 255, 0.6));
+      transform: scale(1.08);
+    }
+    75% {
+      filter: drop-shadow(0 0 12px rgb(255, 0, 255)) drop-shadow(0 0 30px rgba(255, 0, 255, 0.9)) drop-shadow(0 0 50px rgba(255, 0, 255, 0.5));
+      transform: scale(1.05);
+    }
+    100% {
+      filter: drop-shadow(0 0 8px rgb(0, 55, 255)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 0, 0, 0.4));
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes outer-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+  }
+  
+  @keyframes hover-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+  }
+`;
 
 export default function MiniSidebar({
   filteredProjects,
   onSelectCategory,
   selectedCategory,
   markerRefs,
-  isDarkMode,
-  toggleDarkMode,
   categories = [],
 }) {
   const [open, setOpen] = useState(false);
@@ -51,6 +104,11 @@ export default function MiniSidebar({
   const [isLeftAligned, setIsLeftAligned] = useState(true);
   const toggleSidebarPosition = () => setIsLeftAligned(!isLeftAligned);
   const map = useMap();
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
 
   // Debug logs
   console.log("Filtered Projects:", filteredProjects);
@@ -104,20 +162,22 @@ export default function MiniSidebar({
 
   return (
     <>
+      {/* Add global styles */}
+      <style>{globalStyles}</style>
+      
       {/* Permanent Drawer */}
       <Drawer
         variant="permanent"
         anchor={isLeftAligned ? "left" : "right"}
-        PaperProps={{
-          sx: {
+        sx={{
+          width: 60,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
             width: 60,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: 60,
-              boxSizing: "border-box",
-              backgroundColor: isDarkMode ? "#1a1a1a" : "#ffffff",
-              color: isDarkMode ? "#ffffff" : "#000000",
-            },
+            boxSizing: 'border-box',
+            backgroundColor: isDarkMode ? '#1a1a1a' : '#ffffff',
+            color: isDarkMode ? '#ffffff' : '#000000',
+            transition: 'background-color 0.3s, color 0.3s',
           },
         }}
       >
@@ -125,7 +185,41 @@ export default function MiniSidebar({
           <ListItem disablePadding>
             <Tooltip title="Menu" placement="right">
               <ListItemButton
-                sx={{ justifyContent: "center" }}
+                sx={{ 
+                  justifyContent: "center",
+                  position: "relative",
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    top: "-10px",
+                    left: "-10px",
+                    right: "-10px",
+                    bottom: "-10px",
+                    background: open ? "none" : "radial-gradient(circle, rgba(255,0,0,0.3) 0%, rgba(255,255,0,0.2) 30%, rgba(0,255,255,0.1) 60%, transparent 100%)",
+                    borderRadius: "50%",
+                    animation: open ? "none" : "outer-pulse 4s ease-in-out infinite",
+                    zIndex: -1
+                  },
+                  "&:hover": {
+                    "& .MuiSvgIcon-root": {
+                      filter: "drop-shadow(0 0 20px rgba(0, 255, 26, 1)) drop-shadow(0 0 35px rgba(0, 255, 26, 0.9)) drop-shadow(0 0 50px rgba(0, 255, 26, 0.6))",
+                      transition: "all 0.3s ease",
+                      transform: "scale(1.2)"
+                    },
+                    "&::before": {
+                      background: "radial-gradient(circle, rgba(0,255,26,0.4) 0%, rgba(0,255,26,0.3) 30%, rgba(0,255,26,0.1) 60%, transparent 100%)",
+                      animation: "hover-pulse 4s ease-in-out infinite"
+                    }
+                  },
+                  "& .MuiSvgIcon-root": {
+                    filter: open ? 
+                      "drop-shadow(0 0 5px rgba(255,255,255,0.8))" : 
+                      "drop-shadow(0 0 8px rgb(255, 0, 0)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 0, 0, 0.4))",
+                    transition: "all 4.3s ease",
+                    animation: open ? "none" : "intense-pulse-glow 4.5s ease-in-out infinite",
+                    transformOrigin: "center"
+                  }
+                }}
                 onClick={toggleDrawer}
               >
                 <ListItemIcon sx={{ minWidth: "auto" }}>
@@ -141,7 +235,7 @@ export default function MiniSidebar({
                 onClick={toggleDarkMode}
               >
                 <ListItemIcon sx={{ minWidth: "auto" }}>
-                  {isDarkMode ? <Brightness4Icon /> : <Brightness4Icon />}
+                  <Brightness4Icon />
                 </ListItemIcon>
               </ListItemButton>
             </Tooltip>
@@ -172,6 +266,7 @@ export default function MiniSidebar({
             width: 300,
             backgroundColor: isDarkMode ? "#1a1a1a" : "#ffffff",
             color: isDarkMode ? "#ffffff" : "#000000",
+            transition: 'background-color 0.3s, color 0.3s',
           },
         }}
       >

@@ -9,33 +9,36 @@ import { useProjects } from "./useProjects";
 import MiniSidebar from "./MiniSidebar";
 import ProjectModal from "./ProjectModal";
 import * as R from "leaflet-responsive-popup";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const tucsonCenter = [32.2217, -110.9265];
 
 const defaultIcon = divIcon({
-  className: 'custom-div-icon',
+  className: "custom-div-icon",
   html: `<div style="background-color: #e74c3c; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>`,
   iconSize: [12, 12],
   iconAnchor: [6, 6],
-  popupAnchor: [0, -5]
+  popupAnchor: [0, -5],
 });
 
 const selectedIcon = divIcon({
-  className: 'custom-div-icon',
+  className: "custom-div-icon",
   html: `<div style="background-color:rgb(0, 255, 247); width: 16px; height: 16px; border-radius: 50%; border: 3px solid blue; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);"></div>`,
   iconSize: [16, 16],
   iconAnchor: [8, 8],
-  popupAnchor: [0, -5]
+  popupAnchor: [0, -5],
 });
 
 export default function Map() {
-  const { projects, filteredProjects, filterProjects, categories } = useProjects();
+  const { projects, filteredProjects, filterProjects, categories } =
+    useProjects();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const markerRefs = useRef({});
   const currentPopup = useRef(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const { isDarkMode } = useDarkMode();
 
   const handleMoreDetails = (project) => {
     setSelectedProject(project);
@@ -57,46 +60,48 @@ export default function Map() {
 
       if (marker) {
         const popupContent = document.createElement("div");
+        // We will use a simple class here and let the CSS handle the rest.
+        popupContent.className = "responsive-popup-content"; 
+
         popupContent.innerHTML = `
-          <div class="popup-content">
             <img 
               src="${project.ImageUrl || "https://via.placeholder.com/150"}" 
               alt="${project.Name}" 
               class="popup-image" 
             />
-            <strong>${project.Name}</strong>
+            <strong class="popup-title">${project.Name}</strong>
             <p class="popup-description">${project.DescriptionShort || project.Description || ''}</p>
             <button id="more-details-${index}" class="popup-button">
               More Details
             </button>
-          </div>
         `;
 
         const popup = R.responsivePopup({
           hasTip: false,
           autoPan: true,
+          className: isDarkMode ? "dark-mode-popup" : "light-mode-popup",
         }).setContent(popupContent);
-        
+
         marker.bindPopup(popup);
 
         // Add event listeners for the marker and popup
-        marker.on('click', () => {
+        marker.on("click", () => {
           // Reset all markers to default icon
-          Object.values(markerRefs.current).forEach(m => {
+          Object.values(markerRefs.current).forEach((m) => {
             if (m) {
               m.setIcon(defaultIcon);
             }
           });
-          
+
           // Set new selected marker
           marker.setIcon(selectedIcon);
           setSelectedMarker(marker);
         });
 
         // Listen for popup open/close events
-        marker.on('popupopen', () => {
+        marker.on("popupopen", () => {
           // Reset all markers to default icon
-          Object.values(markerRefs.current).forEach(m => {
+          Object.values(markerRefs.current).forEach((m) => {
             if (m) {
               m.setIcon(defaultIcon);
             }
@@ -106,7 +111,7 @@ export default function Map() {
           setSelectedMarker(marker);
         });
 
-        marker.on('popupclose', () => {
+        marker.on("popupclose", () => {
           // Reset the marker when popup closes
           marker.setIcon(defaultIcon);
           setSelectedMarker(null);
@@ -121,17 +126,23 @@ export default function Map() {
         }
       }
     });
-  }, [filteredProjects]);
+  }, [filteredProjects, isDarkMode]);
 
   return (
     <div className="map-container">
+
+
       <MapContainer
         center={tucsonCenter}
         zoom={11}
         style={{ height: "100vh", width: "100%" }}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={
+            isDarkMode
+              ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          }
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         {filteredProjects?.map((project, index) => {
