@@ -1,0 +1,4558 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-06-23T19:08:42Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150932356",
+        "ele": "214",
+        "gnis:feature_id": "10841",
+        "name": "San Lucy Village / Si:l Mek",
+        "name:en": "San Lucy Village",
+        "name:ood": "Si:l Mek",
+        "place": "village",
+        "wikidata": "Q28912666",
+        "wikipedia": "en:San Lucy Village, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.717942,
+          32.9639344
+        ]
+      },
+      "id": "node/150932356"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150933734",
+        "ele": "40",
+        "gnis:feature_id": "43142",
+        "name": "San Luis",
+        "place": "town",
+        "population": "22634",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q80018"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.7821295,
+          32.4902604
+        ]
+      },
+      "id": "node/150933734"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150933986",
+        "alt_name": "City of Benson",
+        "ele": "1093",
+        "gnis:feature_id": "1248",
+        "name": "Benson",
+        "place": "town",
+        "wikidata": "Q79672",
+        "wikipedia": "en:Benson, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.294517,
+          31.9678611
+        ]
+      },
+      "id": "node/150933986"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150934158",
+        "ele": "3600",
+        "gnis:feature_id": "37250",
+        "name": "Corona de Tucson",
+        "place": "village",
+        "population": "5675",
+        "wikidata": "Q1024093"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.7726863,
+          31.9557768
+        ]
+      },
+      "id": "node/150934158"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150934853",
+        "ele": "719",
+        "gnis:feature_id": "7637",
+        "name": "Mammoth",
+        "place": "village",
+        "population": "2266",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q385920",
+        "wikipedia": "en:Mammoth, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.640654,
+          32.722568
+        ]
+      },
+      "id": "node/150934853"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150935523",
+        "ele": "1554",
+        "gnis:feature_id": "4421",
+        "name": "Eloy",
+        "name:uk": "Ілой",
+        "place": "town",
+        "population": "19391",
+        "website": "https://www.eloyaz.gov/",
+        "wikidata": "Q80072",
+        "wikipedia": "en:Eloy, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.553493,
+          32.7551703
+        ]
+      },
+      "id": "node/150935523"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150935673",
+        "ele": "1384",
+        "gnis:feature_id": "12590",
+        "name": "Tombstone",
+        "place": "village",
+        "population": "1571",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q79873",
+        "wikipedia": "en:Tombstone, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.0652028,
+          31.714229
+        ]
+      },
+      "id": "node/150935673"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150935721",
+        "capital": "6",
+        "gnis:feature_id": "29342",
+        "name": "Globe",
+        "place": "town",
+        "population": "7249",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://www.globeaz.gov/",
+        "wikidata": "Q79823",
+        "wikipedia": "en:Globe, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.7871744,
+          33.3959139
+        ]
+      },
+      "id": "node/150935721"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937083",
+        "ele": "75",
+        "gnis:feature_id": "13463",
+        "name": "Wellton",
+        "place": "town",
+        "population": "1891",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q998972",
+        "wikipedia": "en:Wellton, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.146889,
+          32.6728314
+        ]
+      },
+      "id": "node/150937083"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937357",
+        "ele": "360",
+        "gnis:feature_id": "12233",
+        "name": "Tempe",
+        "name:en": "Tempe",
+        "name:ru": "Темпе",
+        "name:uk": "Темпі",
+        "place": "city",
+        "population": "180587",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://www.tempe.gov/",
+        "wikidata": "Q51685",
+        "wikimedia_commons": "File:Tempe AZ Skyline August 2023.jpg",
+        "wikipedia": "en:Tempe, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.940016,
+          33.4255117
+        ]
+      },
+      "id": "node/150937357"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937806",
+        "ele": "1468",
+        "gnis:feature_id": "32321",
+        "name": "Nicksville",
+        "place": "village",
+        "wikidata": "Q28222901",
+        "wikipedia": "en:Nicksville, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.2431107,
+          31.4378922
+        ]
+      },
+      "id": "node/150937806"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937821",
+        "ele": "377",
+        "gnis:feature_id": "5032",
+        "name": "Gilbert",
+        "name:en": "Gilbert",
+        "name:ru": "Гилберт",
+        "name:uk": "Гілберт",
+        "place": "city",
+        "population": "267918",
+        "population:date": "2020-04-01",
+        "population:source": "US Census Population and Housing Unit Estimates",
+        "source": "http://en.wikipedia.org/wiki/Gilbert,_Arizona",
+        "source:population": "wikipedia",
+        "website": "https://www.gilbertaz.gov/",
+        "wikidata": "Q51684",
+        "wikipedia": "en:Gilbert, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.789037,
+          33.3527632
+        ]
+      },
+      "id": "node/150937821"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937823",
+        "ele": "986",
+        "gnis:feature_id": "13150",
+        "name": "Vail",
+        "place": "village",
+        "population": "13604"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.711909,
+          32.0477416
+        ]
+      },
+      "id": "node/150937823"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150939207",
+        "ele": "460",
+        "gnis:feature_id": "770",
+        "name": "Arizona City",
+        "place": "village",
+        "population": "9868",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q670299",
+        "wikipedia": "en:Arizona City, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.670958,
+          32.7558936
+        ]
+      },
+      "id": "node/150939207"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150939528",
+        "ele": "739",
+        "gnis:feature_id": "11648",
+        "name": "South Tucson",
+        "place": "village",
+        "population": "5571",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q79893",
+        "wikipedia": "en:South Tucson, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.968343,
+          32.1994951
+        ]
+      },
+      "id": "node/150939528"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150939727",
+        "ele": "567",
+        "gnis:feature_id": "6633",
+        "name": "Kearny",
+        "place": "village",
+        "population": "2896",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q592109",
+        "wikipedia": "en:Kearny, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.910665,
+          33.0570085
+        ]
+      },
+      "id": "node/150939727"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150942046",
+        "ele": "315",
+        "gnis:feature_id": "6767",
+        "name": "Komatke / Komaḍk",
+        "name:en": "Komatke",
+        "name:ood": "Komaḍk",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.1693304,
+          33.2911802
+        ]
+      },
+      "id": "node/150942046"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150942277",
+        "alt_name:ood": "S-totonigk",
+        "ele": "375",
+        "gnis:feature_id": "25340",
+        "name": "Stotonic",
+        "name:en": "Stotonic",
+        "name:ood": "S-totoñigk",
+        "place": "village",
+        "wikidata": "Q30622752"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7987985,
+          33.1596034
+        ]
+      },
+      "id": "node/150942277"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150943192",
+        "ele": "729",
+        "gnis:feature_id": "11073",
+        "name": "Sells / Komkcʼeḍ ʼe-Wa:ʼosidk",
+        "name:en": "Sells",
+        "name:ood": "Komkcʼeḍ ʼe-Wa:ʼosidk",
+        "place": "town",
+        "wikidata": "Q2140577",
+        "wikipedia": "en:Sells, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.878044,
+          31.9159161
+        ]
+      },
+      "id": "node/150943192"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150943198",
+        "ele": "1379",
+        "gnis:feature_id": "32541",
+        "name": "Oracle",
+        "place": "village",
+        "population": "3051",
+        "wikidata": "Q2740714",
+        "wikipedia": "en:Oracle, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.7651843,
+          32.6099702
+        ]
+      },
+      "id": "node/150943198"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150943565",
+        "ele": "435",
+        "gnis:feature_id": "3195",
+        "name": "Coolidge",
+        "place": "village",
+        "population": "13218",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://www.coolidgeaz.com/",
+        "wikidata": "Q80067",
+        "wikipedia": "en:Coolidge, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.517624,
+          32.977839
+        ]
+      },
+      "id": "node/150943565"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150943573",
+        "capital": "6",
+        "ele": "454",
+        "gnis:feature_id": "4688",
+        "name": "Florence",
+        "place": "town",
+        "population": "26785",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q845754",
+        "wikipedia": "en:Florence, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.387343,
+          33.0314508
+        ]
+      },
+      "id": "node/150943573"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150946340",
+        "ele": "40",
+        "gnis:feature_id": "1661702",
+        "name": "Winterhaven",
+        "place": "village",
+        "population": "390",
+        "population:date": "2020",
+        "source:population": "US Census Bureau",
+        "wikidata": "Q3458263",
+        "wikipedia": "en:Winterhaven, California"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.6346751,
+          32.739491
+        ]
+      },
+      "id": "node/150946340"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150946688",
+        "ele": "585",
+        "gnis:feature_id": "1866979",
+        "name": "Avra Valley",
+        "place": "village",
+        "population": "5569",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q791329",
+        "wikipedia": "en:Avra Valley, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.32135,
+          32.4294503
+        ]
+      },
+      "id": "node/150946688"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150948107",
+        "ele": "30",
+        "gnis:feature_id": "43131",
+        "name": "Gadsden",
+        "place": "village",
+        "population": "1314",
+        "wikidata": "Q1490945",
+        "wikipedia": "en:Gadsden, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.784067,
+          32.5580174
+        ]
+      },
+      "id": "node/150948107"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150948354",
+        "ele": "316",
+        "gnis:feature_id": "5019",
+        "name": "Gila Crossing / Kuiwa",
+        "name:en": "Gila Crossing",
+        "name:ood": "Kuiwa",
+        "place": "village",
+        "wikidata": "Q5246608"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.166487,
+          33.2768465
+        ]
+      },
+      "id": "node/150948354"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150948546",
+        "alt_name": "City of Apache Junction",
+        "ele": "525",
+        "gnis:feature_id": "25702",
+        "name": "Apache Junction",
+        "place": "town",
+        "population": "38499",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q79829",
+        "wikipedia": "en:Apache Junction, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.549577,
+          33.4150485
+        ]
+      },
+      "id": "node/150948546"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150948673",
+        "ele": "591",
+        "gnis:feature_id": "13276",
+        "name": "Wahak Hotrontk",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.3638658,
+          32.1832128
+        ]
+      },
+      "id": "node/150948673"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150948841",
+        "ele": "885",
+        "gnis:feature_id": "37327",
+        "name": "Green Valley",
+        "place": "town",
+        "wikidata": "Q1544683",
+        "wikipedia": "en:Green Valley, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.993701,
+          31.8542511
+        ]
+      },
+      "id": "node/150948841"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150950608",
+        "ele": "1341",
+        "gnis:feature_id": "6076",
+        "name": "Huachuca City",
+        "name:pronunciation": "wɔˈtʃuːkə ˈsɪti",
+        "place": "village",
+        "population": "1626",
+        "population:date": "2020",
+        "source:population": "wikipedia",
+        "wikidata": "Q992068",
+        "wikipedia": "en:Huachuca City, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.333967,
+          31.6278703
+        ]
+      },
+      "id": "node/150950608"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150952728",
+        "ele": "800",
+        "gnis:feature_id": "9325",
+        "name": "Peridot / Tséé Dotłʼizh",
+        "name:apw": "Tséé Dotłʼizh",
+        "name:en": "Peridot",
+        "place": "village",
+        "population": "1308",
+        "population:date": "2020",
+        "source:population": "US Census"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.4524908,
+          33.2997689
+        ]
+      },
+      "id": "node/150952728"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150952896",
+        "ele": "489",
+        "gnis:feature_id": "24290",
+        "name": "North Komelik",
+        "place": "village",
+        "wikidata": "Q28222926"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.946523,
+          32.5078406
+        ]
+      },
+      "id": "node/150952896"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150953258",
+        "ele": "593",
+        "gnis:feature_id": "24402",
+        "name": "Dudleyville",
+        "place": "village",
+        "population": "1068"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.7224102,
+          32.9165705
+        ]
+      },
+      "id": "node/150953258"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150953270",
+        "ele": "383",
+        "gnis:feature_id": "11029",
+        "name": "Scottsdale",
+        "name:en": "Scottsdale",
+        "name:ru": "Скоттсдейл",
+        "name:uk": "Скоттсдейл",
+        "place": "city",
+        "population": "241361",
+        "population:date": "2020-04-01",
+        "population:source": "US Census Population and Housing Unit Estimates",
+        "source:population": "wikipedia",
+        "website": "https://www.scottsdaleaz.gov",
+        "wikidata": "Q49221",
+        "wikipedia": "en:Scottsdale, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.926018,
+          33.4942189
+        ]
+      },
+      "id": "node/150953270"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150954040",
+        "ele": "428",
+        "gnis:feature_id": "7544",
+        "name": "Lukeville",
+        "place": "village",
+        "wikidata": "Q992490"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.8154994,
+          31.8819732
+        ]
+      },
+      "id": "node/150954040"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150954056",
+        "ele": "673",
+        "gnis:feature_id": "24314;1866990",
+        "name": "Picture Rocks",
+        "place": "village",
+        "population": "9551",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q1890767",
+        "wikipedia": "en:Picture Rocks, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.2182562,
+          32.3278962
+        ]
+      },
+      "id": "node/150954056"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150954554",
+        "gnis:feature_id": "37213",
+        "name": "Catalina",
+        "place": "village",
+        "population": "7551",
+        "wikidata": "Q549434",
+        "wikipedia": "en:Catalina, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.926146,
+          32.4996147
+        ]
+      },
+      "id": "node/150954554"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150955568",
+        "ele": "428",
+        "gnis:feature_id": "9868",
+        "name": "Queen Creek",
+        "name:uk": "Квін-Крік",
+        "place": "town",
+        "population": "59519",
+        "population:date": "2010-04-01",
+        "website": "https://www.queencreek.org/",
+        "wikidata": "Q985299",
+        "wikipedia": "en:Queen Creek, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.634158,
+          33.2483858
+        ]
+      },
+      "id": "node/150955568"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150959595",
+        "ele": "795",
+        "gnis:feature_id": "2321",
+        "name": "Bylas / Hago'teele",
+        "name:apw": "Hago'teele",
+        "name:en": "Bylas",
+        "place": "village",
+        "population": "1782",
+        "population:date": "2020"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.125087,
+          33.1386688
+        ]
+      },
+      "id": "node/150959595"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150959809",
+        "ele": "102",
+        "gnis:feature_id": "1866984",
+        "name": "Fortuna Foothills",
+        "place": "town",
+        "population": "28135",
+        "wikidata": "Q1439085"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.4118901,
+          32.6578355
+        ]
+      },
+      "id": "node/150959809"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150961044",
+        "ele": "775",
+        "founded": "1974",
+        "gnis:feature_id": "37458",
+        "incorporated": "1974",
+        "name": "Oro Valley",
+        "place": "town",
+        "population": "47070",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "start_date": "1974",
+        "wikidata": "Q986523"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.955317,
+          32.4000525
+        ]
+      },
+      "id": "node/150961044"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150963593",
+        "ele": "536",
+        "gnis:feature_id": "538",
+        "name": "Ajo",
+        "place": "town",
+        "population": "3039",
+        "population:date": "2020",
+        "source:population": "wikipedia",
+        "wikidata": "Q413082",
+        "wikipedia": "en:Ajo, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.864574,
+          32.3771926
+        ]
+      },
+      "id": "node/150963593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150963861",
+        "gnis:feature_id": "33948",
+        "name": "Sahuarita",
+        "place": "town",
+        "population": "25259",
+        "wikidata": "Q914860",
+        "wikipedia": "en:Sahuarita, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9556645,
+          31.9575305
+        ]
+      },
+      "id": "node/150963861"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150964034",
+        "capital": "6",
+        "ele": "759",
+        "gnis:feature_id": "43534",
+        "name": "Tucson",
+        "name:ar": "توسان",
+        "name:bn": "টাকসন",
+        "name:el": "Τουσόν",
+        "name:en": "Tucson",
+        "name:he": "טוסון",
+        "name:ru": "Тусон",
+        "name:uk": "Тусон",
+        "place": "city",
+        "population": "542629",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q18575",
+        "wikipedia": "en:Tucson, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.974847,
+          32.2228765
+        ]
+      },
+      "id": "node/150964034"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150964064",
+        "alt_name:es": "Fénix",
+        "capital": "4",
+        "ele": "331",
+        "gnis:feature_id": "44784",
+        "name": "Phoenix",
+        "name:ar": "فينيكس",
+        "name:bn": "ফিনিক্স",
+        "name:da": "Phoenix",
+        "name:de": "Phoenix",
+        "name:el": "Φοίνιξ",
+        "name:en": "Phoenix",
+        "name:eo": "Fenikso",
+        "name:es": "Phoenix",
+        "name:fr": "Phoenix",
+        "name:hak": "Phoenix",
+        "name:haw": "Pēniki",
+        "name:he": "פיניקס",
+        "name:hi": "फ़िनक्स",
+        "name:hr": "Phoenix",
+        "name:it": "Phoenix",
+        "name:ja": "フェニックス",
+        "name:kn": "ಫೀನಿಕ್ಸ್",
+        "name:ko": "피닉스",
+        "name:lt": "Finiksas",
+        "name:lv": "Fīniksa",
+        "name:nan": "Phoenix",
+        "name:nv": "Hoozdoh",
+        "name:oc": "Phoenix",
+        "name:pl": "Phoenix",
+        "name:pt": "Phoenix",
+        "name:ru": "Финикс",
+        "name:sr": "Финикс",
+        "name:sr-Latn": "Finiks",
+        "name:ta": "பீனிக்ஸ்",
+        "name:uk": "Фінікс",
+        "name:zh": "菲尼克斯 / 鳳凰城",
+        "name:zh-Hans": "菲尼克斯",
+        "name:zh-Hant": "鳳凰城",
+        "place": "city",
+        "population": "1608139",
+        "population:date": "2020",
+        "source:name:oc": "Lo Congrès",
+        "source:population": "United States Census",
+        "state_capital": "yes",
+        "website": "https://phoenix.gov/",
+        "wikidata": "Q16556",
+        "wikipedia": "en:Phoenix, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.074141,
+          33.4484367
+        ]
+      },
+      "id": "node/150964064"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150964483",
+        "ele": "107",
+        "gnis:feature_id": "1759214",
+        "name": "Tacna",
+        "place": "village",
+        "population": "555",
+        "wikidata": "Q1666181",
+        "wikipedia": "en:Tacna, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.953913,
+          32.6986467
+        ]
+      },
+      "id": "node/150964483"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150965272",
+        "capital": "6",
+        "ele": "1168",
+        "gnis:feature_id": "32336",
+        "name": "Nogales",
+        "name:el": "Νογκάλες",
+        "name:en": "Nogales",
+        "name:ru": "Ногалес",
+        "name:uk": "Ногалес",
+        "place": "town",
+        "population": "20768",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q79783",
+        "wikipedia": "en:Nogales, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.936081,
+          31.3402134
+        ]
+      },
+      "id": "node/150965272"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150965671",
+        "ele": "224",
+        "gnis:feature_id": "5012",
+        "name": "Gila Bend",
+        "place": "town",
+        "population": "1892",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://www.gilabendaz.org/",
+        "wikidata": "Q991040",
+        "wikipedia": "en:Gila Bend, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.716823,
+          32.9478267
+        ]
+      },
+      "id": "node/150965671"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150966256",
+        "ele": "1489",
+        "gnis:feature_id": "34635",
+        "name": "Sonoita",
+        "place": "village",
+        "population": "803",
+        "population:date": "2020",
+        "source:population": "wikipedia",
+        "wikidata": "Q1312535",
+        "wikipedia": "en:Sonoita, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.6555303,
+          31.6795148
+        ]
+      },
+      "id": "node/150966256"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150966418",
+        "ele": "579",
+        "gnis:feature_id": "9539",
+        "name": "Pisinemo",
+        "name:en": "Pisinimo",
+        "name:ood": "Pisin Moʼo",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.315135,
+          32.0350711
+        ]
+      },
+      "id": "node/150966418"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150966739",
+        "ele": "378",
+        "gnis:feature_id": "7890",
+        "name": "Mesa",
+        "name:en": "Mesa",
+        "name:ru": "Меса",
+        "name:uk": "Меса",
+        "place": "city",
+        "population": "504258",
+        "population:date": "2020-04-01",
+        "population:source": "US Census Population and Housing Unit Estimates",
+        "source:population": "wikipedia",
+        "website": "https://www.mesaaz.gov/",
+        "wikidata": "Q49261",
+        "wikipedia": "en:Mesa, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.831455,
+          33.4151005
+        ]
+      },
+      "id": "node/150966739"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150966809",
+        "ele": "654",
+        "gnis:feature_id": "5412",
+        "name": "Gu Vo",
+        "place": "village",
+        "wikidata": "Q28222047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.5667415,
+          32.0618408
+        ]
+      },
+      "id": "node/150966809"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150967494",
+        "ele": "32",
+        "gnis:feature_id": "11548",
+        "name": "Somerton",
+        "place": "town",
+        "population": "14197",
+        "wikidata": "Q79475",
+        "wikipedia": "en:Somerton, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.709677,
+          32.5964404
+        ]
+      },
+      "id": "node/150967494"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150967698",
+        "ele": "298",
+        "gnis:feature_id": "7702",
+        "name": "Maricopa Village / Pee-posh",
+        "name:en": "Maricopa Village",
+        "name:mrc": "Pee-posh",
+        "place": "village",
+        "wikidata": "Q28051065",
+        "wikipedia": "en:Maricopa Village, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.237652,
+          33.3714331
+        ]
+      },
+      "id": "node/150967698"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150968610",
+        "ele": "752",
+        "gnis:feature_id": "12621",
+        "name": "Topawa / Ḍo Bawui",
+        "name:en": "Topawa",
+        "name:ood": "Ḍo Bawui",
+        "place": "village",
+        "wikidata": "Q31882"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.8257786,
+          31.8140945
+        ]
+      },
+      "id": "node/150968610"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150968906",
+        "ele": "546",
+        "gnis:feature_id": "13729",
+        "name": "Why",
+        "place": "village",
+        "wikidata": "Q28662",
+        "wikipedia": "en:Why, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.7386298,
+          32.2669665
+        ]
+      },
+      "id": "node/150968906"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150968910",
+        "ele": "1037",
+        "gnis:feature_id": "31789",
+        "name": "Miami",
+        "place": "village",
+        "population": "1824",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q991525",
+        "wikipedia": "en:Miami, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.8708793,
+          33.3994599
+        ]
+      },
+      "id": "node/150968910"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150969952",
+        "ele": "670",
+        "gnis:feature_id": "5752",
+        "name": "Hickiwan",
+        "place": "village",
+        "wikidata": "Q28222203"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.47542,
+          32.3689495
+        ]
+      },
+      "id": "node/150969952"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150970836",
+        "ele": "376",
+        "gnis:feature_id": "5415",
+        "name": "Guadalupe",
+        "name:uk": "Гвадалупе",
+        "place": "village",
+        "population": "5523",
+        "population:date": "2010-04-01",
+        "website": "https://www.guadalupeaz.org",
+        "wikidata": "Q985305",
+        "wikipedia": "en:Guadalupe, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.9625328,
+          33.3631249
+        ]
+      },
+      "id": "node/150970836"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150970921",
+        "ele": "1076",
+        "gnis:feature_id": "10961",
+        "name": "Sasabe",
+        "place": "village",
+        "population": "54",
+        "postal_code": "85633",
+        "wikidata": "Q3709355",
+        "wikipedia": "en:Sasabe, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.5420505,
+          31.4887016
+        ]
+      },
+      "id": "node/150970921"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150970933",
+        "ele": "866",
+        "gnis:feature_id": "34981",
+        "name": "Superior",
+        "place": "village",
+        "population": "3039",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://superioraz.gov/",
+        "wikidata": "Q1012650",
+        "wikipedia": "en:Superior, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.09623,
+          33.293945
+        ]
+      },
+      "id": "node/150970933"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150971264",
+        "alt_name:ood": "Ge'e Kih",
+        "ele": "391",
+        "gnis:feature_id": "10623",
+        "name": "Sacaton / Ge'e Ki:",
+        "name:en": "Sacaton",
+        "name:ood": "Ge'e Ki:",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.739299,
+          33.0767226
+        ]
+      },
+      "id": "node/150971264"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150971381",
+        "ele": "421",
+        "gnis:feature_id": "1657",
+        "name": "Blackwater / Chukma Shuhthagi",
+        "name:en": "Blackwater",
+        "name:ood": "Chukma Shuhthagi",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.5746848,
+          33.0301916
+        ]
+      },
+      "id": "node/150971381"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150971699",
+        "ele": "607",
+        "gnis:feature_id": "7681",
+        "name": "Marana",
+        "place": "town",
+        "population": "51908",
+        "population:date": "2020",
+        "wikidata": "Q762743",
+        "wikipedia": "en:Marana, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.211475,
+          32.4483736
+        ]
+      },
+      "id": "node/150971699"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150974045",
+        "ele": "1327",
+        "gnis:feature_id": "39214",
+        "name": "Miracle Valley",
+        "place": "village",
+        "wikidata": "Q17081458",
+        "wikipedia": "en:Miracle Valley, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.151724,
+          31.3831375
+        ]
+      },
+      "id": "node/150974045"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150974476",
+        "ele": "367",
+        "gnis:feature_id": "1866978",
+        "name": "Ak-Chin Village / ʼAkĭ Ciñ",
+        "name:en": "Ak-Chin Village",
+        "name:ood": "ʼAkĭ Ciñ",
+        "place": "village",
+        "wikidata": "Q22058568",
+        "wikipedia": "en:Ak Chin, Pinal County, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.074288,
+          33.0278702
+        ]
+      },
+      "id": "node/150974476"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150974667",
+        "ele": "552",
+        "gnis:feature_id": "5407",
+        "name": "Santa Rosa / Kaij Mek",
+        "name:en": "Santa Rosa",
+        "name:ood": "Kaij Mek",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0498291,
+          32.3292287
+        ]
+      },
+      "id": "node/150974667"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150975216",
+        "ele": "1412",
+        "gnis:feature_id": "11284",
+        "name": "Sierra Vista",
+        "place": "city",
+        "population": "45308",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q79891"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.2997756,
+          31.5545973
+        ]
+      },
+      "id": "node/150975216"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150976539",
+        "ele": "426",
+        "gnis:feature_id": "24269",
+        "name": "Casa Grande",
+        "name:ru": "Каса-Гранде",
+        "name:uk": "Каза-Ґранде",
+        "place": "city",
+        "population": "55653",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://casagrandeaz.gov/",
+        "wikidata": "Q79889",
+        "wikipedia": "en:Casa Grande, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7536818,
+          32.8772834
+        ]
+      },
+      "id": "node/150976539"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150977233",
+        "ele": "358",
+        "gnis:feature_id": "7694",
+        "name": "Maricopa",
+        "place": "town",
+        "population": "62720",
+        "population:date": "2021",
+        "source:population": "wikipedia",
+        "website": "https://www.maricopa-az.gov/home",
+        "wikidata": "Q79877",
+        "wikipedia": "en:Maricopa, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.047755,
+          33.058129
+        ]
+      },
+      "id": "node/150977233"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150978173",
+        "ele": "1241",
+        "import_uuid": "bb7269ee-502a-5391-8056-e3ce0e66489c",
+        "name": "Whetstone",
+        "name:uk": "Ветстон",
+        "place": "village",
+        "population": "3236",
+        "population:date": "2020",
+        "source": "TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)",
+        "source:population": "https://data.census.gov/table?q=Whetstone+CDP,+Arizona&tid=DECENNIALPL2020.P1",
+        "wikidata": "Q2097306",
+        "wikipedia": "en:Whetstone, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.350294,
+          31.6928741
+        ]
+      },
+      "id": "node/150978173"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150979217",
+        "ele": "870",
+        "gnis:feature_id": "5507",
+        "name": "Haivana Nakya",
+        "old_name:en": "Crowhang",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7107545,
+          32.0024725
+        ]
+      },
+      "id": "node/150979217"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150979227",
+        "ele": "314",
+        "gnis:feature_id": "7058",
+        "name": "Litchfield Park",
+        "name:uk": "Літчфілд-Парк",
+        "place": "village",
+        "population": "6",
+        "population:date": "2020",
+        "source:population": "wikipedia",
+        "wikidata": "Q79437",
+        "wikimedia_commons": "File:Litchfield Park.jpg",
+        "wikipedia": "en:Litchfield Park, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.358124,
+          33.4933796
+        ]
+      },
+      "id": "node/150979227"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150979921",
+        "ele": "801",
+        "gnis:feature_id": "10812",
+        "name": "San Carlos / Sengaah",
+        "name:apw": "Sengaah",
+        "name:en": "San Carlos",
+        "place": "village",
+        "population": "3987",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q2066398",
+        "wikipedia": "en:San Carlos, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.454597,
+          33.3507266
+        ]
+      },
+      "id": "node/150979921"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150980637",
+        "ele": "754",
+        "gnis:feature_id": "24597",
+        "name": "San Miguel",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7806409,
+          31.6168016
+        ]
+      },
+      "id": "node/150980637"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150981085",
+        "ele": "1429",
+        "gnis:feature_id": "39224",
+        "name": "Sierra Vista Estates",
+        "place": "village",
+        "wikidata": "Q30595837"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.254802,
+          31.4834308
+        ]
+      },
+      "id": "node/150981085"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150981213",
+        "ele": "600",
+        "gnis:feature_id": "13926",
+        "name": "Winkelman",
+        "place": "village",
+        "population": "353",
+        "wikidata": "Q1949114",
+        "wikipedia": "en:Winkelman, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.770938,
+          32.9875659
+        ]
+      },
+      "id": "node/150981213"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150981505",
+        "ele": "364",
+        "gnis:feature_id": "25113",
+        "name": "Sun Lakes",
+        "place": "town",
+        "wikidata": "Q613472",
+        "wikipedia": "en:Sun Lakes, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.875416,
+          33.2111623
+        ]
+      },
+      "id": "node/150981505"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150981517",
+        "capital": "6",
+        "ele": "43",
+        "gnis:feature_id": "14111",
+        "name": "Yuma",
+        "name:azb": "یوما",
+        "name:bn": "য়ুমা",
+        "name:de": "Yuma",
+        "name:es": "Yuma",
+        "name:fa": "یوما",
+        "name:ru": "Юма",
+        "name:sr": "Јума",
+        "name:uk": "Юма",
+        "name:ur": "یوما",
+        "place": "city",
+        "population": "93064",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "start_date": "1853",
+        "website": "https://www.yumaaz.gov/",
+        "wikidata": "Q79820",
+        "wikipedia": "en:Yuma, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.6179954,
+          32.723268
+        ]
+      },
+      "id": "node/150981517"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150981771",
+        "ele": "570",
+        "gnis:feature_id": "24579",
+        "name": "Red Rock",
+        "place": "village",
+        "population": "2625",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q7304893",
+        "wikipedia": "en:Red Rock, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.3396181,
+          32.5692008
+        ]
+      },
+      "id": "node/150981771"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151321825",
+        "ele": "1378",
+        "gnis:feature_id": "920609",
+        "name": "Hachita",
+        "place": "village",
+        "wikidata": "Q5891026",
+        "wikipedia": "en:Hachita, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.3229631,
+          31.9168638
+        ]
+      },
+      "id": "node/151321825"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151345703",
+        "ele": "1221",
+        "gnis:feature_id": "4069",
+        "name": "Douglas",
+        "name:ru": "Дуглас",
+        "name:uk": "Дуґлас",
+        "place": "town",
+        "population": "16534",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q79878"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.5545036,
+          31.3447174
+        ]
+      },
+      "id": "node/151345703"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151362718",
+        "ele": "1343",
+        "gnis:feature_id": "885759",
+        "name": "Animas",
+        "place": "village",
+        "wikidata": "Q260083",
+        "wikipedia": "en:Animas, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.80866,
+          31.9498216
+        ]
+      },
+      "id": "node/151362718"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151364085",
+        "ele": "1271",
+        "gnis:feature_id": "7855",
+        "name": "McNeal",
+        "place": "village",
+        "wikidata": "Q5245014",
+        "wikipedia": "en:McNeal, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.6721511,
+          31.6000188
+        ]
+      },
+      "id": "node/151364085"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151367755",
+        "ele": "1822",
+        "gnis:feature_id": "920575",
+        "name": "Santa Clara",
+        "place": "village",
+        "population": "1840",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q3322256",
+        "wikipedia": "en:Santa Clara, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.150317,
+          32.7795235
+        ]
+      },
+      "id": "node/151367755"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151403876",
+        "capital": "6",
+        "ele": "1060",
+        "gnis:feature_id": "27713",
+        "name": "Clifton",
+        "place": "village",
+        "population": "2321",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q691583",
+        "wikipedia": "en:Clifton, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.296182,
+          33.0508966
+        ]
+      },
+      "id": "node/151403876"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151405142",
+        "ele": "1774",
+        "gnis:feature_id": "903614",
+        "name": "Bayard",
+        "place": "village",
+        "population": "2534",
+        "wikidata": "Q516802",
+        "wikipedia": "fr:Bayard (Nouveau-Mexique)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.130584,
+          32.7617982
+        ]
+      },
+      "id": "node/151405142"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151408617",
+        "alt_name": "City of Bisbee",
+        "capital": "6",
+        "ele": "1688",
+        "gnis:feature_id": "1436",
+        "name": "Bisbee",
+        "place": "town",
+        "wikidata": "Q79720",
+        "wikipedia": "en:Bisbee, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.9159946,
+          31.4417165
+        ]
+      },
+      "id": "node/151408617"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151434936",
+        "ele": "1147",
+        "gnis:feature_id": "1890",
+        "name": "Bowie",
+        "name:pronunciation": "ˈbuː.i",
+        "place": "village",
+        "population": "449",
+        "wikidata": "Q4950998",
+        "wikipedia": "en:Bowie, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.4870141,
+          32.3262613
+        ]
+      },
+      "id": "node/151434936"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151460494",
+        "ele": "1258",
+        "gnis:feature_id": "894117",
+        "name": "Rodeo",
+        "place": "village",
+        "population": "200",
+        "wikidata": "Q5547928",
+        "wikipedia": "en:Rodeo, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.030309,
+          31.8364383
+        ]
+      },
+      "id": "node/151460494"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151498794",
+        "ele": "1147",
+        "gnis:feature_id": "920732",
+        "name": "Virden",
+        "place": "village",
+        "population": "116",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q2407644",
+        "wikipedia": "en:Virden, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.002005,
+          32.6870176
+        ]
+      },
+      "id": "node/151498794"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151528854",
+        "capital": "6",
+        "ele": "1295",
+        "gnis:feature_id": "891335",
+        "name": "Lordsburg",
+        "place": "town",
+        "population": "3379",
+        "wikidata": "Q1018231",
+        "wikipedia": "en:Lordsburg, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.708434,
+          32.3504143
+        ]
+      },
+      "id": "node/151528854"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151586632",
+        "ele": "1744",
+        "gnis:feature_id": "920614",
+        "name": "Hurley",
+        "place": "village",
+        "population": "1377",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q3322283",
+        "wikipedia": "en:Hurley, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.131981,
+          32.6992773
+        ]
+      },
+      "id": "node/151586632"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151627973",
+        "ele": "887",
+        "gnis:feature_id": "12277",
+        "name": "Thatcher",
+        "place": "town",
+        "population": "5231",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q512101"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.759247,
+          32.8492323
+        ]
+      },
+      "id": "node/151627973"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151639300",
+        "ele": "865",
+        "gnis:feature_id": "9433",
+        "name": "Pima",
+        "place": "town",
+        "population": "2847",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q734341",
+        "wikipedia": "en:Pima, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.827581,
+          32.8961755
+        ]
+      },
+      "id": "node/151639300"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151675525",
+        "capital": "6",
+        "ele": "1809",
+        "gnis:feature_id": "920706",
+        "name": "Silver City",
+        "place": "city",
+        "population": "9704",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q985526",
+        "wikipedia": "en:Silver City, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.2764164,
+          32.7711825
+        ]
+      },
+      "id": "node/151675525"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151726210",
+        "ele": "2137",
+        "gnis:feature_id": "920663",
+        "name": "Pinos Altos",
+        "place": "village",
+        "wikidata": "Q7196410",
+        "wikipedia": "en:Pinos Altos, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.2214362,
+          32.8634067
+        ]
+      },
+      "id": "node/151726210"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151801464",
+        "ele": "1210",
+        "gnis:feature_id": "9538",
+        "name": "Pirtleville",
+        "place": "village",
+        "population": "1550",
+        "wikidata": "Q2093699",
+        "wikipedia": "en:Pirtleville, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.568691,
+          31.359587
+        ]
+      },
+      "id": "node/151801464"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151919170",
+        "ele": "1114",
+        "gnis:feature_id": "4189",
+        "name": "Duncan",
+        "place": "village",
+        "population": "732",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q985303",
+        "wikipedia": "en:Duncan, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.100448,
+          32.7151776
+        ]
+      },
+      "id": "node/151919170"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151939670",
+        "ele": "1447",
+        "gnis:feature_id": "32021",
+        "name": "Morenci",
+        "place": "town",
+        "wikidata": "Q1249583",
+        "wikipedia": "en:Morenci, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.32598,
+          33.0512895
+        ]
+      },
+      "id": "node/151939670"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151942412",
+        "capital": "6",
+        "gnis:feature_id": "10657",
+        "name": "Safford",
+        "place": "city",
+        "population": "10129",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q79767",
+        "wikipedia": "en:Safford, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.7131818,
+          32.8332254
+        ]
+      },
+      "id": "node/151942412"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151948552",
+        "ele": "1106",
+        "gnis:feature_id": "10856",
+        "name": "San Simon",
+        "name:pronunciation": "ˈsæn sɪˈmoʊn",
+        "place": "village",
+        "population": "165",
+        "wikidata": "Q5245006",
+        "wikipedia": "en:San Simon, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.2270613,
+          32.2665117
+        ]
+      },
+      "id": "node/151948552"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151965470",
+        "ele": "1405",
+        "gnis:feature_id": "8475",
+        "name": "Naco",
+        "place": "village",
+        "wikidata": "Q1862064",
+        "wikipedia": "en:Naco, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.947825,
+          31.3373721
+        ]
+      },
+      "id": "node/151965470"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/299491891",
+        "name": "Agua Prieta",
+        "name:en": "Agua Prieta",
+        "name:ru": "Агуа-Приета",
+        "place": "city",
+        "population": "91029",
+        "population:date": "2020",
+        "source:population": "https://mexico.pueblosamerica.com/i/agua-prieta-14/",
+        "wikidata": "Q397759",
+        "wikipedia": "es:Agua Prieta"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.5564331,
+          31.3305591
+        ]
+      },
+      "id": "node/299491891"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/316791163",
+        "alt_name": "Nogales",
+        "name": "Heroica Nogales",
+        "name:ru": "Эройка-Ногалес",
+        "place": "city",
+        "population": "261137",
+        "population:date": "2020",
+        "source": "https://mexico.pueblosamerica.com/i/heroica-nogales/",
+        "source:population": "https://www.inegi.org.mx/programas/ccpv/2020/#Datos_abiertos",
+        "wikidata": "Q990001",
+        "wikipedia": "en:Nogales, Sonora"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9450472,
+          31.3285057
+        ]
+      },
+      "id": "node/316791163"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/331862912",
+        "ele": "309",
+        "gnis:feature_id": "12564",
+        "name": "Tolleson",
+        "name:uk": "Толлісон",
+        "place": "town",
+        "population": "7216",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "http://www.tollesonaz.org",
+        "wikidata": "Q79898",
+        "wikipedia": "en:Tolleson, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.259309,
+          33.4500497
+        ]
+      },
+      "id": "node/331862912"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132844",
+        "addr:postcode": "83400",
+        "name": "San Luis Río Colorado",
+        "place": "city",
+        "population": "176685",
+        "population:date": "2020",
+        "source:population": "https://www.inegi.org.mx/programas/ccpv/2020/#Datos_abiertos",
+        "wikidata": "Q995380"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.7816893,
+          32.4822164
+        ]
+      },
+      "id": "node/333132844"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132897",
+        "addr:postcode": "83570",
+        "alt_name": "Sonoita",
+        "name": "Sonoyta",
+        "name:en": "Sonoyta",
+        "name:es": "Sonoyta",
+        "place": "town",
+        "population": "11440",
+        "population:date": "2020",
+        "source:population": "https://www.inegi.org.mx/programas/ccpv/2020/#Datos_abiertos",
+        "website": "https://sonoyta.gob.mx/",
+        "wikidata": "Q992883",
+        "wikipedia": "es:Sonoyta"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.849739,
+          31.863444
+        ]
+      },
+      "id": "node/333132897"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132923",
+        "name": "Naco",
+        "place": "town",
+        "population": "5485",
+        "population:date": "2020",
+        "source": "https://mexico.pueblosamerica.com/i/naco/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.9459547,
+          31.3229703
+        ]
+      },
+      "id": "node/333132923"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333154553",
+        "addr:postcode": "83550",
+        "name": "Puerto Peñasco",
+        "name:en": "Rocky Point",
+        "name:es": "Puerto Peñasco",
+        "place": "city",
+        "population": "56756",
+        "wikidata": "Q746968",
+        "wikipedia": "es:Puerto Peñasco"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.531819,
+          31.3170867
+        ]
+      },
+      "id": "node/333154553"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333154585",
+        "name": "Golfo de Santa Clara",
+        "place": "town",
+        "population": "3967",
+        "source:population": "https://mexico.pueblosamerica.com/i/golfo-de-santa-clara/",
+        "wikidata": "Q5882441"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.494228,
+          31.687739
+        ]
+      },
+      "id": "node/333154585"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/335576580",
+        "alt_name": "City of Avondale",
+        "ele": "297",
+        "gnis:feature_id": "895",
+        "name": "Avondale",
+        "name:en": "Avondale",
+        "name:uk": "Ейвондейл",
+        "place": "city",
+        "population": "89334",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://www.avondaleaz.gov/",
+        "wikidata": "Q79449",
+        "wikimedia_commons": "File:Avondale-Avondale entrance.jpg",
+        "wikipedia": "en:Avondale, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.349602,
+          33.4355977
+        ]
+      },
+      "id": "node/335576580"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/335576581",
+        "ele": "295",
+        "gnis:feature_id": "5172",
+        "name": "Goodyear",
+        "name:ru": "Гудиер",
+        "name:uk": "Гуд'їр",
+        "place": "city",
+        "population": "95294",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q79457",
+        "wikimedia_commons": "File:Goodyear City Hall 2023.jpg",
+        "wikipedia": "en:Goodyear, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.3842224,
+          33.4674695
+        ]
+      },
+      "id": "node/335576581"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336144135",
+        "is_in": "Agua Prieta,Sonora,Mexico",
+        "name": "El Rusbayo",
+        "place": "village",
+        "population": "187",
+        "source": "https://mexico.pueblosamerica.com/i/el-rusbayo/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.2819639,
+          31.0036584
+        ]
+      },
+      "id": "node/336144135"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336165311",
+        "name": "Las Delicias",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7741667,
+          31.1026667
+        ]
+      },
+      "id": "node/336165311"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336165317",
+        "name": "Los Gavilanes",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.942,
+          31.0026667
+        ]
+      },
+      "id": "node/336165317"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336165754",
+        "name": "Los Federicos",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.777377,
+          31.1075767
+        ]
+      },
+      "id": "node/336165754"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166132",
+        "name": "La Salada (Luis Sotelo)",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.1196297,
+          31.1026589
+        ]
+      },
+      "id": "node/336166132"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166181",
+        "name": "La Margarita",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.097503,
+          31.1403409
+        ]
+      },
+      "id": "node/336166181"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166265",
+        "name": "La Milpa de Juan",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7413333,
+          31.1531667
+        ]
+      },
+      "id": "node/336166265"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166269",
+        "name": "Tres Puertas",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0055687,
+          31.1708007
+        ]
+      },
+      "id": "node/336166269"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166392",
+        "name": "El Carrizal",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.7015,
+          31.0518333
+        ]
+      },
+      "id": "node/336166392"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166432",
+        "name": "El Futuro",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0425,
+          31.0081667
+        ]
+      },
+      "id": "node/336166432"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336166704",
+        "name": "Santa Rosalia",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0835,
+          31.118
+        ]
+      },
+      "id": "node/336166704"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336167185",
+        "name": "El Ejemplo",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.2795453,
+          31.5127013
+        ]
+      },
+      "id": "node/336167185"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336167339",
+        "name": "El Sahuaro",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.9383219,
+          31.0511232
+        ]
+      },
+      "id": "node/336167339"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336167754",
+        "name": "Juan Álvarez",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.8075015,
+          31.1697244
+        ]
+      },
+      "id": "node/336167754"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336168589",
+        "name": "SPR Porfiria Tovar",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.1911667,
+          31.117
+        ]
+      },
+      "id": "node/336168589"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336168786",
+        "name": "Jose María Morelos y Pavón (Sauceda)",
+        "place": "village",
+        "population": "116",
+        "source": "https://mexico.pueblosamerica.com/i/jose-maria-morelos-y-pavon-sauceda/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.2249195,
+          31.2138165
+        ]
+      },
+      "id": "node/336168786"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336168794",
+        "is_in": "Cananea,Sonora,Mexico",
+        "name": "Ignacio Zaragoza (La Mesa)",
+        "place": "village",
+        "population": "266"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.1069454,
+          31.084155
+        ]
+      },
+      "id": "node/336168794"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336168797",
+        "is_in": "Cananea,Sonora,Mexico",
+        "name": "Cuitaca",
+        "place": "village",
+        "population": "424"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.4920003,
+          31.0052714
+        ]
+      },
+      "id": "node/336168797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336168798",
+        "is_in": "Cananea,Sonora,Mexico",
+        "name": "Emiliano Zapata",
+        "place": "village",
+        "population": "155"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.1669549,
+          31.031742
+        ]
+      },
+      "id": "node/336168798"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336170435",
+        "is_in": "Imuris,Sonora,Mexico",
+        "name": "Los Fresnos",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.6735,
+          31.0408333
+        ]
+      },
+      "id": "node/336170435"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336170576",
+        "is_in": "Imuris,Sonora,Mexico",
+        "name": "La Concordia",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.6175,
+          31.0246667
+        ]
+      },
+      "id": "node/336170576"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336171343",
+        "name": "Cuauhtémoc",
+        "place": "village",
+        "population": "189"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.9720594,
+          31.1651504
+        ]
+      },
+      "id": "node/336171343"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336171372",
+        "name": "San Pedro",
+        "place": "village",
+        "population": "108",
+        "source": "https://mexico.pueblosamerica.com/i/san-pedro-202/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.1882938,
+          31.2382981
+        ]
+      },
+      "id": "node/336171372"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336173424",
+        "is_in": "Nogales,Sonora,Mexico",
+        "name": "Ejido Cíbuta Sector 2",
+        "place": "village",
+        "source": "https://mexico.pueblosamerica.com/i/ejido-cibuta-sector-dos/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9301292,
+          31.1259631
+        ]
+      },
+      "id": "node/336173424"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336173475",
+        "name": "Rancho el 22 (Ejido Cíbuta)",
+        "place": "village",
+        "population": "216",
+        "source": "https://mexico.pueblosamerica.com/i/rancho-el-22-ejido-cibuta/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9471311,
+          31.1527215
+        ]
+      },
+      "id": "node/336173475"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336173545",
+        "alt_name": "Francisco Miguel Cárdenas Valdez",
+        "name": "Cárdenas Valdez (Mascareñas)",
+        "place": "village",
+        "population": "541"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.7931742,
+          31.2744144
+        ]
+      },
+      "id": "node/336173545"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336173592",
+        "name": "Jirahui",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.2162086,
+          31.098061
+        ]
+      },
+      "id": "node/336173592"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336173606",
+        "is_in": "Nogales,Sonora,Mexico",
+        "name": "Cíbuta",
+        "place": "village",
+        "population": "675"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.8979683,
+          31.0619755
+        ]
+      },
+      "id": "node/336173606"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336173780",
+        "name": "El Batamote",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.6393333,
+          31.0205
+        ]
+      },
+      "id": "node/336173780"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336176492",
+        "name": "Las Conchas",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.4868977,
+          31.2891847
+        ]
+      },
+      "id": "node/336176492"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336176530",
+        "name": "Las Lágrimas",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.481776,
+          31.4118192
+        ]
+      },
+      "id": "node/336176530"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336176777",
+        "name": "Lomas Campestres",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.5439886,
+          31.3845882
+        ]
+      },
+      "id": "node/336176777"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336176986",
+        "name": "Agua Zarca",
+        "place": "village",
+        "source": "https://www.inegi.org.mx/temas/topografia/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.4274929,
+          31.4871231
+        ]
+      },
+      "id": "node/336176986"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179795",
+        "name": "Independencia",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9240513,
+          32.2488713
+        ]
+      },
+      "id": "node/336179795"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179824",
+        "name": "Mesa Rica",
+        "place": "village",
+        "population": "497"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9232274,
+          32.1346485
+        ]
+      },
+      "id": "node/336179824"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179844",
+        "name": "Las Adelitas",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.6645477,
+          32.4337206
+        ]
+      },
+      "id": "node/336179844"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179893",
+        "name": "El Fronterizo",
+        "place": "village",
+        "population": "324"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8917388,
+          32.2754411
+        ]
+      },
+      "id": "node/336179893"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179927",
+        "name": "Nuevo Michoacán",
+        "old_name": "Estación Riíto",
+        "place": "village",
+        "population": "1425"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9623104,
+          32.1644246
+        ]
+      },
+      "id": "node/336179927"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179970",
+        "name": "Islita",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.867,
+          32.3833333
+        ]
+      },
+      "id": "node/336179970"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179979",
+        "name": "Lagunitas",
+        "place": "village",
+        "population": "1019"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8949117,
+          32.3194742
+        ]
+      },
+      "id": "node/336179979"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336179991",
+        "name": "Emiliano Zapata",
+        "place": "village",
+        "population": "282"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9869796,
+          32.239501
+        ]
+      },
+      "id": "node/336179991"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336181002",
+        "name": "Mesa Rica Dos",
+        "place": "village",
+        "population": "489"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.946882,
+          32.1527789
+        ]
+      },
+      "id": "node/336181002"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336182495",
+        "name": "Río Norte",
+        "place": "village",
+        "population": "409"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.947402,
+          32.2716383
+        ]
+      },
+      "id": "node/336182495"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336183874",
+        "name": "El Barrote",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9245493,
+          32.3517975
+        ]
+      },
+      "id": "node/336183874"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185073",
+        "is_in": "Santa Cruz,Sonora,Mexico",
+        "name": "La Colorada",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.6515,
+          31.0683333
+        ]
+      },
+      "id": "node/336185073"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185221",
+        "name": "El Sásabe",
+        "name:es": "El Sásabe",
+        "place": "town",
+        "population": "1295",
+        "wikidata": "Q2377929"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.5450714,
+          31.4742939
+        ]
+      },
+      "id": "node/336185221"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185777",
+        "name": "Santa Cruz",
+        "name:el": "Σάντα Κρουζ",
+        "place": "town",
+        "population": "1038",
+        "source": "https://mexico.pueblosamerica.com/i/santa-cruz-249/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.596568,
+          31.2325445
+        ]
+      },
+      "id": "node/336185777"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185856",
+        "name": "Miguel Hidalgo (San Lázaro)",
+        "place": "village",
+        "population": "640"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.6440157,
+          31.1451869
+        ]
+      },
+      "id": "node/336185856"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185859",
+        "is_in": "Santa Cruz,Sonora,Mexico",
+        "name": "Milpillas",
+        "place": "village",
+        "population": "172"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.4500836,
+          31.1090885
+        ]
+      },
+      "id": "node/336185859"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336188719",
+        "name": "San Juan",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.5428384,
+          31.1032743
+        ]
+      },
+      "id": "node/336188719"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336188724",
+        "name": "Las Tranquitas (El Ranchito)",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.4881667,
+          31.0346667
+        ]
+      },
+      "id": "node/336188724"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336189557",
+        "name": "El Desierto de Sonora",
+        "place": "village",
+        "population": "1188"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.7514129,
+          31.8199358
+        ]
+      },
+      "id": "node/336189557"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336189560",
+        "name": "La Nariz",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.4587168,
+          31.6616212
+        ]
+      },
+      "id": "node/336189560"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336189680",
+        "name": "Adolfo López Mateos",
+        "place": "village",
+        "population": "215",
+        "population:date": "2020"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.7874629,
+          31.8686234
+        ]
+      },
+      "id": "node/336189680"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336189718",
+        "name": "Colinas de Sonoyta",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.8540532,
+          31.8838884
+        ]
+      },
+      "id": "node/336189718"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336189828",
+        "name": "Morelia",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.91306,
+          31.9053042
+        ]
+      },
+      "id": "node/336189828"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/354931165",
+        "name": "San Felipe",
+        "name:en": "San Felipe",
+        "name:ru": "Сан-Фелипе",
+        "place": "town",
+        "population": "17143",
+        "population:date": "2020",
+        "source": "http://gaia.inegi.org.mx/mdm6/?v=bGF0OjMxLjAxMTQxLGxvbjotMTE0LjgzNTA0LHo6OSxsOmMxMTFzZXJ2aWNpb3N8dGMxMTFzZXJ2aWNpb3M=",
+        "source:population": "https://www.inegi.org.mx/programas/ccpv/2020/#Datos_abiertos",
+        "wikidata": "Q586007",
+        "wikipedia": "en:San Felipe, Baja California"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.839607,
+          31.0269529
+        ]
+      },
+      "id": "node/354931165"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/608510493",
+        "ele": "370",
+        "gnis:feature_id": "2748",
+        "name": "Chandler",
+        "name:en": "Chandler",
+        "name:lt": "Čandleris",
+        "name:ru": "Чандлер",
+        "name:uk": "Чандлер",
+        "place": "city",
+        "population": "275987",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q49272",
+        "wikimedia_commons": "File:Neighborhoods in the City of Chandler.jpg",
+        "wikipedia": "en:Chandler, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.841185,
+          33.3062031
+        ]
+      },
+      "id": "node/608510493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1363069597",
+        "community": "Mennonite",
+        "community:wikidata": "Q110223",
+        "community:wikipedia": "en:Mennonites",
+        "denomination": "mennonite",
+        "name": "Colonia el Camello",
+        "place": "village",
+        "population": "291",
+        "religion": "christian",
+        "source": "https://mexico.pueblosamerica.com/i/colonia-el-camello/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.1683535,
+          31.4717636
+        ]
+      },
+      "id": "node/1363069597"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1989023349",
+        "addr:postcode": "85643",
+        "name": "Willcox",
+        "name:uk": "Віллкокс",
+        "place": "town",
+        "population": "3769",
+        "website": "https://www.cityofwillcox.org/",
+        "wikidata": "Q79450",
+        "wikipedia": "en:Willcox, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.8315759,
+          32.2529138
+        ]
+      },
+      "id": "node/1989023349"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2047358283",
+        "name": "El Indiviso",
+        "place": "village",
+        "population": "1009",
+        "population:date": "2010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9846534,
+          32.0249087
+        ]
+      },
+      "id": "node/2047358283"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2144938793",
+        "name": "Colonia Francisco Santana Peralta",
+        "place": "village",
+        "population": "1089"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.7545534,
+          32.6800222
+        ]
+      },
+      "id": "node/2144938793"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2144938820",
+        "alt_name": "Vicente Guerrero",
+        "alt_name:es": "Vicente Guerrero",
+        "name": "Los Algodones",
+        "name:es": "Los Algodones",
+        "name:ru": "Лос-Альгодонес",
+        "place": "town",
+        "population": "8214",
+        "population:date": "2018",
+        "short_name": "Algodones",
+        "short_name:es": "Algodones",
+        "wikidata": "Q1492862",
+        "wikipedia": "es:Algodones"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.734035,
+          32.7129388
+        ]
+      },
+      "id": "node/2144938820"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2144945352",
+        "name": "Ejido República Mexicana",
+        "place": "village",
+        "population": "1057"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.7979138,
+          32.6460784
+        ]
+      },
+      "id": "node/2144945352"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2866599497",
+        "name": "Fraccionamiento Palos Verdes",
+        "place": "village",
+        "source": "INEGI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9124455,
+          31.1083875
+        ]
+      },
+      "id": "node/2866599497"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2866670047",
+        "name": "Ejido Plan Nacional Agrario",
+        "place": "village",
+        "population": "692",
+        "source": "INEGI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8876728,
+          31.0813067
+        ]
+      },
+      "id": "node/2866670047"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3174331488",
+        "addr:city": "Goodyear",
+        "addr:state": "AZ",
+        "ele": "403",
+        "name": "Mobile",
+        "place": "village",
+        "population": "100",
+        "source": "http://en.wikipedia.org/wiki/Mobile,_Arizona",
+        "source:population": "wikipedia",
+        "wikidata": "Q1941449",
+        "wikipedia": "en:Mobile, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.270457,
+          33.0579792
+        ]
+      },
+      "id": "node/3174331488"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3641586015",
+        "name": "Ejido Tabasco",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9268909,
+          32.5614358
+        ]
+      },
+      "id": "node/3641586015"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3850613957",
+        "ele": "27",
+        "name": "Benito Juárez",
+        "place": "town",
+        "population": "4197",
+        "population:date": "2020",
+        "wikidata": "Q15148890",
+        "wikipedia": "es:Tecolotes (Baja California)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.994789,
+          32.5684046
+        ]
+      },
+      "id": "node/3850613957"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3850619958",
+        "name": "Ciudad Morelos (Cuervos)",
+        "place": "town",
+        "population": "11174",
+        "population:date": "2018"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8578665,
+          32.6305143
+        ]
+      },
+      "id": "node/3850619958"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3850620257",
+        "name": "Poblado Paredones",
+        "place": "town",
+        "population": "4245",
+        "population:date": "2018"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9275442,
+          32.6045046
+        ]
+      },
+      "id": "node/3850620257"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3852185305",
+        "name": "Poblado Puente Treviño",
+        "place": "village",
+        "population": "1007"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9856426,
+          32.5947596
+        ]
+      },
+      "id": "node/3852185305"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3852189078",
+        "name": "Ejido México",
+        "place": "village",
+        "population": "129"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9773382,
+          32.515001
+        ]
+      },
+      "id": "node/3852189078"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3852200321",
+        "name": "Ejido Hermosillo",
+        "place": "town",
+        "population": "8967",
+        "population:date": "2018"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9230875,
+          32.5112304
+        ]
+      },
+      "id": "node/3852200321"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3853816242",
+        "name": "Ejido Chiapas",
+        "place": "village",
+        "population": "1109"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9621717,
+          32.4993053
+        ]
+      },
+      "id": "node/3853816242"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3853818388",
+        "name": "Ejido Mezquital",
+        "place": "village",
+        "population": "1058"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8897728,
+          32.4976293
+        ]
+      },
+      "id": "node/3853818388"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3853818729",
+        "name": "Colonia Miguel Alemán",
+        "place": "village",
+        "population": "541"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8177401,
+          32.4925729
+        ]
+      },
+      "id": "node/3853818729"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3853820067",
+        "name": "Poblado Janitzio",
+        "place": "village",
+        "population": "1116"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8536224,
+          32.5271791
+        ]
+      },
+      "id": "node/3853820067"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3853820081",
+        "name": "Ejido Guadalajara",
+        "place": "village",
+        "population": "1119"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8655484,
+          32.5453406
+        ]
+      },
+      "id": "node/3853820081"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3853821871",
+        "name": "Ejido Tepic",
+        "place": "village",
+        "population": "184"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8423028,
+          32.5812451
+        ]
+      },
+      "id": "node/3853821871"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3855828882",
+        "name": "Colonia Granados",
+        "place": "village",
+        "population": "1039"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8245321,
+          32.6123305
+        ]
+      },
+      "id": "node/3855828882"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3855831157",
+        "name": "Ejido Puente Calabazas",
+        "place": "village",
+        "population": "581"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8306904,
+          32.6062211
+        ]
+      },
+      "id": "node/3855831157"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3855831757",
+        "name": "Colonia 5 De Mayo",
+        "place": "village",
+        "population": "1103"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8194037,
+          32.6217468
+        ]
+      },
+      "id": "node/3855831757"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3855831758",
+        "name": "Colonia Reyes De Reforma",
+        "place": "village",
+        "population": "206"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8051343,
+          32.6319031
+        ]
+      },
+      "id": "node/3855831758"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3855832657",
+        "alt_name": "Ejido General J. Gertrudis García Sánchez",
+        "name": "García Sánchez",
+        "place": "village",
+        "population": "1003"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.7861856,
+          32.6550839
+        ]
+      },
+      "id": "node/3855832657"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3942708741",
+        "name": "Benito Juarez",
+        "place": "village",
+        "population": "2284"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9925522,
+          32.5688892
+        ]
+      },
+      "id": "node/3942708741"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3942715377",
+        "name": "Campeche",
+        "place": "village",
+        "population": "3047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9983688,
+          32.5645288
+        ]
+      },
+      "id": "node/3942715377"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3942715386",
+        "name": "Piedras Negras",
+        "place": "village",
+        "population": "1072"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9983044,
+          32.5714006
+        ]
+      },
+      "id": "node/3942715386"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4032140473",
+        "name": "Ingeniero Luis B. Sánchez",
+        "place": "town",
+        "population": "5560",
+        "source": "https://mexico.pueblosamerica.com/i/ingeniero-luis-b-sanchez/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9964782,
+          32.2014564
+        ]
+      },
+      "id": "node/4032140473"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4156636680",
+        "name": "Villa Hermosa",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9749672,
+          32.638369
+        ]
+      },
+      "id": "node/4156636680"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4523643429",
+        "name": "Avenue B & C",
+        "place": "village",
+        "population": "4176"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.6618177,
+          32.7181524
+        ]
+      },
+      "id": "node/4523643429"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4910980629",
+        "name": "Playa Blanca",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8678123,
+          31.0844283
+        ]
+      },
+      "id": "node/4910980629"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4919077011",
+        "alt_name": "Kilómetro Cincuenta y Siete",
+        "name": "Ciudad Coahuila",
+        "place": "town",
+        "population": "6101",
+        "population:date": "2018"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9989962,
+          32.1914312
+        ]
+      },
+      "id": "node/4919077011"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6140939865",
+        "alt_name": "Cholla Bay",
+        "name": "Bahía La Choya",
+        "place": "village",
+        "wikidata": "Q49858463"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.6359619,
+          31.3415862
+        ]
+      },
+      "id": "node/6140939865"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6140973644",
+        "name": "Valdez",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.5427621,
+          31.7017323
+        ]
+      },
+      "id": "node/6140973644"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6145515286",
+        "name": "División del Norte 1",
+        "place": "village",
+        "population": "104",
+        "source": "https://mexico.pueblosamerica.com/i/colonia-division-del-norte-uno/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.3650471,
+          31.6477619
+        ]
+      },
+      "id": "node/6145515286"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6815052561",
+        "alt_name": "City of Buckeye",
+        "ele": "265",
+        "gnis:feature_id": "2081",
+        "name": "Buckeye",
+        "place": "city",
+        "population": "91502",
+        "population:date": "2020",
+        "population:source": "2020 Census",
+        "source:population": "wikipedia",
+        "wikidata": "Q986528",
+        "wikimedia_commons": "File:Buckeye-Downtown Monroe Ave.jpg",
+        "wikipedia": "en:Buckeye, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.583776,
+          33.3703197
+        ]
+      },
+      "id": "node/6815052561"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6952960938",
+        "name": "La Mesa",
+        "place": "town",
+        "population": "2996",
+        "source": "https://mexico.pueblosamerica.com/i/la-mesa-178/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9774779,
+          31.1586462
+        ]
+      },
+      "id": "node/6952960938"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7005115516",
+        "name": "Ejido Mérida",
+        "place": "village",
+        "population": "505"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9191802,
+          32.6607006
+        ]
+      },
+      "id": "node/7005115516"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7005149235",
+        "name": "Chiapas 2 (Las Cachoras)",
+        "place": "village",
+        "population": "466"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.971445,
+          32.469356
+        ]
+      },
+      "id": "node/7005149235"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7010205243",
+        "name": "Sáric",
+        "place": "village",
+        "population": "892"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.37957,
+          31.1032864
+        ]
+      },
+      "id": "node/7010205243"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7012764645",
+        "name": "Cerro Prieto",
+        "place": "village",
+        "population": "353"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.3952227,
+          31.0194038
+        ]
+      },
+      "id": "node/7012764645"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7030406020",
+        "alt_name": "Colonia José María Rodríguez Mérida",
+        "name": "La Panga",
+        "place": "village",
+        "population": "1275"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8467539,
+          32.6410395
+        ]
+      },
+      "id": "node/7030406020"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7037465762",
+        "name": "Janitizio 2",
+        "place": "village",
+        "population": "213"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8347146,
+          32.5371832
+        ]
+      },
+      "id": "node/7037465762"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7037481744",
+        "name": "Colonia Canal Álamo",
+        "place": "village",
+        "population": "206"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8738465,
+          32.6319783
+        ]
+      },
+      "id": "node/7037481744"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9435835019",
+        "name": "Pascua Pueblo",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.071054,
+          32.1129662
+        ]
+      },
+      "id": "node/9435835019"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9438427923",
+        "name": "San Xavier / Wa:k",
+        "name:en": "San Xavier",
+        "name:ood": "Wa:k",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.013981,
+          32.1036996
+        ]
+      },
+      "id": "node/9438427923"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9441094944",
+        "name": "Cocopah",
+        "place": "village"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.7665468,
+          32.620222
+        ]
+      },
+      "id": "node/9441094944"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9454408889",
+        "gnis:feature_id": "2407620",
+        "name": "Cibola",
+        "place": "village",
+        "population": "198",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q1091546",
+        "wikipedia": "en:Cibola, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.665999,
+          33.3758167
+        ]
+      },
+      "id": "node/9454408889"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9934100483",
+        "name": "Saddlebrooke",
+        "place": "village",
+        "population": "12574",
+        "website": "https://saddlebrookecommunity.wordpress.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.880573,
+          32.5347527
+        ]
+      },
+      "id": "node/9934100483"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9989930352",
+        "ele": "1236",
+        "gnis:feature_id": "32726",
+        "name": "Patagonia",
+        "place": "village",
+        "population": "804",
+        "population:date": "2020",
+        "source:population": "https://data.census.gov/table?g=1600000US0453490&tid=DECENNIALPL2020.P1",
+        "wikidata": "Q1024689",
+        "wikipedia": "en:Patagonia, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.753927,
+          31.5402016
+        ]
+      },
+      "id": "node/9989930352"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11367517880",
+        "name": "Estrella",
+        "place": "village",
+        "population": "21000",
+        "population:date": "2023",
+        "source": "http://homesinestrellamountain.com/wp-content/uploads/2014/04/ESTRELLA-COMMUNITY-MAP.jpg",
+        "source:population": "wikipedia",
+        "start_date": "1986",
+        "wikidata": "Q5401797",
+        "wikipedia": "en:Estrella, Goodyear"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.4226468,
+          33.3321719
+        ]
+      },
+      "id": "node/11367517880"
+    }
+  ]
+}
