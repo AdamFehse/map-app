@@ -68,7 +68,7 @@ export default function Map() {
       if (marker) {
         const popupContent = document.createElement("div");
         // We will use a simple class here and let the CSS handle the rest.
-        popupContent.className = "responsive-popup-content"; 
+        popupContent.className = "responsive-popup-content";
 
         popupContent.innerHTML = `
             <img 
@@ -77,7 +77,9 @@ export default function Map() {
               class="popup-image" 
             />
             <strong class="popup-title">${project.Name}</strong>
-            <p class="popup-description">${project.DescriptionShort || project.Description || ''}</p>
+            <p class="popup-description">${
+              project.DescriptionShort || project.Description || ""
+            }</p>
             <button id="more-details-${index}" class="popup-button">
               More Details
             </button>
@@ -137,8 +139,6 @@ export default function Map() {
 
   return (
     <div className="map-container">
-
-
       <MapContainer
         center={tucsonCenter}
         zoom={11}
@@ -147,10 +147,12 @@ export default function Map() {
         <TileLayer
           url={
             isDarkMode
-              ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
               : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           }
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution="Imagery provided by NASA GIBS, OpenStreetMap contributors"
+          minZoom={0}
+          maxZoom={20}
         />
         {filteredProjects?.map((project, index) => {
           const key = `${project.Name}-${index}`;

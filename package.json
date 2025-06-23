@@ -22,6 +22,7 @@
   "dependencies": {
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
+    "@tsparticles/react": "^3.0.0",
     "@types/leaflet-responsive-popup": "^0.6.4",
     "bootstrap": "^5.3.3",
     "d3": "^7.9.0",
@@ -39,7 +40,9 @@
     "react-medium-image-zoom": "^5.2.13",
     "react-papaparse": "^4.4.0",
     "react-pro-sidebar": "^1.1.0",
-    "rewind-ui": "^0.0.6"
+    "react-tsparticles": "^2.12.2",
+    "rewind-ui": "^0.0.6",
+    "tsparticles": "^3.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

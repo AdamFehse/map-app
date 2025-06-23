@@ -34,6 +34,7 @@ import {
 } from "@mui/icons-material";
 import ProjectDropdown from "./ProjectDropdown";
 import { useDarkMode } from "../contexts/DarkModeContext";
+import { Particles } from "@tsparticles/react";
 
 // Add global styles for keyframes
 const globalStyles = `
@@ -90,6 +91,36 @@ const globalStyles = `
     }
   }
 `;
+
+function SidebarParticles() {
+  return (
+    <Particles
+      options={{
+        background: { color: "#23293a" },
+        particles: {
+          number: { value: 18, density: { enable: false } },
+          color: { value: "#fff" },
+          opacity: { value: 0.07 },
+          size: { value: 2 },
+          links: { enable: true, color: "#fff", opacity: 0.12, width: 1 },
+          move: { enable: true, speed: 0.15, direction: "none", random: true, straight: false, outModes: { default: "out" } }
+        },
+        interactivity: {
+          events: { onHover: { enable: true, mode: "repulse" } },
+          modes: { repulse: { distance: 80, duration: 0.4 } }
+        },
+        fullScreen: { enable: false },
+        detectRetina: true
+      }}
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: "none"
+      }}
+    />
+  );
+}
 
 export default function MiniSidebar({
   filteredProjects,
@@ -161,10 +192,8 @@ export default function MiniSidebar({
   };
 
   return (
-    <>
-      {/* Add global styles */}
-      <style>{globalStyles}</style>
-      
+    <div style={{ position: "relative", height: "100%" }}>
+      <SidebarParticles />
       {/* Permanent Drawer */}
       <Drawer
         variant="permanent"
@@ -324,6 +353,6 @@ export default function MiniSidebar({
           })}
         </List>
       </Drawer>
-    </>
+    </div>
   );
 }
