@@ -11,6 +11,7 @@ import ProjectModal from "./ProjectModal";
 import * as R from "leaflet-responsive-popup";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import ProjectPathsD3Layer from "./ProjectPathsD3Layer";
+import AzBorderD3Layer from "./AzBorderD3Layer";
 
 // default center
 const tucsonCenter = [32.2217, -110.9265];
@@ -32,7 +33,8 @@ const selectedIcon = divIcon({
 });
 
 export default function Map() {
-  const { projects, filteredProjects, filterProjects, categories } = useProjects();
+  const { projects, filteredProjects, filterProjects, categories } =
+    useProjects();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,13 +48,15 @@ export default function Map() {
   const handleMoreDetails = (project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
-    window.location.hash = `project=${encodeURIComponent(project.Name)}&lat=${project.Latitude}&lng=${project.Longitude}`;
+    window.location.hash = `project=${encodeURIComponent(project.Name)}&lat=${
+      project.Latitude
+    }&lng=${project.Longitude}`;
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
-    window.location.hash = '';
+    window.location.hash = "";
   };
 
   const handleCategorySelect = (category) => {
@@ -61,7 +65,7 @@ export default function Map() {
     if (category) {
       window.location.hash = `category=${encodeURIComponent(category)}`;
     } else {
-      window.location.hash = '';
+      window.location.hash = "";
     }
   };
 
@@ -80,9 +84,9 @@ export default function Map() {
   useEffect(() => {
     const updateStateFromHash = () => {
       const params = new URLSearchParams(window.location.hash.slice(1));
-      const projectParam = params.get('project');
-      const categoryParam = params.get('category');
-      const selectedParam = params.get('selected');
+      const projectParam = params.get("project");
+      const categoryParam = params.get("category");
+      const selectedParam = params.get("selected");
 
       if (categoryParam) {
         setSelectedCategory(categoryParam);
@@ -90,7 +94,7 @@ export default function Map() {
       }
 
       if (projectParam && filteredProjects) {
-        const project = filteredProjects.find(p => p.Name === projectParam);
+        const project = filteredProjects.find((p) => p.Name === projectParam);
         if (project) {
           setSelectedProject(project);
           setIsModalOpen(true);
@@ -101,7 +105,7 @@ export default function Map() {
       }
 
       if (selectedParam && filteredProjects) {
-        const project = filteredProjects.find(p => p.Name === selectedParam);
+        const project = filteredProjects.find((p) => p.Name === selectedParam);
         if (project) {
           const index = filteredProjects.indexOf(project);
           const key = `${project.Name}-${index}`;
@@ -115,8 +119,8 @@ export default function Map() {
     };
 
     updateStateFromHash();
-    window.addEventListener('hashchange', updateStateFromHash);
-    return () => window.removeEventListener('hashchange', updateStateFromHash);
+    window.addEventListener("hashchange", updateStateFromHash);
+    return () => window.removeEventListener("hashchange", updateStateFromHash);
   }, [filteredProjects]);
 
   // Attach popups to markers
@@ -168,9 +172,9 @@ export default function Map() {
           // Reset the marker when popup closes
           marker.setIcon(defaultIcon);
           setSelectedMarker(null);
-          
+
           // Remove selection from URL
-          window.location.hash = '';
+          window.location.hash = "";
         });
 
         // Add event listener for the button
@@ -185,7 +189,10 @@ export default function Map() {
   }, [filteredProjects, isDarkMode]);
 
   return (
-    <div className="map-container" style={{ position: "relative", height: "100vh", width: "100%" }}>
+    <div
+      className="map-container"
+      style={{ position: "relative", height: "100vh", width: "100%" }}
+    >
       <MapContainer
         center={tucsonCenter}
         zoom={11}
@@ -226,7 +233,9 @@ export default function Map() {
 
         {/* voronoi layer */}
         <ProjectPathsD3Layer />
-
+        {/* /components/AzBorderD3Layer */}
+        <AzBorderD3Layer />
+        
       </MapContainer>
       <div
         className="map-color-overlay"
