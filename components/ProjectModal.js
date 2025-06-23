@@ -11,7 +11,7 @@ import {
   Divider,
   IconButton,
 } from '@mui/material';
-import Grid2 from '@mui/material/Grid2'; // Modern Grid2 instead of deprecated Grid
+import Grid2 from '@mui/material/Grid2';
 import { Close, NavigateBefore, NavigateNext, ZoomIn } from '@mui/icons-material';
 import '../styles/ProjectModal.css';
 

@@ -10,7 +10,12 @@ import {
 export default function ProjectDropdown({ categories = [], onSelectCategory, selectedCategory }) {
   const [open, setOpen] = useState(false);
 
+  // Debug logging
+  console.log("ProjectDropdown received categories:", categories);
+  console.log("ProjectDropdown selectedCategory:", selectedCategory);
+
   const handleClose = (category) => {
+    console.log("ProjectDropdown handleClose called with category:", category);
     setOpen(false);
     onSelectCategory(category);
   };

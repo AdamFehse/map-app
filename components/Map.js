@@ -50,6 +50,13 @@ export default function Map() {
     setSelectedProject(null);
   };
 
+  // Handle category selection
+  const handleCategorySelect = (category) => {
+    console.log("Map component received category selection:", category);
+    setSelectedCategory(category);
+    filterProjects(category);
+  };
+
   // Attach popups to markers
   useEffect(() => {
     if (!filteredProjects) return;
@@ -162,7 +169,7 @@ export default function Map() {
         })}
         <MiniSidebar
           filteredProjects={filteredProjects}
-          onSelectCategory={filterProjects}
+          onSelectCategory={handleCategorySelect}
           selectedCategory={selectedCategory}
           markerRefs={markerRefs}
           categories={categories}

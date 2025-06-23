@@ -327,12 +327,14 @@
 }
 
 /* Modal Actions */
-.modal-actions {
-    padding: 1.5rem 2rem !important;
+.MuiDialogActions-root.modal-actions {
+    padding: 4px 16px !important; /* Drastically reduced padding */
     background: rgba(255, 255, 255, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    justify-content: flex-end; /* Align button to the right */
+    justify-content: flex-end;
+    align-items: center;
+    min-height: auto;
 }
 
 .close-button {
@@ -458,7 +460,7 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
 }
 
-.project-modal.dark-mode .modal-actions {
+.project-modal.dark-mode .MuiDialogActions-root.modal-actions {
     background: rgba(255, 255, 255, 0.05);
     border-top-color: rgba(255, 255, 255, 0.1);
 }
@@ -763,7 +765,7 @@
 
 /* Modal Actions */
 .modal-actions {
-    padding: 1.5rem 2rem !important;
+    padding: 1rem 2rem !important;
     background: rgba(255, 255, 255, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
