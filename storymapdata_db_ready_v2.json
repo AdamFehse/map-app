@@ -18,7 +18,7 @@
     "HasOutcomes": true,
     "Background": "",
     "Department": "",
-    "Year": 2025,
+    "Year": 0,
     "Artworks": [
       {
         "Title": "La cascada de agua azul (The blue waterfall)",
@@ -72,15 +72,19 @@
     "Poems": [
       {
         "Title": "Mi nombre (My Name)",
-        "Content": "Esmeralda precious and brilliant stone which means power\",\" eternal \r\nyouth and is associated with success and to abundance. Its bright color \r\ngenerates feelings of tranquility\r\nand peace which attracts good energy.\r\n",
-        "Author": "Esmeralda",
-        "Description": "Esmeralda writes a poem on her name. Her poem celebrates her name by focusing on the positive characteristics it carries. It suggests that her name is seen as valuable\",\" successful\",\" tranquil\",\" and capable of attracting good energy and abundant success."
+        "Content": "Esmeralda piedra preciosa y brillante\r\nque significa el poder\",\" la eterna\r\njuventud y se asocia al éxito y\r\na la abundancia. Su color brillante\r\ngenera sensaciones de tranquilidad\r\ny paz la cual atrae la buena energía.  \r\n\n\n---\n\nEsmeralda precious and brilliant stone which means power\",\" eternal \r\nyouth and is associated with success and to abundance. Its bright color \r\ngenerates feelings of tranquility\r\nand peace which attracts good energy.\r\n",
+        "Author": "Anonymous",
+        "Description": "Esmeralda writes a poem on her name. Her poem celebrates her name by focusing on the positive characteristics it carries. It suggests that her name is seen as valuable\",\" successful\",\" tranquil\",\" and capable of attracting good energy and abundant success.",
+        "Poema": "Esmeralda piedra preciosa y brillante\r\nque significa el poder\",\" la eterna\r\njuventud y se asocia al éxito y\r\na la abundancia. Su color brillante\r\ngenera sensaciones de tranquilidad\r\ny paz la cual atrae la buena energía.  \r\n",
+        "Poem": "Esmeralda precious and brilliant stone which means power\",\" eternal \r\nyouth and is associated with success and to abundance. Its bright color \r\ngenerates feelings of tranquility\r\nand peace which attracts good energy.\r\n"
       },
       {
         "Title": "Untitled",
-        "Content": "I am a woman who does not depend on a man to be happy\",\" nor even staying at home seeing my life pass by.",
-        "Author": "Kimberlyn",
-        "Description": "In the following poem\",\" Kimberlyn begins her statement emphasizing that her identity is not solely defined by her name. Rather\",\" she suggests that there is a difference between the name one is given at birth and the true essence of oneself. Her poem declares independence and self-reliance. You can see this when she writes “Soy una mujer que no depende de un hombre para ser feliz” [I am a woman who does not depend on a man to be happy] and “Ni quedarme en casa viendo mi vida pasar” [Nor even staying at home seeing my life pass by] which also alludes to the rejection of traditional gender roles. Her poem claims independence\",\" empowerment\",\" and a commitment to defining one's own life and happiness\",\" regardless of social norms. She shared this thought before creating the poem: “Respeto al tiempo y paciencia de mi acimiento para la que esperaron poder llamarme Kimberlyn y mi identidad está en mí y no en mi nombre.” [I respect the time and patience of my birth for which they waited so they could name me Kimberlyn and my identity is in me and not my name]."
+        "Content": "Soy una mujer que no depende de un hombre para ser feliz\",\" ni quedarme en casa ver mi vida pasar.”\n\n---\n\nI am a woman who does not depend on a man to be happy\",\" nor even staying at home seeing my life pass by.",
+        "Author": "Anonymous",
+        "Description": "In the following poem\",\" Kimberlyn begins her statement emphasizing that her identity is not solely defined by her name. Rather\",\" she suggests that there is a difference between the name one is given at birth and the true essence of oneself. Her poem declares independence and self-reliance. You can see this when she writes “Soy una mujer que no depende de un hombre para ser feliz” [I am a woman who does not depend on a man to be happy] and “Ni quedarme en casa viendo mi vida pasar” [Nor even staying at home seeing my life pass by] which also alludes to the rejection of traditional gender roles. Her poem claims independence\",\" empowerment\",\" and a commitment to defining one's own life and happiness\",\" regardless of social norms. She shared this thought before creating the poem: “Respeto al tiempo y paciencia de mi acimiento para la que esperaron poder llamarme Kimberlyn y mi identidad está en mí y no en mi nombre.” [I respect the time and patience of my birth for which they waited so they could name me Kimberlyn and my identity is in me and not my name].",
+        "Poema": "Soy una mujer que no depende de un hombre para ser feliz\",\" ni quedarme en casa ver mi vida pasar.”",
+        "Poem": "I am a woman who does not depend on a man to be happy\",\" nor even staying at home seeing my life pass by."
       }
     ],
     "Activities": [
