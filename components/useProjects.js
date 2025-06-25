@@ -10,7 +10,7 @@ export function useProjects() {
     const fetchData = async () => {
       try {
         // Fetch projects from GitHub raw URL
-        const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/gh-pages/storymapdata_db_ready.json");
+        const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/refs/heads/gh-pages/storymapdata_db_ready_v2.json");
         if (!projectsResponse.ok) {
           throw new Error(`HTTP error! status: ${projectsResponse.status}`);
         }
