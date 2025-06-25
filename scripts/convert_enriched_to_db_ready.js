@@ -37,13 +37,31 @@ function convertEnrichedToDbReady(enrichedData) {
         ActivityTitle: artwork.activity_title || ''
       })),
       
-      // Transform poems
-      Poems: (item.poems || []).map(poem => ({
-        Title: poem.activity_title || 'Untitled',
-        Content: poem.poem || poem.poema || '',
-        Author: poem.description ? 'Anonymous' : '',
-        Description: poem.description || ''
-      })),
+      // Transform poems - include both Spanish and English versions
+      Poems: (item.poems || []).map(poem => {
+        const spanishText = poem.poema || '';
+        const englishText = poem.poem || '';
+        
+        // Combine both versions in Content field
+        let combinedContent = '';
+        if (spanishText && englishText) {
+          combinedContent = `${spanishText}\n\n---\n\n${englishText}`;
+        } else if (spanishText) {
+          combinedContent = spanishText;
+        } else if (englishText) {
+          combinedContent = englishText;
+        }
+        
+        return {
+          Title: poem.activity_title || 'Untitled',
+          Content: combinedContent,
+          Author: poem.description ? 'Anonymous' : '',
+          Description: poem.description || '',
+          // Keep individual versions for potential future use
+          Poema: spanishText,
+          Poem: englishText
+        };
+      }),
       
       // Transform outcomes to activities (since frontend expects Activities)
       Activities: (item.outcomes || []).map(outcome => ({
@@ -97,10 +115,18 @@ function main() {
       categories: [...new Set(dbReadyData.map(p => p.ProjectCategory).filter(Boolean))]
     };
     
+    // Count bilingual poems
+    const totalPoems = dbReadyData.reduce((sum, p) => sum + (p.Poems?.length || 0), 0);
+    const bilingualPoems = dbReadyData.reduce((sum, p) => {
+      return sum + (p.Poems?.filter(poem => poem.Poema && poem.Poem).length || 0);
+    }, 0);
+    
     console.log('\n📊 Conversion Stats:');
     console.log(`   Total projects: ${stats.total}`);
     console.log(`   With artworks: ${stats.withArtworks}`);
     console.log(`   With poems: ${stats.withPoems}`);
+    console.log(`   Total poems: ${totalPoems}`);
+    console.log(`   Bilingual poems: ${bilingualPoems}`);
     console.log(`   With outcomes: ${stats.withOutcomes}`);
     console.log(`   Categories: ${stats.categories.join(', ')}`);
     
