@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 export function useProjects() {
   const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
 
@@ -16,7 +16,6 @@ export function useProjects() {
         }
         const projectsData = await projectsResponse.json();
         setProjects(projectsData);
-        setFilteredProjects(projectsData);
 
         // Extract unique categories from the actual data
         const uniqueCategories = [...new Set(projectsData.map(project => project.ProjectCategory).filter(Boolean))];
@@ -50,32 +49,26 @@ export function useProjects() {
     fetchData();
   }, []);
 
-  const filterProjects = (category) => {
-    console.log("Filtering by category:", category);
-    if (!category) {
-      setFilteredProjects(projects);
-      return;
+  const filteredProjects = useMemo(() => {
+    if (!currentCategory) {
+      return projects;
     }
+    return projects.filter(project => project.ProjectCategory === currentCategory);
+  }, [projects, currentCategory]);
 
-    const filtered = projects.filter((project) => {
-      const matches = project.ProjectCategory === category;
-      console.log(`Project ${project.Name}: ProjectCategory=${project.ProjectCategory}, matches=${matches}`);
-      return matches;
-    });
+  const filterProjects = useCallback((category) => {
+    setCurrentCategory(category);
+  }, []);
 
-    console.log(`Filtered ${filtered.length} projects out of ${projects.length} total`);
-    setFilteredProjects(filtered);
-  };
-
-  const getProjectsWithArtworks = () => {
+  const getProjectsWithArtworks = useCallback(() => {
     return projects.filter((project) => project.Artworks && project.Artworks.length > 0);
-  };
+  }, [projects]);
 
-  const getProjectsWithPoems = () => {
+  const getProjectsWithPoems = useCallback(() => {
     return projects.filter((project) => project.Poems && project.Poems.length > 0);
-  };
+  }, [projects]);
 
-  const getUniqueActivities = () => {
+  const getUniqueActivities = useCallback(() => {
     const activities = new Set();
     projects.forEach((project) => {
       if (project.Activities) {
@@ -85,7 +78,7 @@ export function useProjects() {
       }
     });
     return Array.from(activities);
-  };
+  }, [projects]);
 
   return {
     projects,

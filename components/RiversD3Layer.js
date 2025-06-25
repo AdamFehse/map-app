@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
-export default function AzBorderD3Layer() {
+export default function RiversD3Layer() {
   const [geojson, setGeojson] = useState(null);
   const map = useMap();
   const canvasRenderer = L.canvas();
 
   useEffect(() => {
-    fetch('/export(0).geojson')
+    fetch('/export(1)Simple.json')
       .then(res => res.json())
       .then(setGeojson);
   }, []);
@@ -20,11 +20,9 @@ export default function AzBorderD3Layer() {
       data={geojson}
       renderer={canvasRenderer}
       style={{
-        color: '#00ffea',      // Border color (bright cyan)
-        weight: 4,             // Border thickness
-        fillColor: '#00fff7',  // Fill color (lighter cyan)
-        fillOpacity: 0,     // Adjust for desired transparency
-        opacity: 0.9,
+        color: '#00aaff', // Bright blue
+        weight: 3,
+        opacity: 0.85,
       }}
     />
   );

@@ -14,10 +14,9 @@ export default function ProjectDropdown({ categories = [], onSelectCategory, sel
   console.log("ProjectDropdown received categories:", categories);
   console.log("ProjectDropdown selectedCategory:", selectedCategory);
 
-  const handleClose = (category) => {
-    console.log("ProjectDropdown handleClose called with category:", category);
-    setOpen(false);
-    onSelectCategory(category);
+  const handleSelectChange = (event) => {
+    // This is the correct place to call onSelectCategory
+    onSelectCategory(event.target.value);
   };
 
   return (
@@ -32,12 +31,13 @@ export default function ProjectDropdown({ categories = [], onSelectCategory, sel
           onOpen={() => setOpen(true)}
           value={selectedCategory || ""}
           label="Category"
+          onChange={handleSelectChange}
         >
-          <MenuItem key="all" onClick={() => handleClose("")}>All Projects</MenuItem>
+          <MenuItem value="">All Projects</MenuItem>
           {categories.map((category, index) => (
             <MenuItem 
               key={category.Value || category.value || `category-${index}`}
-              onClick={() => handleClose(category.Value || category.value)}
+              value={category.Value || category.value}
             >
               {category.Label || category.label || category.Value || category.value}
             </MenuItem>

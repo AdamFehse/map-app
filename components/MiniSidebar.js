@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useMap } from "react-leaflet";
 import {
   Box,
   Drawer,
@@ -34,107 +33,23 @@ import {
 } from "@mui/icons-material";
 import ProjectDropdown from "./ProjectDropdown";
 import { useDarkMode } from "../contexts/DarkModeContext";
-import { Particles } from "@tsparticles/react";
 
-// Add global styles for keyframes
-const globalStyles = `
-  @keyframes intense-pulse-glow {
-    0% {
-      filter: drop-shadow(0 0 8px rgb(255, 0, 0)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 0, 0, 0.4));
-      transform: scale(1);
-    }
-    25% {
-      filter: drop-shadow(0 0 12px rgb(0, 255, 17)) drop-shadow(0 0 30px rgba(255, 255, 0, 0.9)) drop-shadow(0 0 50px rgba(255, 255, 0, 0.5));
-      transform: scale(1.05);
-    }
-    50% {
-      filter: drop-shadow(0 0 15px rgb(0, 255, 255)) drop-shadow(0 0 40px rgba(0, 255, 255, 1)) drop-shadow(0 0 65px rgba(0, 255, 255, 0.6));
-      transform: scale(1.08);
-    }
-    75% {
-      filter: drop-shadow(0 0 12px rgb(255, 0, 255)) drop-shadow(0 0 30px rgba(255, 0, 255, 0.9)) drop-shadow(0 0 50px rgba(255, 0, 255, 0.5));
-      transform: scale(1.05);
-    }
-    100% {
-      filter: drop-shadow(0 0 8px rgb(0, 55, 255)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 0, 0, 0.4));
-      transform: scale(1);
-    }
-  }
-  
-  @keyframes outer-pulse {
-    0% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-    50% {
-      transform: scale(1.2);
-      opacity: 0.3;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-  }
-  
-  @keyframes hover-pulse {
-    0% {
-      transform: scale(1);
-      opacity: 0.6;
-    }
-    50% {
-      transform: scale(1.1);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0.6;
-    }
-  }
-`;
-
-function SidebarParticles() {
-  return (
-    <Particles
-      options={{
-        background: { color: "#23293a" },
-        particles: {
-          number: { value: 18, density: { enable: false } },
-          color: { value: "#fff" },
-          opacity: { value: 0.07 },
-          size: { value: 2 },
-          links: { enable: true, color: "#fff", opacity: 0.12, width: 1 },
-          move: { enable: true, speed: 0.15, direction: "none", random: true, straight: false, outModes: { default: "out" } }
-        },
-        interactivity: {
-          events: { onHover: { enable: true, mode: "repulse" } },
-          modes: { repulse: { distance: 80, duration: 0.4 } }
-        },
-        fullScreen: { enable: false },
-        detectRetina: true
-      }}
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 0,
-        pointerEvents: "none"
-      }}
-    />
-  );
-}
 
 export default function MiniSidebar({
   filteredProjects,
+  searchFilteredProjects,
   onSelectCategory,
   selectedCategory,
   markerRefs,
   categories = [],
+  open,
+  onClose,
+  searchTerm,
+  setSearchTerm,
+  onProjectClick,
 }) {
-  const [open, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const toggleDrawer = () => setOpen(!open);
   const [isLeftAligned, setIsLeftAligned] = useState(true);
   const toggleSidebarPosition = () => setIsLeftAligned(!isLeftAligned);
-  const map = useMap();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   useEffect(() => {
@@ -145,55 +60,15 @@ export default function MiniSidebar({
   console.log("Filtered Projects:", filteredProjects);
   console.log("Selected Category:", selectedCategory);
 
-  // Filter projects based on search term
-  const searchFilteredProjects = filteredProjects?.filter((project) => {
-    const searchLower = searchTerm.toLowerCase();
-    return (
-      project.Name?.toLowerCase().includes(searchLower) ||
-      project.DescriptionShort?.toLowerCase().includes(searchLower) ||
-      project.Description?.toLowerCase().includes(searchLower)
-    );
-  });
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleZoomOut = () => {
-    map.setView([32.2217, -110.9265], 9);
-  };
-
-  const handleProjectClick = (project) => {
-    const latitude = parseFloat(project.Latitude);
-    const longitude = parseFloat(project.Longitude);
-    console.log("Navigating to:", latitude, longitude);
-
-    // Find the index in the original filteredProjects array
-    const originalIndex = filteredProjects.findIndex(
-      (p) =>
-        p.Name === project.Name &&
-        p.Latitude === project.Latitude &&
-        p.Longitude === project.Longitude
-    );
-
-    // Use the simple key format for marker refs
-    const key = `${project.Name}-${originalIndex}`;
-
-    if (!isNaN(latitude) && !isNaN(longitude)) {
-      if (markerRefs?.current[key]) {
-        map.flyTo([latitude, longitude], 13, { animate: true });
-        markerRefs.current[key].openPopup();
-      } else {
-        console.warn(`Marker for key "${key}" not found.`);
-      }
-    } else {
-      console.error("Invalid coordinates:", latitude, longitude);
-    }
-  };
-
   return (
     <div style={{ position: "relative", height: "100%" }}>
-      {/* Permanent Drawer */}
+      {/*
+      // --- Permanent Drawer (Mini Sidebar) ---
+      // Commented out for now, but kept for possible future use.
       <Drawer
         variant="permanent"
         anchor={isLeftAligned ? "left" : "right"}
@@ -203,104 +78,41 @@ export default function MiniSidebar({
           '& .MuiDrawer-paper': {
             width: 60,
             boxSizing: 'border-box',
-            backgroundColor: isDarkMode ? '#1a1a1a' : '#ffffff',
-            color: isDarkMode ? '#ffffff' : '#000000',
-            transition: 'background-color 0.3s, color 0.3s',
+            background: 'linear-gradient(135deg, #23293a 0%, #1a1a1a 100%)',
+            color: '#00ff88',
+            borderRight: isLeftAligned ? '4px solid #00ff88' : 'none',
+            borderLeft: !isLeftAligned ? '4px solid #00ff88' : 'none',
+            boxShadow: '0 0 16px #00ff88, 0 2px 8px #000',
+            filter: 'drop-shadow(0 0 8px #00ff88)',
+            transition: 'background 0.3s, color 0.3s, box-shadow 0.3s',
           },
         }}
       >
-        <List>
-          <ListItem disablePadding>
-            <Tooltip title="Menu" placement="right">
-              <ListItemButton
-                sx={{ 
-                  justifyContent: "center",
-                  position: "relative",
-                  "&::before": {
-                    content: '""',
-                    position: "absolute",
-                    top: "-10px",
-                    left: "-10px",
-                    right: "-10px",
-                    bottom: "-10px",
-                    background: open ? "none" : "radial-gradient(circle, rgba(255,0,0,0.3) 0%, rgba(255,255,0,0.2) 30%, rgba(0,255,255,0.1) 60%, transparent 100%)",
-                    borderRadius: "50%",
-                    animation: open ? "none" : "outer-pulse 4s ease-in-out infinite",
-                    zIndex: -1
-                  },
-                  "&:hover": {
-                    "& .MuiSvgIcon-root": {
-                      filter: "drop-shadow(0 0 20px rgba(0, 255, 26, 1)) drop-shadow(0 0 35px rgba(0, 255, 26, 0.9)) drop-shadow(0 0 50px rgba(0, 255, 26, 0.6))",
-                      transition: "all 0.3s ease",
-                      transform: "scale(1.2)"
-                    },
-                    "&::before": {
-                      background: "radial-gradient(circle, rgba(0,255,26,0.4) 0%, rgba(0,255,26,0.3) 30%, rgba(0,255,26,0.1) 60%, transparent 100%)",
-                      animation: "hover-pulse 4s ease-in-out infinite"
-                    }
-                  },
-                  "& .MuiSvgIcon-root": {
-                    filter: open ? 
-                      "drop-shadow(0 0 5px rgba(255,255,255,0.8))" : 
-                      "drop-shadow(0 0 8px rgb(255, 0, 0)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 35px rgba(255, 0, 0, 0.4))",
-                    transition: "all 4.3s ease",
-                    animation: open ? "none" : "intense-pulse-glow 4.5s ease-in-out infinite",
-                    transformOrigin: "center"
-                  }
-                }}
-                onClick={toggleDrawer}
-              >
-                <ListItemIcon sx={{ minWidth: "auto" }}>
-                  <MenuIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
-          <ListItem disablePadding>
-            <Tooltip title="Toggle Dark Mode" placement="right">
-              <ListItemButton
-                sx={{ justifyContent: "center" }}
-                onClick={toggleDarkMode}
-              >
-                <ListItemIcon sx={{ minWidth: "auto" }}>
-                  <Brightness4Icon />
-                </ListItemIcon>
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
-          <ListItem disablePadding>
-            <Tooltip title="Toggle Sidebar Position" placement="right">
-              <ListItemButton
-                sx={{ justifyContent: "center" }}
-                onClick={toggleSidebarPosition}
-              >
-                <ListItemIcon sx={{ minWidth: "auto" }}>
-                  <SwapHorizIcon />
-                </ListItemIcon>
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
-        </List>
+        ...
       </Drawer>
-
-      {/* Temporary Drawer */}
+      */}
+      {/* --- Temporary Drawer (Full Sidebar) --- */}
       <Drawer
         anchor={isLeftAligned ? "left" : "right"}
         open={open}
-        onClose={toggleDrawer}
+        onClose={onClose}
         variant="temporary"
         PaperProps={{
           sx: {
-            width: 300,
-            backgroundColor: isDarkMode ? "#1a1a1a" : "#ffffff",
-            color: isDarkMode ? "#ffffff" : "#000000",
-            transition: 'background-color 0.3s, color 0.3s',
+            width: 404,
+            background: 'linear-gradient(135deg, #1a1a1a 0%, #23293a 100%)',
+            color: '#00ff88',
+            borderRight: isLeftAligned ? '4px solid #00ff88' : 'none',
+            borderLeft: !isLeftAligned ? '4px solid #00ff88' : 'none',
+            boxShadow: '0 0 20px #00ff88, 0 4px 12px #000',
+            filter: 'drop-shadow(0 0 10px #00ff88)',
+            transition: 'background 0.3s, color 0.3s, box-shadow 0.3s, border 0.3s',
           },
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", p: 1 }}>
           <Typography variant="h6">Projects</Typography>
-          <IconButton onClick={toggleDrawer}>
+          <IconButton onClick={onClose}>
             <ChevronLeftIcon />
           </IconButton>
         </Box>
@@ -330,18 +142,16 @@ export default function MiniSidebar({
         </Box>
         <List>
           {searchFilteredProjects?.map((project) => {
-            // Find the index in the original filteredProjects array
             const originalIndex = filteredProjects.findIndex(
               (p) =>
                 p.Name === project.Name &&
                 p.Latitude === project.Latitude &&
                 p.Longitude === project.Longitude
             );
-            // Create a unique key for the list item
             const uniqueKey = `${project.Name}-${originalIndex}-${project.Latitude}-${project.Longitude}`;
             return (
               <ListItem key={uniqueKey} disablePadding>
-                <ListItemButton onClick={() => handleProjectClick(project)}>
+                <ListItemButton onClick={() => onProjectClick(project, originalIndex)}>
                   <ListItemText
                     primary={project.Name}
                     secondary={project.DescriptionShort}
