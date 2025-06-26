@@ -495,12 +495,6 @@ export default function MiniSidebar({
             </ListItemIcon>
             <ListItemText primary={`Move to ${isLeftAligned ? 'Right' : 'Left'}`} />
           </MenuItem>
-          <MenuItem onClick={() => { handleExportData(); handleSettingsClose(); }}>
-            <ListItemIcon sx={{ color: isDarkMode ? '#ffffff' : '#333333' }}>
-              <DownloadIcon />
-            </ListItemIcon>
-            <ListItemText primary="Export Data" />
-          </MenuItem>
         </Menu>
       </Drawer>
     </div>
