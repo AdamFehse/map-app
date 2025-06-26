@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Play, RotateCcw } from 'lucide-react';
+import { useDarkMode } from '../contexts/DarkModeContext';
 
 // Sidebar: Poem selector and controls
 export function EnhancedPoemsTabSidebar({ poems, selectedPoem, setSelectedPoem, isAnimating, startAnimation, resetAnimation }) {
+  const { isDarkMode } = useDarkMode();
+  
   if (!poems || poems.length === 0) {
     return (
-      <div className="text-gray-400 italic text-center py-8">
+      <div 
+        className="italic text-center py-8"
+        style={{ color: isDarkMode ? '#9ca3af' : '#6b7280' }}
+      >
         <BookOpen className="w-8 h-8 mx-auto mb-2 opacity-60" />
         No poems available for this project.
       </div>
@@ -16,7 +22,12 @@ export function EnhancedPoemsTabSidebar({ poems, selectedPoem, setSelectedPoem, 
     <div className="space-y-6">
       {/* Poem Selector */}
       <div className="space-y-2">
-        <h3 className="text-white font-semibold text-sm mb-3">Select a Poem</h3>
+        <h3 
+          className="font-semibold text-sm mb-3"
+          style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+        >
+          Select a Poem
+        </h3>
         <div className="grid gap-2">
           {poems.map((poem, index) => (
             <motion.button
@@ -24,16 +35,41 @@ export function EnhancedPoemsTabSidebar({ poems, selectedPoem, setSelectedPoem, 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedPoem(index)}
-              className={`text-left p-3 rounded-lg transition-all duration-200 ${
-                selectedPoem === index 
-                  ? 'bg-blue-900/30 border border-blue-500/50 text-white' 
-                  : 'bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white'
-              }`}
+              className="text-left p-3 rounded-lg transition-all duration-200"
+              style={{
+                backgroundColor: selectedPoem === index 
+                  ? (isDarkMode ? 'rgba(30, 58, 138, 0.3)' : 'rgba(59, 130, 246, 0.1)')
+                  : (isDarkMode ? 'rgba(31, 41, 55, 0.5)' : 'rgba(243, 244, 246, 0.8)'),
+                border: selectedPoem === index 
+                  ? (isDarkMode ? '1px solid rgba(59, 130, 246, 0.5)' : '1px solid rgba(59, 130, 246, 0.3)')
+                  : '1px solid transparent',
+                color: selectedPoem === index 
+                  ? (isDarkMode ? '#ffffff' : '#111827')
+                  : (isDarkMode ? '#d1d5db' : '#6b7280'),
+                '&:hover': {
+                  backgroundColor: selectedPoem === index 
+                    ? (isDarkMode ? 'rgba(30, 58, 138, 0.3)' : 'rgba(59, 130, 246, 0.1)')
+                    : (isDarkMode ? 'rgba(55, 65, 81, 0.5)' : 'rgba(229, 231, 235, 0.8)'),
+                  color: selectedPoem === index 
+                    ? (isDarkMode ? '#ffffff' : '#111827')
+                    : (isDarkMode ? '#ffffff' : '#111827')
+                }
+              }}
             >
               <div className="font-medium text-sm">{poem.Title}</div>
-              <div className="text-xs text-gray-400 mt-1">{poem.Author}</div>
+              <div 
+                className="text-xs mt-1"
+                style={{ color: isDarkMode ? '#9ca3af' : '#6b7280' }}
+              >
+                {poem.Author}
+              </div>
               {poem.location && (
-                <div className="text-xs text-blue-400 mt-1">{poem.location}</div>
+                <div 
+                  className="text-xs mt-1"
+                  style={{ color: '#3b82f6' }}
+                >
+                  {poem.location}
+                </div>
               )}
             </motion.button>
           ))}
@@ -46,7 +82,18 @@ export function EnhancedPoemsTabSidebar({ poems, selectedPoem, setSelectedPoem, 
           whileTap={{ scale: 0.95 }}
           onClick={startAnimation}
           disabled={isAnimating}
-          className="flex items-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white rounded-lg text-sm transition-colors"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
+          style={{
+            backgroundColor: isAnimating 
+              ? (isDarkMode ? '#4b5563' : '#9ca3af')
+              : '#3b82f6',
+            color: '#ffffff',
+            '&:hover': {
+              backgroundColor: isAnimating 
+                ? (isDarkMode ? '#4b5563' : '#9ca3af')
+                : '#2563eb'
+            }
+          }}
         >
           <Play className="w-4 h-4" />
           {isAnimating ? 'Playing...' : 'Animate'}
@@ -55,7 +102,14 @@ export function EnhancedPoemsTabSidebar({ poems, selectedPoem, setSelectedPoem, 
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={resetAnimation}
-          className="flex items-center gap-2 px-3 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
+          style={{
+            backgroundColor: isDarkMode ? '#4b5563' : '#6b7280',
+            color: '#ffffff',
+            '&:hover': {
+              backgroundColor: isDarkMode ? '#374151' : '#4b5563'
+            }
+          }}
         >
           <RotateCcw className="w-4 h-4" />
           Reset
@@ -67,6 +121,8 @@ export function EnhancedPoemsTabSidebar({ poems, selectedPoem, setSelectedPoem, 
 
 // Main panel: Animated poem display
 export function EnhancedPoemsTabDisplay({ poem, completedLines, currentLineIndex }) {
+  const { isDarkMode } = useDarkMode();
+  
   if (!poem) return null;
   const lines = poem.Content?.split('\n')?.filter(line => line.trim()) || [];
   const TypewriterLine = ({ text, isActive, isComplete, delay = 0 }) => {
@@ -98,17 +154,21 @@ export function EnhancedPoemsTabDisplay({ poem, completedLines, currentLineIndex
           y: isActive || isComplete ? 0 : 10 
         }}
         transition={{ duration: 0.5, delay }}
-        className={`leading-relaxed ${
-          isActive ? 'text-blue-300' : 
-          isComplete ? 'text-gray-200' : 'text-gray-500'
-        }`}
+        className="leading-relaxed"
+        style={{
+          color: isActive 
+            ? '#93c5fd' 
+            : isComplete 
+              ? (isDarkMode ? '#d1d5db' : '#374151')
+              : (isDarkMode ? '#6b7280' : '#9ca3af')
+        }}
       >
         {displayText}
         {isActive && displayText.length < text.length && (
           <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-            className="text-blue-400"
+            style={{ color: '#60a5fa' }}
           >
             |
           </motion.span>
@@ -127,12 +187,16 @@ export function EnhancedPoemsTabDisplay({ poem, completedLines, currentLineIndex
         className="space-y-4"
       >
         {/* Poem Header */}
-        <div className="border-l-4 border-blue-500 pl-4 py-2">
+        <div 
+          className="border-l-4 pl-4 py-2"
+          style={{ borderColor: '#3b82f6' }}
+        >
           <motion.h2
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl font-bold text-white mb-1"
+            className="text-xl font-bold mb-1"
+            style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
           >
             {poem?.Title}
           </motion.h2>
@@ -141,7 +205,8 @@ export function EnhancedPoemsTabDisplay({ poem, completedLines, currentLineIndex
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-gray-400 text-sm"
+              className="text-sm"
+              style={{ color: isDarkMode ? '#9ca3af' : '#6b7280' }}
             >
               by {poem.Author}
             </motion.p>
@@ -151,7 +216,8 @@ export function EnhancedPoemsTabDisplay({ poem, completedLines, currentLineIndex
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-blue-400 text-xs mt-1"
+              className="text-xs mt-1"
+              style={{ color: '#3b82f6' }}
             >
               📍 {poem.location}
             </motion.p>
@@ -162,7 +228,11 @@ export function EnhancedPoemsTabDisplay({ poem, completedLines, currentLineIndex
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="bg-gray-900/50 rounded-lg p-6 border border-gray-700/50"
+          className="rounded-lg p-6 border"
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(17, 24, 39, 0.5)' : 'rgba(249, 250, 251, 0.8)',
+            borderColor: isDarkMode ? 'rgba(55, 65, 81, 0.5)' : 'rgba(229, 231, 235, 0.8)'
+          }}
         >
           <div className="space-y-3 text-base font-mono">
             {lines.map((line, index) => (

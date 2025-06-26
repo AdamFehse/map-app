@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { X, Info, Palette, BookOpen, Calendar, ExternalLink, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { EnhancedPoemsTabSidebar, EnhancedPoemsTabDisplay } from './EnhancedPoemsTab';
+import { useDarkMode } from '../contexts/DarkModeContext';
 
 export default function ProjectGalleryLayout({ project, onClose }) {
   const [activeTab, setActiveTab] = useState(0);
   const [allImages, setAllImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { isDarkMode } = useDarkMode();
 
   // --- Poems tab state ---
   const [selectedPoem, setSelectedPoem] = useState(0);
@@ -72,21 +74,46 @@ export default function ProjectGalleryLayout({ project, onClose }) {
           <img
             src={project.ImageUrl}
             alt={project.Name}
-            className="rounded-lg shadow-lg max-w-full max-h-56 object-contain border border-gray-800 bg-black"
-            style={{ width: '100%', maxWidth: 320 }}
+            className="rounded-lg shadow-lg max-w-full max-h-56 object-contain border"
+            style={{ 
+              width: '100%', 
+              maxWidth: 320,
+              borderColor: isDarkMode ? '#374151' : '#e5e7eb',
+              backgroundColor: isDarkMode ? '#000000' : '#ffffff'
+            }}
           />
         </div>
       )}
       {(project.DescriptionLong || project.DescriptionShort) && (
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">Description</h3>
-          <p className="text-gray-200 text-lg leading-relaxed">{project.DescriptionLong || project.DescriptionShort}</p>
+          <h3 
+            className="text-lg font-bold mb-2"
+            style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+          >
+            Description
+          </h3>
+          <p 
+            className="text-lg leading-relaxed"
+            style={{ color: isDarkMode ? '#d1d5db' : '#374151' }}
+          >
+            {project.DescriptionLong || project.DescriptionShort}
+          </p>
         </section>
       )}
       {project.Background && (
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">Background</h3>
-          <p className="text-gray-200 text-lg leading-relaxed">{project.Background}</p>
+          <h3 
+            className="text-lg font-bold mb-2"
+            style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+          >
+            Background
+          </h3>
+          <p 
+            className="text-lg leading-relaxed"
+            style={{ color: isDarkMode ? '#d1d5db' : '#374151' }}
+          >
+            {project.Background}
+          </p>
         </section>
       )}
     </div>
@@ -95,19 +122,46 @@ export default function ProjectGalleryLayout({ project, onClose }) {
   const renderArtworksTab = () => (
     <div className="space-y-3">
       {project.Artworks?.map((artwork, index) => (
-        <div key={index} className="group flex items-start gap-3 p-2 rounded-lg hover:bg-gray-800 cursor-pointer transition-colors"
-             onClick={() => setCurrentImageIndex(index + (project.ImageUrl ? 1 : 0))}>
+        <div 
+          key={index} 
+          className="group flex items-start gap-3 p-2 rounded-lg cursor-pointer transition-colors"
+          style={{
+            backgroundColor: 'transparent',
+            '&:hover': {
+              backgroundColor: isDarkMode ? '#374151' : '#f3f4f6'
+            }
+          }}
+          onClick={() => setCurrentImageIndex(index + (project.ImageUrl ? 1 : 0))}
+        >
           {artwork.ImageUrl && (
             <div className="relative flex-shrink-0">
               <img src={artwork.ImageUrl} alt={artwork.Title} className="w-12 h-12 object-cover rounded" />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded transition-colors flex items-center justify-center">
+              <div 
+                className="absolute inset-0 rounded transition-colors flex items-center justify-center"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)'
+                  }
+                }}
+              >
                 <ZoomIn className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <h4 className="text-white text-base font-medium mb-1 break-words">{artwork.Title}</h4>
-            <p className="text-gray-300 text-sm leading-relaxed break-words whitespace-pre-line">{artwork.DescriptionLong || artwork.Description}</p>
+            <h4 
+              className="text-base font-medium mb-1 break-words"
+              style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+            >
+              {artwork.Title}
+            </h4>
+            <p 
+              className="text-sm leading-relaxed break-words whitespace-pre-line"
+              style={{ color: isDarkMode ? '#d1d5db' : '#6b7280' }}
+            >
+              {artwork.DescriptionLong || artwork.Description}
+            </p>
           </div>
         </div>
       ))}
@@ -131,14 +185,47 @@ export default function ProjectGalleryLayout({ project, onClose }) {
   const renderActivitiesTab = () => (
     <div className="space-y-3">
       {project.Activities?.map((activity, index) => (
-        <div key={index} className="p-3 bg-gray-800 rounded-lg">
-          <h4 className="text-white font-medium text-sm mb-1">{activity.Title}</h4>
-          <p className="text-gray-300 text-sm mb-2">{activity.Description}</p>
+        <div 
+          key={index} 
+          className="p-3 rounded-lg"
+          style={{ 
+            backgroundColor: isDarkMode ? '#374151' : '#f3f4f6'
+          }}
+        >
+          <h4 
+            className="font-medium text-sm mb-1"
+            style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+          >
+            {activity.Title}
+          </h4>
+          <p 
+            className="text-sm mb-2"
+            style={{ color: isDarkMode ? '#d1d5db' : '#6b7280' }}
+          >
+            {activity.Description}
+          </p>
           <div className="flex items-center justify-between">
-            {activity.Date && <span className="text-gray-500 text-xs">{activity.Date}</span>}
+            {activity.Date && (
+              <span 
+                className="text-xs"
+                style={{ color: isDarkMode ? '#9ca3af' : '#6b7280' }}
+              >
+                {activity.Date}
+              </span>
+            )}
             {activity.Link && (
-              <a href={activity.Link} target="_blank" rel="noopener noreferrer" 
-                 className="text-blue-400 hover:text-blue-300 text-xs flex items-center gap-1">
+              <a 
+                href={activity.Link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-xs flex items-center gap-1"
+                style={{ 
+                  color: '#3b82f6',
+                  '&:hover': {
+                    color: '#60a5fa'
+                  }
+                }}
+              >
                 Learn More <ExternalLink className="w-3 h-3" />
               </a>
             )}
@@ -151,8 +238,20 @@ export default function ProjectGalleryLayout({ project, onClose }) {
   const renderLinksTab = () => (
     <div className="space-y-2">
       {project.relatedUrls?.map((url, index) => (
-        <a key={index} href={url.url} target="_blank" rel="noopener noreferrer" 
-           className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-white transition-colors text-sm">
+        <a 
+          key={index} 
+          href={url.url} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex items-center gap-2 p-2 rounded-lg transition-colors text-sm"
+          style={{
+            color: isDarkMode ? '#d1d5db' : '#6b7280',
+            '&:hover': {
+              backgroundColor: isDarkMode ? '#374151' : '#f3f4f6',
+              color: isDarkMode ? '#ffffff' : '#111827'
+            }
+          }}
+        >
           <ExternalLink className="w-4 h-4" />
           {url.title}
         </a>
@@ -174,34 +273,88 @@ export default function ProjectGalleryLayout({ project, onClose }) {
   const mainImage = allImages[currentImageIndex] || allImages[0];
 
   return (
-    <div className="h-screen w-screen grid grid-cols-[420px_1fr] fixed top-0 left-0 z-[2000] bg-gray-900">
+    <div 
+      className="h-screen w-screen grid grid-cols-[420px_1fr] fixed top-0 left-0 z-[2000]"
+      style={{ 
+        backgroundColor: isDarkMode ? '#111827' : '#ffffff'
+      }}
+    >
       {/* Sidebar */}
-      <div className="bg-gray-900 border-r border-gray-800 flex flex-col min-w-0" style={{ width: 420 }}>
+      <div 
+        className="border-r flex flex-col min-w-0" 
+        style={{ 
+          width: 420,
+          backgroundColor: isDarkMode ? '#111827' : '#f9fafb',
+          borderColor: isDarkMode ? '#374151' : '#e5e7eb'
+        }}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-800">
-          <h1 className="text-white font-bold text-2xl truncate pr-2">{project.Name}</h1>
-          <button onClick={onClose} className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
-            <X className="w-6 h-6 text-gray-400" />
+        <div 
+          className="flex items-center justify-between p-6 border-b"
+          style={{ 
+            borderColor: isDarkMode ? '#374151' : '#e5e7eb'
+          }}
+        >
+          <h1 
+            className="font-bold text-2xl truncate pr-2"
+            style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+          >
+            {project.Name}
+          </h1>
+          <button 
+            onClick={onClose} 
+            className="p-2 rounded-lg transition-colors"
+            style={{
+              color: isDarkMode ? '#9ca3af' : '#6b7280',
+              '&:hover': {
+                backgroundColor: isDarkMode ? '#374151' : '#f3f4f6'
+              }
+            }}
+          >
+            <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-800">
+        <div 
+          className="flex overflow-x-auto scrollbar-hide border-b"
+          style={{ 
+            borderColor: isDarkMode ? '#374151' : '#e5e7eb'
+          }}
+        >
           {tabs.map((tab, i) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.label}
                 onClick={() => setActiveTab(i)}
-                className={`flex items-center gap-2 px-4 py-3 text-base font-semibold border-b-2 transition-colors whitespace-nowrap ${
-                  activeTab === i 
-                    ? 'text-blue-400 border-blue-400 bg-gray-800'
-                    : 'text-gray-300 border-transparent hover:text-blue-300'
-                }`}
+                className="flex items-center gap-2 px-4 py-3 text-base font-semibold border-b-2 transition-colors whitespace-nowrap"
+                style={{
+                  color: activeTab === i 
+                    ? '#3b82f6' 
+                    : isDarkMode ? '#d1d5db' : '#6b7280',
+                  borderBottomColor: activeTab === i ? '#3b82f6' : 'transparent',
+                  backgroundColor: activeTab === i 
+                    ? (isDarkMode ? '#374151' : '#f3f4f6')
+                    : 'transparent',
+                  '&:hover': {
+                    color: activeTab === i ? '#3b82f6' : '#60a5fa'
+                  }
+                }}
               >
                 <Icon className="w-5 h-5" />
                 {tab.label}
-                {tab.count && <span className="text-xs bg-gray-700 px-2 py-0.5 rounded-full">{tab.count}</span>}
+                {tab.count && (
+                  <span 
+                    className="text-xs px-2 py-0.5 rounded-full"
+                    style={{ 
+                      backgroundColor: isDarkMode ? '#4b5563' : '#e5e7eb',
+                      color: isDarkMode ? '#d1d5db' : '#374151'
+                    }}
+                  >
+                    {tab.count}
+                  </span>
+                )}
               </button>
             );
           })}
@@ -216,24 +369,46 @@ export default function ProjectGalleryLayout({ project, onClose }) {
       </div>
 
       {/* Main Content Area */}
-      <div className="bg-black flex items-center justify-center relative">
+      <div 
+        className="flex items-center justify-center relative"
+        style={{ 
+          backgroundColor: isDarkMode ? '#000000' : '#f9fafb'
+        }}
+      >
         {tabs[activeTab]?.content === 'overview' ? (
           project.ImageUrl ? (
             <img
               src={project.ImageUrl}
               alt={project.Name}
-              className="max-h-[70vh] max-w-full object-contain rounded-lg shadow-lg border border-gray-800 bg-black"
-              style={{ width: '100%', maxWidth: 600 }}
+              className="max-h-[70vh] max-w-full object-contain rounded-lg shadow-lg border"
+              style={{ 
+                width: '100%', 
+                maxWidth: 600,
+                borderColor: isDarkMode ? '#374151' : '#e5e7eb',
+                backgroundColor: isDarkMode ? '#000000' : '#ffffff'
+              }}
             />
           ) : (
-            <div className="text-gray-500 text-center">
+            <div 
+              className="text-center"
+              style={{ color: isDarkMode ? '#9ca3af' : '#6b7280' }}
+            >
               <Palette className="w-12 h-12 mx-auto mb-2 opacity-50" />
               <p className="text-sm">No image available</p>
             </div>
           )
         ) : tabs[activeTab]?.content === 'poems' ? (
           <div className="w-full h-full flex items-center justify-center" style={{ minHeight: '60vh' }}>
-            <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl border border-blue-900/30 bg-gradient-to-br from-[#181c24] via-[#1e2233] to-[#23293a] bg-opacity-90">
+            <div 
+              className="w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl border"
+              style={{
+                borderColor: isDarkMode ? '#1e3a8a' : '#dbeafe',
+                background: isDarkMode 
+                  ? 'linear-gradient(135deg, #181c24 0%, #1e2233 50%, #23293a 100%)'
+                  : 'linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)',
+                opacity: 0.9
+              }}
+            >
               <EnhancedPoemsTabDisplay
                 poem={project.Poems?.[selectedPoem]}
                 completedLines={completedLines}
@@ -246,8 +421,14 @@ export default function ProjectGalleryLayout({ project, onClose }) {
             <img src={mainImage.src} alt={mainImage.title} 
                  className="max-h-full max-w-full object-contain" />
             {/* Image Counter */}
-            <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
-              <span className="text-white text-xs">
+            <div 
+              className="absolute top-4 right-4 backdrop-blur-sm rounded-lg px-2 py-1"
+              style={{ backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)' }}
+            >
+              <span 
+                className="text-xs"
+                style={{ color: isDarkMode ? '#ffffff' : '#111827' }}
+              >
                 {currentImageIndex + 1} / {allImages.length}
               </span>
             </div>
@@ -256,21 +437,30 @@ export default function ProjectGalleryLayout({ project, onClose }) {
               <>
                 <button 
                   onClick={() => setCurrentImageIndex((currentImageIndex - 1 + allImages.length) % allImages.length)}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm hover:bg-black/70 p-2 rounded-lg transition-colors"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 backdrop-blur-sm p-2 rounded-lg transition-colors"
+                  style={{ 
+                    backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)'
+                  }}
                 >
-                  <ChevronLeft className="w-5 h-5 text-white" />
+                  <ChevronLeft className="w-5 h-5" style={{ color: isDarkMode ? '#ffffff' : '#111827' }} />
                 </button>
                 <button 
                   onClick={() => setCurrentImageIndex((currentImageIndex + 1) % allImages.length)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm hover:bg-black/70 p-2 rounded-lg transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 backdrop-blur-sm p-2 rounded-lg transition-colors"
+                  style={{ 
+                    backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)'
+                  }}
                 >
-                  <ChevronRight className="w-5 h-5 text-white" />
+                  <ChevronRight className="w-5 h-5" style={{ color: isDarkMode ? '#ffffff' : '#111827' }} />
                 </button>
               </>
             )}
           </>
         ) : (
-          <div className="text-gray-500 text-center">
+          <div 
+            className="text-center"
+            style={{ color: isDarkMode ? '#9ca3af' : '#6b7280' }}
+          >
             <Palette className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No image available</p>
           </div>

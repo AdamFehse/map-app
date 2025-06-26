@@ -9,8 +9,8 @@ export function useProjects() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch projects from GitHub raw URL
-        const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/refs/heads/gh-pages/storymapdata_db_ready_v2.json");
+        // Fetch projects from local file
+        const projectsResponse = await fetch("/storymapdata_db_ready_v2.json");
         if (!projectsResponse.ok) {
           throw new Error(`HTTP error! status: ${projectsResponse.status}`);
         }

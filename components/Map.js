@@ -314,6 +314,21 @@ export default function Map() {
 
   }, [filteredProjects, isModalOpen, selectedProject, selectedMarker, markerRefs]); // Add all stable deps
 
+  // Update popup classes when dark mode changes
+  useEffect(() => {
+    // Update all existing popups to match current dark mode
+    const popups = document.querySelectorAll('.leaflet-popup');
+    popups.forEach(popup => {
+      if (isDarkMode) {
+        popup.classList.remove('light-mode-popup');
+        popup.classList.add('dark-mode-popup');
+      } else {
+        popup.classList.remove('dark-mode-popup');
+        popup.classList.add('light-mode-popup');
+      }
+    });
+  }, [isDarkMode]);
+
   // Attach popups to markers
   useEffect(() => {
     if (!filteredProjects) return;
