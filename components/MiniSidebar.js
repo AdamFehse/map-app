@@ -55,7 +55,6 @@ import {
   MoreVert as MoreVertIcon,
 } from "@mui/icons-material";
 import ProjectDropdown from "./ProjectDropdown";
-import SearchBar from "./SearchBar";
 import { useDarkMode } from "../contexts/DarkModeContext";
 
 
