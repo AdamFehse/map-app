@@ -19,6 +19,7 @@ export default function SearchBar({
   areaProject,
   areaProjects = [],
   mapZoom = 11,
+  isInSidebar = false,
 }) {
   const [focused, setFocused] = useState(true);
   const [projectContainerHovered, setProjectContainerHovered] = useState(false);
@@ -135,11 +136,11 @@ export default function SearchBar({
       <div
         className="search-container"
         style={{
-          position: "absolute",
-          top: SEARCH_BAR_TOP,
-          left: SEARCH_BAR_LEFT,
-          zIndex: 1000,
-          width: SEARCH_BAR_WIDTH,
+          position: isInSidebar ? "relative" : "absolute",
+          top: isInSidebar ? "auto" : SEARCH_BAR_TOP,
+          left: isInSidebar ? "auto" : SEARCH_BAR_LEFT,
+          zIndex: isInSidebar ? "auto" : 1000,
+          width: isInSidebar ? "100%" : SEARCH_BAR_WIDTH,
           boxSizing: "border-box",
           display: "flex",
           alignItems: "center",
@@ -198,43 +199,13 @@ export default function SearchBar({
                 }}
               />
             </form>
-            <button
-              className="dark-mode-btn"
-              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-              onClick={toggleDarkMode}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#00ff88",
-                fontSize: 20,
-                width: 44,
-                height: 44,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 10,
-                marginLeft: 8,
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#23293a";
-                e.currentTarget.style.transform = "scale(1.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "none";
-                e.currentTarget.style.transform = "scale(1)";
-              }}
-            >
-              {isDarkMode ? "☀️" : "🌙"}
-            </button>
           </div>
         </div>
       </div>
 
       {/* Modern animated project container */}
       <AnimatePresence>
-        {mapZoom >= 11 && areaProjects.length > 0 && (
+        {!isInSidebar && mapZoom >= 11 && areaProjects.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -475,7 +446,7 @@ export default function SearchBar({
         )}
       </AnimatePresence>
 
-      {focused && (
+      {!isInSidebar && focused && (
         <div
           className="search-dropdown"
           ref={dropdownRef}
@@ -607,7 +578,7 @@ export default function SearchBar({
             </>
           ) : (
             <>
-              <div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <strong
                   style={{
                     color: "#00ff88",
@@ -618,12 +589,41 @@ export default function SearchBar({
                 >
                   Recent Searches
                 </strong>
-                <ul style={{ fontSize: 13 }}>
-                  {searchHistory.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
+                <button
+                  className="dark-mode-btn"
+                  aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+                  onClick={toggleDarkMode}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#00ff88",
+                    fontSize: 16,
+                    width: 32,
+                    height: 32,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 8,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = isDarkMode ? "#23293a" : "#f5f5f5";
+                    e.currentTarget.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "none";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
+                >
+                  {isDarkMode ? "☀️" : "🌙"}
+                </button>
               </div>
+              <ul style={{ fontSize: 13 }}>
+                {searchHistory.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
               <div
                 style={{
                   marginTop: 12,
