@@ -44,6 +44,12 @@ export default function MapOpenLayers({ projects, onMarkerClick, onMapReady }) {
       source: vectorSource,
     });
 
+    // Define bounds for the Fronteridades border region (Arizona-Sonora border)
+    const fronteridadesBounds = [
+      fromLonLat([-113.5, 29.0]), // Southwest corner (south of Puerto Peñasco, MX)
+      fromLonLat([-108.5, 33.5]), // Northeast corner (north of Flagstaff, AZ)
+    ];
+
     // Initialize the map
     const map = new Map({
       target: mapRef.current,
@@ -56,6 +62,8 @@ export default function MapOpenLayers({ projects, onMarkerClick, onMapReady }) {
       view: new View({
         center: fromLonLat([-110.990274, 31.916004]), // Center at Tucson, AZ
         zoom: 9,
+        extent: fronteridadesBounds.flat(), // Set the extent to restrict panning
+        constrainOnlyCenter: false, // Constrain the entire view, not just the center
       }),
     });
 

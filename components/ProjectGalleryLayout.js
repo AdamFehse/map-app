@@ -4,6 +4,8 @@ import { EnhancedPoemsTabSidebar, EnhancedPoemsTabDisplay } from './EnhancedPoem
 import { useDarkMode } from '../contexts/DarkModeContext';
 
 export default function ProjectGalleryLayout({ project, onClose }) {
+  console.log('ProjectGalleryLayout rendered with project:', project?.Name);
+  
   const [activeTab, setActiveTab] = useState(0);
   const [allImages, setAllImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -1,0 +1,76 @@
+/* Tailwind-based Modern Popup Styles */
+.tailwind-popup {
+  @apply bg-white/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl;
+  animation: popupSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Ensure popup stays within viewport */
+  max-width: 90vw !important;
+  max-height: 80vh !important;
+  overflow: hidden !important;
+  z-index: 1000 !important;
+}
+
+.tailwind-popup.dark {
+  @apply bg-gray-900/95 border-white/10;
+}
+
+/* Popup arrow styling */
+.tailwind-popup .leaflet-popup-tip {
+  @apply bg-white/95 backdrop-blur-xl border border-white/20;
+}
+
+.tailwind-popup.dark .leaflet-popup-tip {
+  @apply bg-gray-900/95 border-white/10;
+}
+
+/* Close button styling */
+.tailwind-popup .leaflet-popup-close-button {
+  @apply bg-white/90 backdrop-blur-lg border border-gray-200 rounded-full w-7 h-7 text-lg leading-none text-gray-600 transition-all duration-200 shadow-lg;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.tailwind-popup .leaflet-popup-close-button:hover {
+  @apply bg-red-500/90 text-white scale-110 shadow-red-500/30;
+}
+
+.tailwind-popup.dark .leaflet-popup-close-button {
+  @apply bg-gray-800/90 border-white/10 text-gray-300;
+}
+
+/* Hover effects */
+.tailwind-popup:hover {
+  @apply -translate-y-1 shadow-2xl;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animations */
+@keyframes popupSlideIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .tailwind-popup {
+    @apply max-w-[280px];
+    max-width: 85vw !important;
+  }
+}
+
+/* Ensure popup content doesn't overflow */
+.tailwind-popup .leaflet-popup-content {
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Force popup to stay within map bounds */
+.leaflet-popup {
+  max-width: 90vw !important;
+  max-height: 80vh !important;
+} 

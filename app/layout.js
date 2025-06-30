@@ -1,7 +1,6 @@
 // app/layout.js
 
-import './globals.css' // your existing CSS imports
-import '../styles/popup-darkmode.css' // popup dark mode styles
+import './globals.css' // CSS imports
 import { Inter } from "next/font/google";
 import { DarkModeProvider } from "../contexts/DarkModeContext";
 import { ThemeProvider } from "@mui/material/styles";

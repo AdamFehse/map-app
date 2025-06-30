@@ -1,513 +1,394 @@
 // components/Map.js
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
-import { Icon, divIcon } from "leaflet";
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useProjects } from "./useProjects";
-import MiniSidebar from "./MiniSidebar";
-import ProjectModal from "./ProjectModal";
-import ProjectGalleryLayout from "./ProjectGalleryLayout";
-
-import * as R from "leaflet-responsive-popup";
 import { useDarkMode } from "../contexts/DarkModeContext";
-import ProjectPathsD3Layer from "./ProjectPathsD3Layer";
-import AzBorderD3Layer from "./AzBorderD3Layer";
-import RiversD3Layer from "./RiversD3Layer";
-import RoadsD3Layer from "./RoadsD3Layer";
-import TownsD3Layer from "./TownsD3Layer";
+import MarkerCluster from "./MarkerCluster";
+import ProjectGallery from "./ProjectGallery";
+import ProjectGalleryLayout from "./ProjectGalleryLayout";
 import SearchBar from "./SearchBar";
+import { createCategoryIcon } from './MarkerIcons';
+import MapLegend from './MapLegend';
+import MapTitle from './MapTitle';
+import Export4BorderLayer from "./Export4BorderLayer";
+import TownsLabelLayer from "./TownsLabelLayer";
 
 // default center
-const tucsonCenter = [32.2217, -110.9265];
+const mapCenter = [31.333699, -110.950821 - .05];
 
-const defaultIcon = divIcon({
-  className: "custom-div-icon",
-  html: `<div style="background-color: #e74c3c; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>`,
-  iconSize: [12, 12],
-  iconAnchor: [6, 6],
-  popupAnchor: [0, -5],
-});
-
-const selectedIcon = divIcon({
-  className: "custom-div-icon",
-  html: `<div style="background-color:rgb(0, 255, 247); width: 16px; height: 16px; border-radius: 50%; border: 3px solid blue; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);"></div>`,
-  iconSize: [16, 16],
-  iconAnchor: [8, 8],
-  popupAnchor: [0, -5],
-});
-
-function MapSidebarBridge({
-  open,
-  onClose,
-  searchTerm,
-  setSearchTerm,
-  filteredProjects, // original, category-filtered
-  searchFilteredProjects, // search-filtered
-  onSelectCategory,
-  selectedCategory,
-  markerRefs,
-  categories,
-}) {
-  const map = useMap();
-
-  // Handler for project click: fly to marker and open popup
-  const handleProjectClick = (project, originalIndex) => {
-    const key = `${project.Name}-${originalIndex}`;
-    const latitude = parseFloat(project.Latitude);
-    const longitude = parseFloat(project.Longitude);
-    if (!isNaN(latitude) && !isNaN(longitude)) {
-      if (markerRefs?.current[key]) {
-        map.flyTo([latitude, longitude], 13, { animate: true });
-        markerRefs.current[key].openPopup();
-      } else {
-        console.warn(`Marker for key "${key}" not found.`);
-      }
-    } else {
-      console.error("Invalid coordinates:", latitude, longitude);
-    }
-  };
-
-  return (
-    <MiniSidebar
-      open={open}
-      onClose={onClose}
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-      filteredProjects={filteredProjects} // original
-      searchFilteredProjects={searchFilteredProjects} // search-filtered
-      onSelectCategory={onSelectCategory}
-      selectedCategory={selectedCategory}
-      markerRefs={markerRefs}
-      categories={categories}
-      onProjectClick={handleProjectClick}
-    />
-  );
-}
-
-function AreaInfoUpdater({ filteredProjects, setAreaInfo, setAreaProject, setAreaProjects, setMapZoom }) {
-  const map = useMapEvents({
-    moveend: updateAreaInfo,
-    zoomend: updateAreaInfo,
-  });
-
-  function updateAreaInfo() {
-    const zoom = map.getZoom();
-    if (zoom < 12) {
-      setAreaInfo('Zoom in to see projects in this area');
-      setAreaProject(null);
-      setAreaProjects([]);
-      setMapZoom(zoom);
-      return;
-    }
-    const bounds = map.getBounds();
-    const projectsInView = filteredProjects.filter(p =>
-      bounds.contains([p.Latitude, p.Longitude])
-    );
-    if (projectsInView.length === 0) {
-      setAreaInfo('No projects in this area');
-      setAreaProject(null);
-      setAreaProjects([]);
-      setMapZoom(11);
-    } else {
-      const project = projectsInView[0];
-      setAreaInfo(
-        `${project.Name}${project.DescriptionShort ? ': ' + project.DescriptionShort : ''}`
-      );
-      setAreaProject(project);
-      setAreaProjects(projectsInView);
-      setMapZoom(zoom);
-    }
-  }
-
-  // Update on mount and when filteredProjects changes
-  useEffect(() => {
-    updateAreaInfo();
-    // eslint-disable-next-line
-  }, [filteredProjects]);
-
-  return null;
-}
+// Define bounds for the Fronteridades border region (Arizona-Sonora border)
+// This covers the main border region between Arizona and Sonora, Mexico
+const fronteridadesBounds = [
+  [22.0, -120.0], // Southwest corner (south of Cabo San Lucas, Baja California Sur)
+  [40.0, -100.0], // Northeast corner (north of Denver, CO)
+];
 
 export default function Map() {
-  const { projects, filteredProjects, filterProjects, categories } =
-    useProjects();
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const markerRefs = useRef({});
-  const currentPopup = useRef(null);
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  const { projects, loading, error } = useProjects();
   const { isDarkMode } = useDarkMode();
 
-  // --- NEW STATE FOR SEARCH AND SIDEBAR ---
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchHistory, setSearchHistory] = useState([]);
-  const [areaInfo, setAreaInfo] = useState('');
-  const [areaProject, setAreaProject] = useState(null);
-  const [areaProjects, setAreaProjects] = useState([]);
-  const [mapZoom, setMapZoom] = useState(11);
+  // State for gallery
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [mapBounds, setMapBounds] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isProjectLayoutOpen, setIsProjectLayoutOpen] = useState(false);
+  
+  // State for search
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  
+  // Refs for markers and map
+  const markerRefs = useRef({});
+  const mapRef = useRef(null);
 
-  // --- FILTER PROJECTS BY SEARCH TERM (in addition to category) ---
-  const filteredBySearch = filteredProjects.filter(project => {
-    if (!searchTerm) return true;
-    const lower = searchTerm.toLowerCase();
-    return (
-      project.Name?.toLowerCase().includes(lower) ||
-      project.DescriptionShort?.toLowerCase().includes(lower) ||
-      project.Description?.toLowerCase().includes(lower)
-    );
-  });
+  // State for dropdown
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [wasDropdownOpen, setWasDropdownOpen] = useState(false);
+  const [lastDropdownHoveredProject, setLastDropdownHoveredProject] = useState(null);
 
-  // --- HANDLE SEARCH SUBMIT ---
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-    if (term && !searchHistory.includes(term)) {
-      setSearchHistory([term, ...searchHistory.slice(0, 9)]); // keep last 10
+  // State for justRestoredAt (timestamp)
+  const [justRestoredAt, setJustRestoredAt] = useState(0);
+
+  // Update map bounds when map moves
+  useEffect(() => {
+    if (mapRef.current) {
+      const map = mapRef.current._leaflet_map || mapRef.current;
+      if (map) {
+        const updateBounds = () => {
+          setMapBounds(map.getBounds());
+        };
+        
+        map.on('moveend', updateBounds);
+        map.on('zoomend', updateBounds);
+        updateBounds(); // Initial bounds
+        
+        return () => {
+          map.off('moveend', updateBounds);
+          map.off('zoomend', updateBounds);
+        };
+      }
+    }
+  }, [mapRef.current]);
+
+  // Filter projects based on search term
+  useEffect(() => {
+    if (!projects) {
+      setFilteredProjects([]);
+      return;
+    }
+
+    if (!searchTerm.trim()) {
+      setFilteredProjects(projects);
+      return;
+    }
+
+    const filtered = projects.filter(project => {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        project.Name?.toLowerCase().includes(searchLower) ||
+        project.DescriptionShort?.toLowerCase().includes(searchLower) ||
+        project.ProjectCategory?.toLowerCase().includes(searchLower) ||
+        project.Description?.toLowerCase().includes(searchLower)
+      );
+    });
+
+    setFilteredProjects(filtered);
+  }, [projects, searchTerm]);
+
+  // Handle gallery toggle
+  const handleGalleryToggle = () => {
+    console.log('Gallery toggle clicked, current state:', isGalleryOpen);
+    if (isProjectLayoutOpen) {
+      // If layout is open, close it first
+      setIsProjectLayoutOpen(false);
+      setSelectedProject(null);
+    }
+    setIsGalleryOpen(!isGalleryOpen);
+    console.log('New gallery state:', !isGalleryOpen);
+  };
+
+  // Handle gallery close
+  const handleGalleryClose = () => {
+    setIsGalleryOpen(false);
+  };
+
+  // Handle marker hover
+  const handleMarkerHover = (project) => {
+    console.log('Marker hovered:', project.Name);
+    
+    // Find the marker and open its popup
+    const key = `${project.Name}-${projects.findIndex(p => 
+      p.Name === project.Name && 
+      parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+      parseFloat(p.Longitude) === parseFloat(project.Longitude)
+    )}`;
+    
+    const marker = markerRefs.current[key];
+    if (marker && marker.openPopup) {
+      console.log('Opening popup for:', project.Name);
+      marker.openPopup();
     }
   };
 
-  // Ref to store the last category hash that was processed to prevent redundant updates
-  const lastProcessedCategoryHashRef = useRef(window.location.hash);
-
-  // --- HASH ROUTING STATE MANAGEMENT ---
-  const handleMoreDetails = useCallback((project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-    window.location.hash = `project=${encodeURIComponent(project.Name)}&lat=${project.Latitude}&lng=${project.Longitude}`;
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-    // Only clear hash if it's currently a project hash
-    const params = new URLSearchParams(window.location.hash.slice(1));
-    if (params.has('project')) {
-      params.delete('project');
-      params.delete('lat');
-      params.delete('lng');
-      window.location.hash = params.toString();
+  // Handle marker leave
+  const handleMarkerLeave = (project) => {
+    console.log('Marker left:', project.Name);
+    
+    // Find the marker and close its popup
+    const key = `${project.Name}-${projects.findIndex(p => 
+      p.Name === project.Name && 
+      parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+      parseFloat(p.Longitude) === parseFloat(project.Longitude)
+    )}`;
+    
+    const marker = markerRefs.current[key];
+    if (marker && marker.closePopup) {
+      console.log('Closing popup for:', project.Name);
+      marker.closePopup();
     }
-  }, []);
+  };
 
-  const handleCategorySelect = useCallback((category) => {
-    // This function will ONLY update the hash. The useEffect will then 'react' to this.
-    const params = new URLSearchParams(window.location.hash.slice(1));
-    if (category) {
-      params.set('category', encodeURIComponent(category));
-    } else {
-      params.delete('category');
-    }
-    const newHash = params.toString();
-    if (window.location.hash.slice(1) !== newHash) {
-      window.location.hash = newHash;
-    }
-  }, []);
-
-  const handleMarkerClick = useCallback((marker, project, index) => {
-    Object.values(markerRefs.current).forEach((m) => {
-      if (m) {
-        m.setIcon(defaultIcon);
-      }
-    });
-    marker.setIcon(selectedIcon);
-    setSelectedMarker(marker);
-    // Only update hash if it's not already the selected marker hash
-    const currentSelected = new URLSearchParams(window.location.hash.slice(1)).get('selected');
-    if (currentSelected !== project.Name) {
-      window.location.hash = `selected=${encodeURIComponent(project.Name)}`;
-    }
-    // Pan/fly to marker when clicked
-    const currentZoom = marker._map.getZoom();
-    marker._map.flyTo([project.Latitude, project.Longitude], currentZoom, { animate: true });
-  }, [markerRefs]);
-
-  // 1. Sync category from hash to state (triggered by hashchange event)
-  useEffect(() => {
-    const syncCategoryFromHash = () => {
-      setSelectedCategory(prevCategory => {
-        const params = new URLSearchParams(window.location.hash.slice(1));
-        const categoryParam = params.get('category');
-        const newCategoryFromHash = categoryParam || "";
-
-        // Only update if the category from hash is actually different from the previous state
-        if (newCategoryFromHash !== prevCategory) {
-          return newCategoryFromHash;
-        }
-        return prevCategory; // Return previous state if no change to avoid re-render
-      });
-    };
-
-    // Initial sync on mount
-    syncCategoryFromHash();
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', syncCategoryFromHash);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('hashchange', syncCategoryFromHash);
-    };
-  }, []); // Empty dependency array, as it listens to global event
-
-  // 2. Filter projects when selectedCategory changes (isolated from hash sync)
-  useEffect(() => {
-    filterProjects(selectedCategory);
-  }, [selectedCategory, filterProjects]);
-
-  // 3. Restore selected project modal and marker from hash (triggered by hashchange event)
-  useEffect(() => {
-    if (!filteredProjects) return; // Wait for projects to load
-
-    const restoreFromHash = () => {
-      const params = new URLSearchParams(window.location.hash.slice(1));
-      const projectParam = params.get('project');
-      const selectedParam = params.get('selected');
-
-      // Restore selected project modal
-      if (projectParam) {
-        const decodedProjectName = decodeURIComponent(projectParam);
-        const project = filteredProjects.find(p => p.Name === decodedProjectName);
-        if (project && (!selectedProject || selectedProject.Name !== project.Name)) { // Prevent redundant updates
+  // Handle marker click - opens ProjectGalleryLayout when marker is individually visible
+  const handleMarkerClick = (project) => {
+    console.log('handleMarkerClick called for:', project.Name);
+    
+    if (mapRef?.current) {
+      const map = mapRef.current._leaflet_map || mapRef.current;
+      if (map) {
+        // Find the marker to check if it's individually visible
+        const key = `${project.Name}-${projects.findIndex(p => 
+          p.Name === project.Name && 
+          parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+          parseFloat(p.Longitude) === parseFloat(project.Longitude)
+        )}`;
+        
+        const marker = markerRefs.current[key];
+        const currentZoom = map.getZoom();
+        console.log('Current zoom level:', currentZoom);
+        console.log('Marker found:', !!marker);
+        
+        // Check if marker is individually visible (can show popup)
+        const isMarkerVisible = marker && marker.getElement && marker.getElement();
+        console.log('Marker is individually visible:', isMarkerVisible);
+        
+        if (isMarkerVisible) {
+          // If marker is individually visible, open ProjectGalleryLayout
+          console.log('Opening ProjectGalleryLayout for:', project.Name);
+          setLastDropdownHoveredProject(project);
           setSelectedProject(project);
-          setIsModalOpen(true);
+          setIsProjectLayoutOpen(true);
+          // Do NOT close or change dropdown state
         }
-      } else if (isModalOpen) { // Close modal if hash doesn't specify project and it's open
-        setIsModalOpen(false);
-        setSelectedProject(null);
-      }
-
-      // Restore selected marker
-      if (selectedParam) {
-        const decodedSelectedName = decodeURIComponent(selectedParam);
-        const project = filteredProjects.find(p => p.Name === decodedSelectedName);
-        if (project) {
-          const index = filteredProjects.indexOf(project);
-          const key = `${project.Name}-${index}`;
-          const marker = markerRefs.current[key];
-          if (marker && selectedMarker !== marker) { // Prevent redundant updates
-            Object.values(markerRefs.current).forEach((m) => {
-              if (m) { m.setIcon(defaultIcon); }
-            });
-            marker.setIcon(selectedIcon);
-            setSelectedMarker(marker);
-          }
-        }
-      } else if (selectedMarker) { // Reset marker if hash doesn't specify selected and one is selected
-        selectedMarker.setIcon(defaultIcon);
-        setSelectedMarker(null);
-      }
-    };
-
-    // Initial restoration on mount or when filteredProjects change
-    restoreFromHash();
-
-    // Listen for hash changes specifically for modal/marker restoration
-    window.addEventListener('hashchange', restoreFromHash);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('hashchange', restoreFromHash);
-    };
-
-  }, [filteredProjects, isModalOpen, selectedProject, selectedMarker, markerRefs]); // Add all stable deps
-
-  // Update popup classes when dark mode changes
-  useEffect(() => {
-    // Update all existing popups to match current dark mode
-    const popups = document.querySelectorAll('.leaflet-popup');
-    popups.forEach(popup => {
-      if (isDarkMode) {
-        popup.classList.remove('light-mode-popup');
-        popup.classList.add('dark-mode-popup');
+        // NOTE: The flyTo logic for clustered markers has been moved to SearchBar.js
+        // to avoid conflicting commands. This handler now only opens the layout
+        // for already-visible markers.
       } else {
-        popup.classList.remove('dark-mode-popup');
-        popup.classList.add('light-mode-popup');
+        console.log('Map not found');
       }
-    });
-  }, [isDarkMode]);
+    } else {
+      console.log('mapRef not available');
+    }
+  };
 
-  // Attach popups to markers
+  // When a project is hovered in the dropdown, update lastDropdownHoveredProject
+  const handleDropdownProjectHover = (project) => {
+    console.log('[Map.js] handleDropdownProjectHover called with:', project?.Name);
+    setLastDropdownHoveredProject(project);
+    // Highlight marker and open popup if marker is visible
+    if (!project) return;
+    const key = `${project.Name}-${filteredProjects.findIndex(p =>
+      p.Name === project.Name &&
+      parseFloat(p.Latitude) === parseFloat(project.Latitude) &&
+      parseFloat(p.Longitude) === parseFloat(project.Longitude)
+    )}`;
+          const marker = markerRefs.current[key];
+    if (marker) {
+      const projectCategory = project.ProjectCategory || 'Other';
+      const selectedIcon = createCategoryIcon(projectCategory, true, false, project);
+            marker.setIcon(selectedIcon);
+      const isMarkerVisible = marker.getElement && marker.getElement();
+      if (isMarkerVisible && marker.openPopup) {
+        marker.openPopup();
+      }
+    }
+  };
+
+  // Handle ProjectGalleryLayout close
+  const handleProjectLayoutClose = () => {
+    console.log('[Map.js] handleProjectLayoutClose called');
+    console.log('[Map.js] showDropdown:', showDropdown, 'lastDropdownHoveredProject:', lastDropdownHoveredProject?.Name);
+    setIsProjectLayoutOpen(false);
+    setSelectedProject(null);
+    if (showDropdown && lastDropdownHoveredProject) {
+      const now = Date.now();
+      setJustRestoredAt(now);
+      // Delay restoration to ensure DOM and map are ready and leave events have fired
+      setTimeout(() => {
+        console.log('[Map.js] Delayed restoration of marker highlight and popup for:', lastDropdownHoveredProject.Name);
+        handleDropdownProjectHover(lastDropdownHoveredProject);
+      }, 300);
+    }
+  };
+
+  // Restore marker highlight and popup when dropdown is open and lastDropdownHoveredProject is set
   useEffect(() => {
-    if (!filteredProjects) return;
+    if (showDropdown && lastDropdownHoveredProject) {
+      handleDropdownProjectHover(lastDropdownHoveredProject);
+    }
+    // Only run when showDropdown or lastDropdownHoveredProject changes
+  }, [showDropdown, lastDropdownHoveredProject]);
 
-    filteredProjects.forEach((project, index) => {
-      const key = `${project.Name}-${index}`;
-      const marker = markerRefs.current[key];
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
 
-      if (marker) {
-        const popupContent = document.createElement("div");
-        popupContent.className = "responsive-popup-content";
+  // Memoize filtered projects to avoid re-calculating on every render
+  const filteredProjectsMemo = useMemo(() => {
+    if (!projects) return [];
+    if (!searchTerm.trim()) {
+      return projects;
+    }
 
-        popupContent.innerHTML = `
-            <img 
-              src="${project.ImageUrl || "https://via.placeholder.com/150"}" 
-              alt="${project.Name}" 
-              class="popup-image" 
-            />
-            <strong class="popup-title">${project.Name}</strong>
-            <p class="popup-description">${
-              project.DescriptionShort || project.Description || ""
-            }</p>
-            <button id="more-details-${index}" class="popup-button">
-              More Details
-            </button>
-        `;
-
-        const popup = R.responsivePopup({
-          hasTip: false,
-          autoPan: true,
-          className: isDarkMode ? "dark-mode-popup" : "light-mode-popup",
-        }).setContent(popupContent);
-
-        marker.bindPopup(popup);
-
-        // Add event listeners for the marker and popup
-        marker.on("click", () => {
-          handleMarkerClick(marker, project, index); // Use the new handler
-        });
-
-        // Listen for popup open/close events
-        marker.on("popupopen", () => {
-          handleMarkerClick(marker, project, index); // Use the new handler
-        });
-
-        marker.on("popupclose", () => {
-          // Only clear hash if it's currently a selected marker hash
-          const params = new URLSearchParams(window.location.hash.slice(1));
-          if (params.has('selected')) {
-            params.delete('selected');
-            window.location.hash = params.toString();
-          }
-          marker.setIcon(defaultIcon);
-          setSelectedMarker(null);
-        });
-
-        // Add event listener for the button
-        const button = popupContent.querySelector(`#more-details-${index}`);
-        if (button) {
-          button.addEventListener("click", () => {
-            handleMoreDetails(project);
-          });
-        }
-      }
+    return projects.filter(project => {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        project.Name?.toLowerCase().includes(searchLower) ||
+        project.DescriptionShort?.toLowerCase().includes(searchLower) ||
+        project.ProjectCategory?.toLowerCase().includes(searchLower) ||
+        project.Description?.toLowerCase().includes(searchLower)
+      );
     });
-  }, [filteredProjects, isDarkMode, handleMoreDetails, handleMarkerClick]);
+  }, [projects, searchTerm]);
+
+  if (loading) {
+    return <div>Loading map...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading map: {error}</div>;
+  }
 
   return (
     <div style={{ position: "relative", height: "100vh", width: "100%" }}>
-      <SearchBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onMenuClick={() => setSidebarOpen(true)}
-        areaInfo={areaInfo}
-        areaProject={areaProject}
-        areaProjects={areaProjects}
-        mapZoom={mapZoom}
-        searchHistory={searchHistory}
-        onSearch={handleSearch}
-        filteredProjects={filteredBySearch}
-        onProjectSelect={(project) => {
-          const originalIndex = filteredProjects.findIndex(
-            (p) =>
-              p.Name === project.Name &&
-              p.Latitude === project.Latitude &&
-              p.Longitude === project.Longitude
-          );
-          const key = `${project.Name}-${originalIndex}`;
-          if (!isNaN(project.Latitude) && !isNaN(project.Longitude)) {
-            if (markerRefs?.current[key]) {
-              markerRefs.current[key]._map.flyTo([project.Latitude, project.Longitude], 13, { animate: true });
-              markerRefs.current[key].openPopup();
-            }
-          }
-          setSidebarOpen(false); // Optionally close sidebar after selection
-        }}
-      />
       <MapContainer
-        center={tucsonCenter}
-        zoom={11}
+        ref={mapRef}
+        center={mapCenter}
+        zoom={8}
         style={{ height: "100vh", width: "100%" }}
+        maxBounds={fronteridadesBounds}
+        bounds={fronteridadesBounds}
+        minZoom={5}
+        maxZoom={19}
       >
-        <AreaInfoUpdater
-          filteredProjects={filteredProjects}
-          setAreaInfo={setAreaInfo}
-          setAreaProject={setAreaProject}
-          setAreaProjects={setAreaProjects}
-          setMapZoom={setMapZoom}
-        />
         <TileLayer
           url={
             isDarkMode
-              ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              ? "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
               : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           }
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           minZoom={0}
           maxZoom={20}
         />
-        {filteredProjects?.map((project, index) => {
-          const key = `${project.Name}-${index}`;
-          return (
-            <Marker
-              key={key}
-              position={[project.Latitude, project.Longitude]}
-              icon={defaultIcon}
-              ref={(marker) => {
-                if (marker) {
-                  markerRefs.current[key] = marker;
-                }
-              }}
-            />
-          );
-        })}
 
-        {/* voronoi layer <ProjectPathsD3Layer />*/}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+            zIndex: 400, // below markers/clusters, above tiles
+            background: "linear-gradient(180deg, rgba(0, 255, 234, 0.19) 0%, rgba(0, 8, 255, 0.13) 100%)"
+          }}
+        />
+
+        <MarkerCluster 
+          projects={filteredProjectsMemo} 
+          markerRefs={markerRefs}
+          onMarkerClick={handleMarkerClick}
+          />
+
+        <Export4BorderLayer />
+        <TownsLabelLayer />
         
-        {/* map Layers 
-        <AzBorderD3Layer />
-        <RiversD3Layer />
-        <RoadsD3Layer />
-        <TownsD3Layer />*/}
+      </MapContainer>
 
-        {sidebarOpen && (
-          <MapSidebarBridge
-            open={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}
+      <MapTitle />
+      <MapLegend />
+
+      {/* Search Bar */}
+      <div className="absolute top-0 left-0 w-full z-[1000] p-4 pointer-events-none">
+        <div className="w-full max-w-lg mx-auto pointer-events-auto">
+          <SearchBar
+            onSearch={handleSearch}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
-            filteredProjects={filteredProjects} // original
-            searchFilteredProjects={filteredBySearch} // search-filtered
-            onSelectCategory={setSelectedCategory}
-            selectedCategory={selectedCategory}
+            filteredProjects={filteredProjectsMemo}
             markerRefs={markerRefs}
-            categories={categories}
+            mapRef={mapRef}
+            mapBounds={mapBounds}
+            onMarkerClick={handleMarkerClick}
+            isLayoutOpen={isProjectLayoutOpen}
+            showDropdown={showDropdown}
+            setShowDropdown={setShowDropdown}
+            onDropdownProjectHover={handleDropdownProjectHover}
+            justRestoredAt={justRestoredAt}
           />
-        )}
-      </MapContainer>
-      <div
-        className="map-color-overlay"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          height: "100%",
-          width: "100%",
-          background: "rgba(192, 128, 248, 0.1)",
-          pointerEvents: "none",
-          zIndex: 400,
-        }}
-      />
-      {selectedProject && (
-        <ProjectGalleryLayout
-          project={selectedProject}
-          onClose={handleCloseModal}
+        </div>
+      </div>
+
+      {/* Gallery Toggle Button */}
+      <button
+        onClick={handleGalleryToggle}
+        className="absolute bottom-4 left-4 z-[9999] bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 p-3 transition-all duration-200 hover:shadow-xl"
+        title="Toggle Project Gallery"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      </button>
+      
+      {/* Project Gallery (only show if not in detailed view) */}
+      {isGalleryOpen && !isProjectLayoutOpen && (
+        <ProjectGallery
+          isOpen={isGalleryOpen}
+          onClose={handleGalleryClose}
+          projects={filteredProjectsMemo}
+          markerRefs={markerRefs}
+          mapBounds={mapBounds}
+          mapRef={mapRef}
+          onMarkerHover={handleMarkerHover}
+          onMarkerLeave={handleMarkerLeave}
+          onMarkerClick={handleMarkerClick}
+          justRestoredAt={justRestoredAt}
         />
       )}
+
+      {/* Project Gallery Layout Overlay */}
+      {selectedProject && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 99999,
+          pointerEvents: 'auto',
+        }}>
+        <ProjectGalleryLayout
+          project={selectedProject}
+            onClose={handleProjectLayoutClose}
+          />
+        </div>
+      )}
+      
+      {/* Debug info */}
+      {console.log('Map render - selectedProject:', selectedProject?.Name, 'isProjectLayoutOpen:', isProjectLayoutOpen)}
     </div>
   );
 }

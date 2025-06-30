@@ -1,782 +1,446 @@
 import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { useDarkMode } from "../contexts/DarkModeContext";
+import { getCategoryConfig } from "./CategoryConfig";
+import { createCategoryIcon } from "./MarkerIcons";
+import ProjectGalleryCardDropdown from './ProjectGalleryCardDropdown';
 
-const SEARCH_BAR_WIDTH = 360;
+const SEARCH_BAR_WIDTH = 280;
 const SEARCH_BAR_LEFT = 50;
 const SEARCH_BAR_TOP = 20;
-const SEARCH_BAR_HEIGHT = 52;
+
+// Category Marker Highlighter Component
+const CategoryMarkerHighlighter = ({ 
+  activeCategory, 
+  filteredProjects, 
+  markerRefs, 
+  mapRef,
+  isVisible = false 
+}) => {
+  const [highlightedMarkers, setHighlightedMarkers] = useState([]);
+  const { isDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    if (!isVisible || !activeCategory || activeCategory === 'all' || activeCategory === 'local') {
+      setHighlightedMarkers([]);
+      return;
+    }
+
+    // Find all projects in the selected category
+    const categoryProjects = filteredProjects.filter(
+      project => (project.ProjectCategory || 'Other') === activeCategory
+    );
+
+    // Get marker references for these projects
+    const markers = categoryProjects.map(project => {
+      const originalIndex = filteredProjects.findIndex(
+        (p) => p.Name === project.Name && 
+               parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+               parseFloat(p.Longitude) === parseFloat(project.Longitude)
+      );
+      const key = `${project.Name}-${originalIndex}`;
+      return {
+        project,
+        markerRef: markerRefs?.current[key],
+        key
+      };
+    }).filter(item => item.markerRef);
+
+    setHighlightedMarkers(markers);
+
+    // Highlight markers with selected state
+    markers.forEach(({ markerRef, project }) => {
+      if (markerRef) {
+        const projectCategory = project.ProjectCategory || 'Other';
+        const selectedIcon = createCategoryIcon(projectCategory, true, false, project);
+        markerRef.setIcon(selectedIcon);
+      }
+    });
+
+    // Cleanup function to reset markers when category changes
+    return () => {
+      markers.forEach(({ markerRef, project }) => {
+        if (markerRef) {
+          const projectCategory = project.ProjectCategory || 'Other';
+          const defaultIcon = createCategoryIcon(projectCategory, false, false, project);
+          markerRef.setIcon(defaultIcon);
+        }
+      });
+    };
+  }, [activeCategory, filteredProjects, markerRefs, isVisible]);
+
+  return null; // This component only handles marker highlighting
+};
 
 export default function SearchBar({
-  onMenuClick,
-  areaInfo,
-  searchHistory,
   onSearch,
   searchTerm,
   setSearchTerm,
   filteredProjects = [],
-  onProjectSelect,
-  areaProject,
-  areaProjects = [],
-  mapZoom = 11,
   isInSidebar = false,
+  closeOnSelect = true,
+  onTabChange = null,
+  onMenuClick = null,
+  markerRefs = null,
+  mapRef = null,
+  mapBounds = null,
+  onMarkerClick = null,
+  isLayoutOpen = false,
+  showDropdown = false,
+  setShowDropdown = () => {},
+  justRestoredAt = 0,
 }) {
-  const [focused, setFocused] = useState(true);
-  const [projectContainerHovered, setProjectContainerHovered] = useState(false);
-  const [projectContainerExpanded, setProjectContainerExpanded] = useState(false);
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-  
-  const inputRef = useRef();
-  const dropdownRef = useRef();
-  const scrollContainerRef = useRef();
-  const projectContainerTimeoutRef = useRef();
+  const [activeTab, setActiveTab] = useState('all');
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const [lastSelectedProject, setLastSelectedProject] = useState(null);
+  const [visibleProjects, setVisibleProjects] = useState([]);
+  const [isFlying, setIsFlying] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ left: SEARCH_BAR_LEFT, top: SEARCH_BAR_TOP + 60 });
+  const inputRef = useRef(null);
+  const { isDarkMode } = useDarkMode();
 
-  // Smooth scroll with easing
-  const smoothScrollTo = (element, to, duration = 300) => {
-    const start = element.scrollLeft;
-    const change = to - start;
-    const startTime = performance.now();
+  // Calculate optimal dropdown position based on map view
+  const calculateDropdownPosition = () => {
+    return { left: SEARCH_BAR_LEFT, top: SEARCH_BAR_TOP + 60 };
+  };
 
-    const animateScroll = (currentTime) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
+  // Update dropdown position when map changes
+  useEffect(() => {
+    if (showDropdown) {
+      const newPosition = calculateDropdownPosition();
+      setDropdownPosition(newPosition);
+    }
+  }, [showDropdown, mapRef]);
+
+  // Filter projects based on map bounds (exactly like ProjectGallery)
+  useEffect(() => {
+    if (!filteredProjects) {
+      setVisibleProjects([]);
+      return;
+    }
+
+    // If no map bounds, show all projects
+    if (!mapBounds) {
+      setVisibleProjects(filteredProjects);
+      return;
+    }
+
+    // Don't update visible projects while flying to prevent dropdown from closing
+    if (isFlying) {
+      return;
+    }
+
+    const filtered = filteredProjects.filter(project => {
+      const lat = parseFloat(project.Latitude);
+      const lng = parseFloat(project.Longitude);
       
-      // Easing function (ease-out-cubic)
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-      
-      element.scrollLeft = start + (change * easeOutCubic);
-      
-      if (progress < 1) {
-        requestAnimationFrame(animateScroll);
+      // Check if coordinates are valid
+      if (isNaN(lat) || isNaN(lng)) {
+        return false;
       }
-    };
+      
+      // Use contains method if available, otherwise use manual bounds check
+      const isInBounds = mapBounds.contains ? 
+        mapBounds.contains([lat, lng]) :
+        lat >= mapBounds.south && 
+        lat <= mapBounds.north && 
+        lng >= mapBounds.west && 
+        lng <= mapBounds.east;
+      
+      return isInBounds;
+    });
+
+    // If no projects in view, show all projects as fallback
+    if (filtered.length === 0 && filteredProjects.length > 0) {
+      setVisibleProjects(filteredProjects);
+    } else {
+      setVisibleProjects(filtered);
+    }
+  }, [filteredProjects, mapBounds, isFlying]);
+
+  // Get unique categories from projects
+  const getCategories = () => {
+    const categories = [...new Set(filteredProjects.map(p => p.ProjectCategory || 'Other'))];
+    return ['all', 'local', ...categories.sort()];
+  };
+
+  // Filter projects by active tab
+  const getProjectsByTab = () => {
+    if (activeTab === 'all') return filteredProjects;
+    if (activeTab === 'local') return visibleProjects;
     
-    requestAnimationFrame(animateScroll);
+    // For category tabs, always filter within local view context
+    // This ensures we're showing only visible projects in the selected category
+    return visibleProjects.filter(p => (p.ProjectCategory || 'Other') === activeTab);
   };
 
-  // Check scroll state
-  const checkScrollState = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }
+  // Handle tab selection
+  const handleTabSelect = (category) => {
+    setActiveTab(category);
+    
+    // If selecting a category tab, we're effectively in "local view" mode
+    // but showing only that category within the local view
+    console.log(`Selected tab: ${category} - filtering within local view`);
   };
 
-  // Scroll handlers
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 200;
-      const newScrollLeft = Math.max(0, scrollContainerRef.current.scrollLeft - scrollAmount);
-      smoothScrollTo(scrollContainerRef.current, newScrollLeft);
-    }
-  };
+  const handleProjectSelect = (project) => {
+    if (mapRef?.current) {
+      const map = mapRef.current._leaflet_map || mapRef.current;
+      if (map) {
+        // Find the marker to check if it's individually visible
+        const originalIndex = filteredProjects.findIndex(
+          (p) => p.Name === project.Name && 
+                 parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+                 parseFloat(p.Longitude) === parseFloat(project.Longitude)
+        );
+        
+        if (originalIndex !== -1) {
+          const key = `${project.Name}-${originalIndex}`;
+          const marker = markerRefs?.current[key];
+          
+          // Check if marker is individually visible (can show popup)
+          const isMarkerVisible = marker && marker.getElement && marker.getElement();
+          
+          if (isMarkerVisible) {
+            // If marker is individually visible, open ProjectGalleryLayout
+            if (onMarkerClick) {
+              onMarkerClick(project);
+            }
+          } else {
+            // If marker is clustered, fly to the location
+            const lat = parseFloat(project.Latitude);
+            const lng = parseFloat(project.Longitude);
+            const targetZoom = 12;
 
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 200;
-      const maxScroll = scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth;
-      const newScrollLeft = Math.min(maxScroll, scrollContainerRef.current.scrollLeft + scrollAmount);
-      smoothScrollTo(scrollContainerRef.current, newScrollLeft);
-    }
-  };
-
-  // Handle clicking outside to close dropdown
-  useEffect(() => {
-    function handleClickOutside(event) {
-      // Don't close if clicking on the dark mode button
-      if (event.target.closest('.dark-mode-btn')) {
-        return;
+            if (!isNaN(lat) && !isNaN(lng)) {
+              setIsFlying(true);
+              
+              // Basic flyTo: center directly on the clicked project
+              map.flyTo([lat, lng], targetZoom, {
+                duration: 1.5,
+                easeLinearity: 0.25
+              });
+              
+              setTimeout(() => {
+                setIsFlying(false);
+                // Find the marker again after the flyTo
+                const markerAfterFly = markerRefs?.current[key];
+                if (markerAfterFly && markerAfterFly.openPopup) {
+                  markerAfterFly.openPopup();
+                  
+                  // Also highlight the marker
+                  const projectCategory = project.ProjectCategory || 'Other';
+                  const selectedIcon = createCategoryIcon(projectCategory, true, false, project);
+                  markerAfterFly.setIcon(selectedIcon);
+                }
+              }, 1600); // Slightly longer than the flyTo duration to ensure it's complete
+            }
+          }
+        }
       }
-      
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
-        inputRef.current &&
-        !inputRef.current.contains(event.target)
-      ) {
-        setFocused(false);
-      }
     }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // Check scroll state when projects change or container expands
-  useEffect(() => {
-    if (scrollContainerRef.current) {
-      const timeoutId = setTimeout(checkScrollState, 100);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [areaProjects, projectContainerExpanded]);
-
-  // Handle project container hover with delay
-  const handleProjectContainerEnter = () => {
-    if (projectContainerTimeoutRef.current) {
-      clearTimeout(projectContainerTimeoutRef.current);
-    }
-    setProjectContainerHovered(true);
-    setProjectContainerExpanded(true);
   };
 
-  const handleProjectContainerLeave = () => {
-    setProjectContainerHovered(false);
-    projectContainerTimeoutRef.current = setTimeout(() => {
-      setProjectContainerExpanded(false);
-    }, 300);
+  const handleDropdownClose = () => {
+    setShowDropdown(false);
+  };
+
+  const handleProjectHover = (project) => {
+    setHoveredProject(project);
+    const originalIndex = filteredProjects.findIndex(
+      (p) => p.Name === project.Name && 
+             parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+             parseFloat(p.Longitude) === parseFloat(project.Longitude)
+    );
+    if (originalIndex !== -1) {
+      const key = `${project.Name}-${originalIndex}`;
+      const marker = markerRefs?.current[key];
+      if (marker) {
+        const projectCategory = project.ProjectCategory || 'Other';
+        const selectedIcon = createCategoryIcon(projectCategory, true, false, project);
+        marker.setIcon(selectedIcon);
+        
+        // Only open popup if the marker is individually visible
+        const isMarkerVisible = marker.getElement && marker.getElement();
+        if (isMarkerVisible) {
+            console.log('SearchBar hover - Opening popup for:', project.Name);
+            marker.openPopup();
+        }
+      }
+    }
+  };
+
+  const handleProjectLeave = (project) => {
+    if (justRestoredAt && Date.now() - justRestoredAt < 300) {
+      console.log('[SearchBar] handleProjectLeave ignored due to justRestoredAt');
+      return;
+    }
+    console.log('[SearchBar] handleProjectLeave called for:', project?.Name);
+    setHoveredProject(null);
+    const originalIndex = filteredProjects.findIndex(
+      (p) => p.Name === project.Name && 
+             parseFloat(p.Latitude) === parseFloat(project.Latitude) && 
+             parseFloat(p.Longitude) === parseFloat(project.Longitude)
+    );
+    if (originalIndex !== -1) {
+      const key = `${project.Name}-${originalIndex}`;
+      const marker = markerRefs?.current[key];
+      if (marker) {
+        const projectCategory = project.ProjectCategory || 'Other';
+        const defaultIcon = createCategoryIcon(projectCategory, false, false, project);
+        marker.setIcon(defaultIcon);
+
+        // Only close popup if the marker is individually visible
+        const isMarkerVisible = marker.getElement && marker.getElement();
+        if (isMarkerVisible) {
+            console.log('SearchBar leave - Closing popup for:', project.Name);
+            marker.closePopup();
+        }
+      }
+    }
+  };
+
+  const handleInputFocus = () => {
+    setShowDropdown(true);
+    setTimeout(() => {
+      const newPosition = calculateDropdownPosition();
+      setDropdownPosition(newPosition);
+    }, 100);
   };
 
   return (
     <>
+      {/* Search Bar */}
       <div
-        className="search-container"
         style={{
           position: isInSidebar ? "relative" : "absolute",
           top: isInSidebar ? "auto" : SEARCH_BAR_TOP,
-          left: isInSidebar ? "auto" : SEARCH_BAR_LEFT,
+          left: isInSidebar ? "auto" : dropdownPosition.left,
           zIndex: isInSidebar ? "auto" : 1000,
           width: isInSidebar ? "100%" : SEARCH_BAR_WIDTH,
-          boxSizing: "border-box",
-          display: "flex",
-          alignItems: "center",
-          fontFamily: "Inter, Arial, sans-serif",
         }}
       >
-        <div style={{ flex: 1 }}>
-          <div
-            className="searchbox"
-            style={{
-              width: "100%",
-              background: isDarkMode ? "#181c24" : "#ffffff",
-              borderRadius: 14,
-              boxShadow: isDarkMode 
-                ? "0 2px 12px rgba(0,0,0,0.13)" 
-                : "0 2px 12px rgba(0,0,0,0.1)",
-              display: "flex",
-              alignItems: "center",
-              padding: "0 10px",
-              minHeight: 48,
-              border: isDarkMode ? "1.5px solid #23293a" : "1.5px solid #e0e0e0",
-              boxSizing: "border-box",
-            }}
-          >
-            <form
-              className="search-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                onSearch(searchTerm);
-              }}
-              style={{ display: "flex", alignItems: "center", width: "100%" }}
-            >
-              <label htmlFor="search-input" style={{ display: "none" }}>
-                Search Google Maps
-              </label>
-              <input
-                id="search-input"
-                ref={inputRef}
-                type="text"
-                placeholder="Search..."
-                autoComplete="off"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setTimeout(() => setFocused(false), 200)}
-                style={{
-                  border: "none",
-                  outline: "none",
-                  fontSize: 17,
-                  width: "100%",
-                  background: "transparent",
-                  color: isDarkMode ? "#fff" : "#000",
-                  padding: "12px 0",
-                  fontWeight: 500,
-                  letterSpacing: 0.2,
-                }}
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-
-      {/* Modern animated project container */}
-      <AnimatePresence>
-        {!isInSidebar && mapZoom >= 11 && areaProjects.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            role="region"
-            aria-label={`${areaProjects.length} projects in this area`}
-            onMouseEnter={handleProjectContainerEnter}
-            onMouseLeave={handleProjectContainerLeave}
-            style={{
-              position: "fixed",
-              top: SEARCH_BAR_TOP,
-              left: SEARCH_BAR_LEFT + SEARCH_BAR_WIDTH + 16,
-              zIndex: 1000,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              overflowX: "auto",
-              overflowY: "hidden",
-              maxWidth: projectContainerExpanded ? 650 : 400,
-              height: projectContainerExpanded ? 120 : 52,
-              gap: projectContainerExpanded ? 16 : 8,
-              padding: projectContainerExpanded ? "16px 20px" : "8px 12px",
-              background: isDarkMode
-                ? "linear-gradient(135deg, rgba(24, 28, 36, 0.95) 0%, rgba(35, 41, 58, 0.95) 100%)"
-                : "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.95) 100%)",
-              borderRadius: projectContainerExpanded ? 20 : 14,
-              border: isDarkMode 
-                ? "1px solid rgba(255, 255, 255, 0.15)" 
-                : "1px solid rgba(0, 0, 0, 0.1)",
-              boxShadow: projectContainerExpanded 
-                ? (isDarkMode 
-                    ? "0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.2)"
-                    : "0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05)")
-                : (isDarkMode 
-                    ? "0 4px 16px rgba(0, 0, 0, 0.3)"
-                    : "0 4px 16px rgba(0, 0, 0, 0.1)"),
-              backdropFilter: "blur(10px)",
-              scrollbarWidth: "thin",
-              scrollbarColor: isDarkMode 
-                ? "rgba(255, 255, 255, 0.3) transparent"
-                : "rgba(0, 0, 0, 0.3) transparent",
-              opacity: projectContainerHovered ? 1 : 0.85,
-              transition: "all 0.3s ease",
-              pointerEvents: "auto",
-            }}
-          >
-            {/* Left scroll button */}
-            <AnimatePresence>
-              {canScrollLeft && projectContainerExpanded && (
-                <motion.button
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  onClick={scrollLeft}
-                  aria-label="Scroll left"
-                  style={{
-                    position: "absolute",
-                    left: 8,
-                    top: "40%",
-                    transform: "translateY(-50%)",
-                    zIndex: 1002,
-                    width: 32,
-                    height: 32,
-                    background: "rgba(0, 255, 136, 0.9)",
-                    border: "none",
-                    borderRadius: "50%",
-                    color: "#000",
-                    fontSize: 14,
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
-                    transition: "all 0.2s ease",
-                  }}
-                  whileHover={{ scale: 1.1, background: "rgba(0, 255, 136, 1)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  ‹
-                </motion.button>
-              )}
-            </AnimatePresence>
-
-            {/* Scrollable projects container */}
-            <div
-              ref={scrollContainerRef}
-              onScroll={checkScrollState}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                overflowX: "auto",
-                overflowY: "hidden",
-                scrollBehavior: "smooth",
-                gap: projectContainerExpanded ? 16 : 8,
-                padding: projectContainerExpanded ? "16px 20px" : "8px 12px",
-                paddingLeft: canScrollLeft && projectContainerExpanded ? 48 : (projectContainerExpanded ? 20 : 12),
-                paddingRight: canScrollRight && projectContainerExpanded ? 48 : (projectContainerExpanded ? 20 : 12),
-                width: "100%",
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-              }}
-              // Hide scrollbar
-              className="hide-scrollbar"
-            >
-              {areaProjects.map((project, i) => (
-                <motion.button
-                  key={project.Name + i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05, duration: 0.2 }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -2,
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => onProjectSelect && onProjectSelect(project)}
-                  aria-label={`Select project: ${project.Name}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: projectContainerExpanded ? "column" : "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: isDarkMode ? "#23293a" : "#f5f5f5",
-                    border: isDarkMode 
-                      ? "1px solid rgba(255, 255, 255, 0.1)" 
-                      : "1px solid rgba(0, 0, 0, 0.1)",
-                    borderRadius: projectContainerExpanded ? 12 : 8,
-                    padding: projectContainerExpanded ? "12px 16px" : "6px 8px",
-                    minWidth: projectContainerExpanded ? 140 : 80,
-                    maxWidth: projectContainerExpanded ? 180 : 120,
-                    height: projectContainerExpanded ? 88 : 36,
-                    cursor: "pointer",
-                    color: isDarkMode ? "#ffffff" : "#000000",
-                    fontSize: projectContainerExpanded ? 14 : 11,
-                    fontWeight: 600,
-                    lineHeight: 1.2,
-                    outline: "none",
-                    flexShrink: 0,
-                    transition: "all 0.2s ease",
-                    gap: projectContainerExpanded ? 8 : 6,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#00ff88";
-                    e.currentTarget.style.color = "#000000";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 6px 20px rgba(0, 255, 136, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = isDarkMode ? "#23293a" : "#f5f5f5";
-                    e.currentTarget.style.color = isDarkMode ? "#ffffff" : "#000000";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  <img
-                    src={
-                      project.ImageUrl ||
-                      project.imageUrl ||
-                      "https://placehold.co/32x32/23293a/ffffff?text=P"
-                    }
-                    alt=""
-                    role="presentation"
-                    style={{
-                      width: projectContainerExpanded ? 40 : 24,
-                      height: projectContainerExpanded ? 40 : 24,
-                      borderRadius: projectContainerExpanded ? 8 : 4,
-                      objectFit: "cover",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      flexShrink: 0,
-                    }}
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://placehold.co/32x32/23293a/ffffff?text=P";
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontSize: projectContainerExpanded ? 13 : 11,
-                      fontWeight: 600,
-                      lineHeight: 1.2,
-                      color: "inherit",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      maxWidth: projectContainerExpanded ? "100%" : "60px",
-                      textAlign: projectContainerExpanded ? "center" : "left",
-                    }}
-                  >
-                    {project.Name}
-                  </span>
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Right scroll button */}
-            <AnimatePresence>
-              {canScrollRight && projectContainerExpanded && (
-                <motion.button
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  onClick={scrollRight}
-                  aria-label="Scroll right"
-                  style={{
-                    position: "absolute",
-                    right: 8,
-                    top: "40%",
-                    transform: "translateY(-50%)",
-                    zIndex: 1002,
-                    width: 32,
-                    height: 32,
-                    background: "rgba(0, 255, 136, 0.9)",
-                    border: "none",
-                    borderRadius: "50%",
-                    color: "#000",
-                    fontSize: 14,
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
-                    transition: "all 0.2s ease",
-                  }}
-                  whileHover={{ scale: 1.1, background: "rgba(0, 255, 136, 1)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  ›
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {!isInSidebar && focused && (
         <div
-          className="search-dropdown"
-          ref={dropdownRef}
           style={{
-            position: "absolute",
-            top: SEARCH_BAR_TOP + SEARCH_BAR_HEIGHT + 8,
-            left: SEARCH_BAR_LEFT,
-            width: SEARCH_BAR_WIDTH,
-            boxSizing: "border-box",
+            width: "100%",
             background: isDarkMode ? "#181c24" : "#ffffff",
-            borderRadius: 16,
+            borderRadius: 14,
             boxShadow: isDarkMode 
-              ? "0 8px 32px rgba(0,0,0,0.22)" 
-              : "0 8px 32px rgba(0,0,0,0.1)",
-            padding: 12,
-            zIndex: 1001,
+              ? "0 2px 12px rgba(0,0,0,0.13)" 
+              : "0 2px 12px rgba(0,0,0,0.1)",
+            display: "flex",
+            alignItems: "center",
+            padding: "0 10px",
+            minHeight: 48,
             border: isDarkMode ? "1.5px solid #23293a" : "1.5px solid #e0e0e0",
-            fontFamily: "Inter, Arial, sans-serif",
-            transition: "opacity 0.18s, transform 0.18s",
-            opacity: focused ? 1 : 0,
-            transform: focused ? "translateY(0)" : "translateY(10px)",
-            pointerEvents: focused ? "auto" : "none",
           }}
         >
-          {searchTerm ? (
-            <>
-              <strong
-                style={{
-                  color: "#00ff88",
-                  fontWeight: 600,
-                  fontSize: 13,
-                  letterSpacing: 1,
-                }}
-              >
-                Results
-              </strong>
-              <ul
-                style={{
-                  maxHeight: 240,
-                  overflowY: "auto",
-                  margin: 0,
-                  padding: 0,
-                  listStyle: "none",
-                }}
-              >
-                {filteredProjects.length === 0 && (
-                  <li style={{ padding: 8, color: isDarkMode ? "#888" : "#666", fontSize: 13 }}>
-                    No results
-                  </li>
-                )}
-                {filteredProjects.map((project, i) => (
-                  <li
-                    key={i}
-                    style={{
-                      cursor: "pointer",
-                      padding: "7px 8px",
-                      borderRadius: 8,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      transition: "background 0.18s",
-                      marginBottom: 2,
-                    }}
-                    onMouseDown={() => {
-                      onProjectSelect && onProjectSelect(project);
-                      setTimeout(() => setFocused(false), 100);
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = isDarkMode ? "#23293a" : "#f5f5f5")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = "transparent")
-                    }
-                  >
-                    <img
-                      src={
-                        project.ImageUrl ||
-                        project.imageUrl ||
-                        "https://placehold.co/32x32"
-                      }
-                      alt={project.Name}
-                      style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 7,
-                        objectFit: "cover",
-                        flexShrink: 0,
-                        border: "1px solid #23293a",
-                        background: "#23293a",
-                      }}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        minWidth: 0,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontWeight: 500,
-                          color: isDarkMode ? "#fff" : "#000",
-                          fontSize: 15,
-                          lineHeight: 1.2,
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {project.Name}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 12,
-                          color: isDarkMode ? "#b0b0b0" : "#666",
-                          lineHeight: 1.2,
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          marginTop: 1,
-                        }}
-                      >
-                        {project.DescriptionShort}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <strong
-                  style={{
-                    color: "#00ff88",
-                    fontWeight: 600,
-                    fontSize: 13,
-                    letterSpacing: 1,
-                  }}
-                >
-                  Recent Searches
-                </strong>
-                <button
-                  className="dark-mode-btn"
-                  aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-                  onClick={toggleDarkMode}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "#00ff88",
-                    fontSize: 16,
-                    width: 32,
-                    height: 32,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 8,
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = isDarkMode ? "#23293a" : "#f5f5f5";
-                    e.currentTarget.style.transform = "scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "none";
-                    e.currentTarget.style.transform = "scale(1)";
-                  }}
-                >
-                  {isDarkMode ? "☀️" : "🌙"}
-                </button>
-              </div>
-              <ul style={{ fontSize: 13 }}>
-                {searchHistory.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-              <div
-                style={{
-                  marginTop: 12,
-                  borderTop: isDarkMode ? "1px solid #23293a" : "1px solid #e0e0e0",
-                  paddingTop: 8,
-                }}
-              >
-                <strong
-                  style={{
-                    color: "#00ff88",
-                    fontWeight: 600,
-                    fontSize: 13,
-                    letterSpacing: 1,
-                  }}
-                >
-                  This Area
-                </strong>
-                {areaProject ? (
-                  <div
-                    style={{
-                      marginTop: 6,
-                      background: isDarkMode ? "#23293a" : "#f5f5f5",
-                      borderRadius: 10,
-                      padding: "10px 12px",
-                      color: isDarkMode ? "#fff" : "#000",
-                      cursor: "pointer",
-                      fontSize: 15,
-                      fontWeight: 500,
-                      boxShadow: isDarkMode 
-                        ? "0 2px 8px rgba(0,0,0,0.10)" 
-                        : "0 2px 8px rgba(0,0,0,0.05)",
-                      transition: "background 0.18s",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                    }}
-                    onMouseDown={() =>
-                      onProjectSelect && onProjectSelect(areaProject)
-                    }
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = "#00ff88")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = isDarkMode ? "#23293a" : "#f5f5f5")
-                    }
-                  >
-                    <img
-                      src={
-                        areaProject.ImageUrl ||
-                        areaProject.imageUrl ||
-                        "https://placehold.co/32x32"
-                      }
-                      alt={areaProject.Name}
-                      style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 7,
-                        objectFit: "cover",
-                        flexShrink: 0,
-                        border: "1px solid #23293a",
-                        background: "#23293a",
-                      }}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        minWidth: 0,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontWeight: 500,
-                          color: isDarkMode ? "#fff" : "#000",
-                          fontSize: 15,
-                          lineHeight: 1.2,
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {areaProject.Name}
-                      </span>
-                      {areaProject.DescriptionShort && (
-                        <div
-                          style={{
-                            fontSize: 13,
-                            color: isDarkMode ? "#b0b0b0" : "#666",
-                            fontWeight: 400,
-                            marginTop: 2,
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {areaProject.DescriptionShort}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div style={{ color: isDarkMode ? "#b0b0b0" : "#666", fontSize: 13, marginTop: 6 }}>
-                    {areaInfo}
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-          <div
-            style={{
-              marginTop: 12,
-              borderTop: isDarkMode ? "1px solid #23293a" : "1px solid #e0e0e0",
-              paddingTop: 8,
-            }}
-          >
+          {/* Menu button */}
+          {onMenuClick && (
             <button
               onClick={onMenuClick}
               style={{
-                marginTop: 8,
-                width: "100%",
-                background: isDarkMode ? "#23293a" : "#f5f5f5",
-                color: "#00ff88",
+                background: "transparent",
                 border: "none",
-                borderRadius: 7,
-                padding: "10px 0",
-                fontWeight: 600,
-                fontSize: 15,
-                letterSpacing: 1,
                 cursor: "pointer",
-                transition: "background 0.18s",
+                padding: "8px",
+                borderRadius: "8px",
+                marginRight: "8px",
+                color: isDarkMode ? "#fff" : "#000",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "background-color 0.2s",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#00ff88")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = isDarkMode ? "#23293a" : "#f5f5f5")
-              }
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = isDarkMode ? "#23293a" : "#f5f5f5";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
+              title="Open sidebar"
             >
-              ▼ Open Sidebar
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
             </button>
-          </div>
+          )}
+          
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={handleInputFocus}
+            style={{
+              border: "none",
+              outline: "none",
+              fontSize: 17,
+              width: "100%",
+              background: "transparent",
+              color: isDarkMode ? "#fff" : "#000",
+              padding: "12px 0",
+              fontWeight: 500,
+            }}
+          />
         </div>
-      )}
+      </div>
 
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
+      {/* Category Marker Highlighter */}
+      <CategoryMarkerHighlighter
+        activeCategory={activeTab}
+        filteredProjects={filteredProjects}
+        markerRefs={markerRefs}
+        mapRef={mapRef}
+        isVisible={showDropdown && activeTab !== 'all' && activeTab !== 'local'}
+      />
+
+      {/* Dropdown */}
+      {showDropdown && !isLayoutOpen && (
+        <ProjectGalleryCardDropdown
+          isOpen={showDropdown}
+          onClose={handleDropdownClose}
+          projects={getProjectsByTab ? getProjectsByTab() : filteredProjects}
+          allProjects={filteredProjects}
+          markerRefs={markerRefs}
+          mapBounds={mapBounds}
+          mapRef={mapRef}
+          onMarkerHover={handleProjectHover}
+          onMarkerLeave={handleProjectLeave}
+          onMarkerClick={handleProjectSelect}
+          style={{
+            top: dropdownPosition.top,
+            left: dropdownPosition.left,
+            width: 400,
+            borderRadius: 16,
+            boxShadow: isDarkMode 
+              ? '0 8px 32px rgba(0,0,0,0.22)' 
+              : '0 8px 32px rgba(0,0,0,0.1)',
+            background: isDarkMode ? '#181c24' : '#ffffff',
+          }}
+          justRestored={justRestoredAt}
+        />
+      )}
     </>
   );
 }
+
+// Helper function for more accurate longitude span calculation
+const calculateLongitudeSpan = (map, targetZoom, latitude) => {
+  const currentBounds = map.getBounds();
+  const currentZoom = map.getZoom();
+  const mapContainer = map.getContainer();
+  const mapWidth = mapContainer.offsetWidth;
+  
+  // More accurate calculation considering Mercator projection
+  const metersPerPixel = 156543.03392 * Math.cos(latitude * Math.PI / 180) / Math.pow(2, targetZoom);
+  const metersWidth = mapWidth * metersPerPixel;
+  
+  // Convert meters to longitude degrees (approximate)
+  const metersPerLngDegree = 111320 * Math.cos(latitude * Math.PI / 180);
+  const lngSpan = metersWidth / metersPerLngDegree;
+  
+  return lngSpan;
+};

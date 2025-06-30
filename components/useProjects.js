@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { extractCategoriesFromData } from "./CategoryConfig";
 
 export function useProjects() {
   const [projects, setProjects] = useState([]);
@@ -6,38 +7,25 @@ export function useProjects() {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
 
+  // const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/gh-pages/storymapdata_db_ready_v2.json");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch projects from GitHub Pages
-        const projectsResponse = await fetch("https://raw.githubusercontent.com/AdamFehse/map-app/gh-pages/storymapdata_db_ready_v2.json");
+        const projectsResponse = await fetch("storymapdata_db_ready_v2.json");
         if (!projectsResponse.ok) {
           throw new Error(`HTTP error! status: ${projectsResponse.status}`);
         }
         const projectsData = await projectsResponse.json();
         setProjects(projectsData);
 
-        // Extract unique categories from the actual data
+        // Extract unique categories from the actual data using centralized config
         const uniqueCategories = [...new Set(projectsData.map(project => project.ProjectCategory).filter(Boolean))];
         console.log("Found categories in data:", uniqueCategories);
         
-        // Create category objects with proper labels
-        const categoryMap = {
-          "ArtExhibition": "Art Exhibition",
-          "Research": "Research", 
-          "CommunityEngagement": "Community Engagement",
-          "Performance": "Performance",
-          "Workshop": "Workshop",
-          "Conference": "Conference",
-          "Publication": "Publication",
-          "Other": "Other"
-        };
-
-        const dynamicCategories = uniqueCategories.map(category => ({
-          Value: category,
-          Label: categoryMap[category] || category
-        }));
-
+        // Use centralized category extraction
+        const dynamicCategories = extractCategoriesFromData(projectsData);
         console.log("Processed categories:", dynamicCategories);
         setCategories(dynamicCategories);
       } catch (error) {
