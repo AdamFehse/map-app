@@ -249,166 +249,180 @@ const ProjectGallery = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
-          className="fixed bottom-0 left-0 right-0 flex items-center"
-          style={{
-            zIndex: 9998,
-            height: '105px',
-            background: 'rgba(255,255,255,0.18)',
-            borderTop: '1.5px solid rgba(255,255,255,0.35)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            boxShadow: '0 2px 16px rgba(0,0,0,0.12)',
-            fontFamily: 'sans-serif',
-            color: isDarkMode ? '#fff' : '#222',
-          }}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "100%" }}
-          transition={{ 
-            type: "spring", 
-            damping: 25, 
-            stiffness: 200,
-            duration: 0.3
-          }}
-        >
-          <div className="h-full px-4 py-2 w-full">
-            <div className="h-full flex gap-3 items-center">
-              {/* Fixed header slot - always visible */}
-              <div className="flex-shrink-0 flex flex-col justify-center items-center rounded-lg border"
-                style={{
-                  background: 'rgba(255,255,255,0.35)',
-                  border: '1px solid rgba(255,255,255,0.18)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
-                  color: isDarkMode ? '#fff' : '#222',
-                  fontFamily: 'inherit',
-                  fontWeight: 600,
-                  width: 80,
-                  height: 64,
-                  position: 'relative',
-                }}
-              >
-                <h3 className="text-xs font-semibold text-center leading-tight" style={{ color: isDarkMode ? '#fff' : '#222' }}>
-                  Projects
-                </h3>
-                {visibleProjects.length > 0 && (
-                  <span className="text-xs mt-1" style={{ color: isDarkMode ? '#fff' : '#222', opacity: 0.7 }}>
-                    {visibleProjects.length}
-                  </span>
-                )}
-                {/* Dark mode toggle button */}
-                <button
-                  onClick={toggleDarkMode}
-                  className="absolute top-1 left-1 p-0.5 rounded-full transition-colors"
-                  style={{ background: 'rgba(255,255,255,0.18)', color: isDarkMode ? '#fff' : '#222', border: 'none', boxShadow: '0 1px 4px rgba(0,0,0,0.10)' }}
-                  title="Toggle dark mode"
+        <>
+          <motion.div 
+            className="fixed bottom-0 left-0 right-0 flex items-center"
+            style={{
+              zIndex: 9998,
+              height: '105px',
+              background: 'rgba(255,255,255,0.18)',
+              borderTop: '1.5px solid rgba(255,255,255,0.35)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              boxShadow: '0 2px 16px rgba(0,0,0,0.12)',
+              fontFamily: 'sans-serif',
+              color: isDarkMode ? '#fff' : '#222',
+            }}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ 
+              type: "spring", 
+              damping: 25, 
+              stiffness: 200,
+              duration: 0.3
+            }}
+          >
+            <div className="h-full px-4 py-2 w-full">
+              <div className="h-full flex gap-3 items-center">
+                {/* Fixed header slot - always visible */}
+                <div className="flex-shrink-0 flex flex-col justify-center items-center rounded-lg border"
+                  style={{
+                    background: 'rgba(255,255,255,0.35)',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+                    color: isDarkMode ? '#fff' : '#222',
+                    fontFamily: 'inherit',
+                    fontWeight: 600,
+                    width: 80,
+                    height: 64,
+                    position: 'relative',
+                  }}
                 >
-                  {isDarkMode ? (
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                    </svg>
-                  ) : (
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
+                  <h3 className="text-xs font-semibold text-center leading-tight" style={{ color: isDarkMode ? '#fff' : '#222' }}>
+                    Projects
+                  </h3>
+                  {visibleProjects.length > 0 && (
+                    <span className="text-xs mt-1" style={{ color: isDarkMode ? '#fff' : '#222', opacity: 0.7 }}>
+                      {visibleProjects.length}
+                    </span>
                   )}
-                </button>
-                {/* Close button */}
-                <button
-                  onClick={onClose}
-                  className="absolute top-1 right-1 p-0.5 rounded-full transition-colors"
-                  style={{ background: 'rgba(255,255,255,0.18)', color: isDarkMode ? '#fff' : '#222', border: 'none', boxShadow: '0 1px 4px rgba(0,0,0,0.10)' }}
-                  title="Close gallery"
+                  {/* Dark mode toggle button */}
+                  <button
+                    onClick={toggleDarkMode}
+                    className="absolute top-1 left-1 p-0.5 rounded-full transition-colors"
+                    style={{ background: 'rgba(255,255,255,0.18)', color: isDarkMode ? '#fff' : '#222', border: 'none', boxShadow: '0 1px 4px rgba(0,0,0,0.10)' }}
+                    title="Toggle dark mode"
+                  >
+                    {isDarkMode ? (
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                      </svg>
+                    )}
+                  </button>
+                  {/* Close button */}
+                  <button
+                    onClick={onClose}
+                    className="absolute top-1 right-1 p-0.5 rounded-full transition-colors"
+                    style={{ background: 'rgba(255,255,255,0.18)', color: isDarkMode ? '#fff' : '#222', border: 'none', boxShadow: '0 1px 4px rgba(0,0,0,0.10)' }}
+                    title="Close gallery"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                {/* Scrollable projects area */}
+                <div
+                  style={{
+                    width: '100%',
+                    overflowX: 'auto',
+                    minWidth: 0,
+                  }}
                 >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              {/* Scrollable projects area */}
-              <div className="flex-1 overflow-x-auto gallery-scroll">
-                <div className="flex gap-3 h-full items-center" style={{ minWidth: 'max-content' }}>
-                  {visibleProjects.length === 0 ? (
-                    <div className="flex items-center justify-center" style={{ color: isDarkMode ? '#fff' : '#222', opacity: 0.7 }}>
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <span className="text-sm">No projects in view</span>
-                      </div>
-                    </div>
-                  ) : (
-                    visibleProjects.map((project, index) => (
-                      <motion.div
-                        key={`${project.Name}-${index}`}
-                        ref={(el) => {
-                          galleryItemRefs.current[`${project.Name}-${index}`] = el;
-                        }}
-                        className="flex-shrink-0 cursor-pointer group"
-                        onClick={() => handleProjectClick(project)}
-                        onMouseEnter={() => handleProjectHover(project, index)}
-                        onMouseLeave={() => handleProjectLeave(project)}
-                        whileHover={{ 
-                          scale: 1.03,
-                          y: -2
-                        }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        layout
-                      >
-                        <div
-                          className="relative rounded-lg overflow-hidden border"
-                          style={{
-                            background: 'rgba(255,255,255,0.35)',
-                            border: '1px solid rgba(255,255,255,0.18)',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
-                            color: isDarkMode ? '#fff' : '#222',
-                            fontFamily: 'inherit',
-                            fontWeight: 600,
-                            width: 80,
-                            height: 64,
-                            position: 'relative',
-                          }}
-                        >
-                          {/* Image Container */}
-                          <div className="relative w-full h-full overflow-hidden">
-                            <img
-                              src={project.ImageUrl || "https://via.placeholder.com/80x64/4F46E5/FFFFFF?text=Project"}
-                              alt={project.Name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              loading="lazy"
-                            />
-                            {/* Overlay on hover */}
-                            <motion.div 
-                              className="absolute inset-0"
-                              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.60), transparent 80%)', opacity: hoveredProject?.Name === project.Name ? 0.6 : 0, transition: 'opacity 0.2s' }}
-                            />
-                            {/* Project name overlay */}
-                            <div className="absolute bottom-0 left-0 right-0 p-1"
-                              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.80), transparent 80%)' }}
-                            >
-                              <h4 className="text-xs font-medium leading-tight" style={{ color: '#fff', fontFamily: 'inherit', fontWeight: 600 }}>
-                                {project.Name}
-                              </h4>
-                            </div>
-                          </div>
-                          {/* Hover indicator */}
-                          {hoveredProject?.Name === project.Name && (
-                            <motion.div
-                              className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full shadow-lg"
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ type: "spring", stiffness: 500 }}
-                            />
-                          )}
+                  <div
+                    className="flex gap-3 h-full items-center gallery-scroll"
+                    style={{
+                      minWidth: 'max-content',
+                      paddingRight: 60,
+                    }}
+                  >
+                    {visibleProjects.length === 0 ? (
+                      <div className="flex items-center justify-center" style={{ color: isDarkMode ? '#fff' : '#222', opacity: 0.7 }}>
+                        <div className="flex items-center space-x-2">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                          </svg>
+                          <span className="text-sm">No projects in view</span>
                         </div>
-                      </motion.div>
-                    ))
-                  )}
+                      </div>
+                    ) : (
+                      visibleProjects.map((project, index) => (
+                        <motion.div
+                          key={`${project.Name}-${index}`}
+                          ref={(el) => {
+                            galleryItemRefs.current[`${project.Name}-${index}`] = el;
+                          }}
+                          className="flex-shrink-0 cursor-pointer group"
+                          onClick={() => handleProjectClick(project)}
+                          onMouseEnter={() => handleProjectHover(project, index)}
+                          onMouseLeave={() => handleProjectLeave(project)}
+                          whileHover={{ 
+                            scale: 1.03,
+                            y: -2
+                          }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                          layout
+                        >
+                          <div
+                            className="relative rounded-lg overflow-hidden border"
+                            style={{
+                              background: 'rgba(255,255,255,0.35)',
+                              border: '1px solid rgba(255,255,255,0.18)',
+                              boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+                              color: isDarkMode ? '#fff' : '#222',
+                              fontFamily: 'inherit',
+                              fontWeight: 600,
+                              width: 80,
+                              height: 64,
+                              position: 'relative',
+                            }}
+                          >
+                            {/* Image Container */}
+                            <div className="relative w-full h-full overflow-hidden">
+                              <img
+                                src={project.ImageUrl || "https://via.placeholder.com/80x64/4F46E5/FFFFFF?text=Project"}
+                                alt={project.Name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                              />
+                              {/* Overlay on hover */}
+                              <motion.div 
+                                className="absolute inset-0"
+                                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.60), transparent 80%)', opacity: hoveredProject?.Name === project.Name ? 0.6 : 0, transition: 'opacity 0.2s' }}
+                              />
+                              {/* Project name overlay */}
+                              <div className="absolute bottom-0 left-0 right-0 p-1"
+                                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.80), transparent 80%)' }}
+                              >
+                                <h4 className="text-xs font-medium leading-tight" style={{ color: '#fff', fontFamily: 'inherit', fontWeight: 600 }}>
+                                  {project.Name}
+                                </h4>
+                              </div>
+                            </div>
+                            {/* Hover indicator */}
+                            {hoveredProject?.Name === project.Name && (
+                              <motion.div
+                                className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full shadow-lg"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 500 }}
+                              />
+                            )}
+                          </div>
+                        </motion.div>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {/* Connection Line */}
+          </motion.div>
+          {/* Connection Line - moved outside the motion.div so it is not covered by the bar */}
           <ProjectConnectionLine
             isVisible={!!hoveredProject}
             galleryItemRef={getHoveredGalleryItemRef()}
@@ -417,7 +431,7 @@ const ProjectGallery = ({
             projectName={hoveredProject?.Name}
             hoveredProject={hoveredProject}
           />
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

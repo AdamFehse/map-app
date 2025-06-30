@@ -40,7 +40,7 @@ export default function TownsLabelLayer() {
   const [zoom, setZoom] = useState(map.getZoom());
 
   useEffect(() => {
-    fetch('/export (6).geojson')
+    fetch('/export (7).geojson')
       .then(res => res.json())
       .then(setGeojson);
   }, []);

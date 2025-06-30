@@ -8,7 +8,7 @@ export default function Export4BorderLayer() {
   const canvasRenderer = L.canvas();
 
   useEffect(() => {
-    fetch('/export (4).geojson')
+    fetch('/export (8).geojson')
       .then(res => res.json())
       .then(setGeojson);
   }, []);
@@ -20,8 +20,8 @@ export default function Export4BorderLayer() {
       data={geojson}
       renderer={canvasRenderer}
       style={{
-        color: 'darkslategray',      // Border color (bright cyan)
-        weight: 3,             // Border thickness
+        color: 'white',      // Border color (bright cyan)
+        weight: 5,             // Border thickness
         fillOpacity: .5,        // Adjust for desired transparency
         opacity: .5,
       }}

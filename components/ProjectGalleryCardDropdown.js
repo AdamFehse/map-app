@@ -297,7 +297,7 @@ const ProjectGalleryCardDropdown = ({
             letterSpacing: '0.01em',
             padding: '18px',
             maxWidth: '100%',
-            maxHeight: '80vh',
+            maxHeight: '70vh',
             overflow: 'hidden',
             ...style,
           }}
@@ -463,3 +463,4 @@ const ProjectGalleryCardDropdown = ({
 };
 
 export default ProjectGalleryCardDropdown;
+

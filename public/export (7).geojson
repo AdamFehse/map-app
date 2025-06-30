@@ -1,0 +1,1047 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-06-30T18:47:30Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150933986",
+        "alt_name": "City of Benson",
+        "ele": "1093",
+        "gnis:feature_id": "1248",
+        "name": "Benson",
+        "place": "town",
+        "wikidata": "Q79672",
+        "wikipedia": "en:Benson, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.294517,
+          31.9678611
+        ]
+      },
+      "id": "node/150933986"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937083",
+        "ele": "75",
+        "gnis:feature_id": "13463",
+        "name": "Wellton",
+        "place": "town",
+        "population": "1891",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q998972",
+        "wikipedia": "en:Wellton, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.146889,
+          32.6728314
+        ]
+      },
+      "id": "node/150937083"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937357",
+        "ele": "360",
+        "gnis:feature_id": "12233",
+        "name": "Tempe",
+        "name:en": "Tempe",
+        "name:ru": "Темпе",
+        "name:uk": "Темпі",
+        "place": "city",
+        "population": "180587",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "website": "https://www.tempe.gov/",
+        "wikidata": "Q51685",
+        "wikimedia_commons": "File:Tempe AZ Skyline August 2023.jpg",
+        "wikipedia": "en:Tempe, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.940016,
+          33.4255117
+        ]
+      },
+      "id": "node/150937357"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150937821",
+        "ele": "377",
+        "gnis:feature_id": "5032",
+        "name": "Gilbert",
+        "name:en": "Gilbert",
+        "name:ru": "Гилберт",
+        "name:uk": "Гілберт",
+        "place": "city",
+        "population": "267918",
+        "population:date": "2020-04-01",
+        "population:source": "US Census Population and Housing Unit Estimates",
+        "source": "http://en.wikipedia.org/wiki/Gilbert,_Arizona",
+        "source:population": "wikipedia",
+        "website": "https://www.gilbertaz.gov/",
+        "wikidata": "Q51684",
+        "wikipedia": "en:Gilbert, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.789037,
+          33.3527632
+        ]
+      },
+      "id": "node/150937821"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150943192",
+        "ele": "729",
+        "gnis:feature_id": "11073",
+        "name": "Sells / Komkcʼeḍ ʼe-Wa:ʼosidk",
+        "name:en": "Sells",
+        "name:ood": "Komkcʼeḍ ʼe-Wa:ʼosidk",
+        "place": "town",
+        "wikidata": "Q2140577",
+        "wikipedia": "en:Sells, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.878044,
+          31.9159161
+        ]
+      },
+      "id": "node/150943192"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150948841",
+        "ele": "885",
+        "gnis:feature_id": "37327",
+        "name": "Green Valley",
+        "place": "town",
+        "wikidata": "Q1544683",
+        "wikipedia": "en:Green Valley, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.993701,
+          31.8542511
+        ]
+      },
+      "id": "node/150948841"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150953270",
+        "ele": "383",
+        "gnis:feature_id": "11029",
+        "name": "Scottsdale",
+        "name:en": "Scottsdale",
+        "name:ru": "Скоттсдейл",
+        "name:uk": "Скоттсдейл",
+        "place": "city",
+        "population": "241361",
+        "population:date": "2020-04-01",
+        "population:source": "US Census Population and Housing Unit Estimates",
+        "source:population": "wikipedia",
+        "website": "https://www.scottsdaleaz.gov",
+        "wikidata": "Q49221",
+        "wikipedia": "en:Scottsdale, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.926018,
+          33.4942189
+        ]
+      },
+      "id": "node/150953270"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150959809",
+        "ele": "102",
+        "gnis:feature_id": "1866984",
+        "name": "Fortuna Foothills",
+        "place": "town",
+        "population": "28135",
+        "wikidata": "Q1439085"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.4118901,
+          32.6578355
+        ]
+      },
+      "id": "node/150959809"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150961044",
+        "ele": "775",
+        "founded": "1974",
+        "gnis:feature_id": "37458",
+        "incorporated": "1974",
+        "name": "Oro Valley",
+        "place": "town",
+        "population": "47070",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "start_date": "1974",
+        "wikidata": "Q986523"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.955317,
+          32.4000525
+        ]
+      },
+      "id": "node/150961044"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150963593",
+        "ele": "536",
+        "gnis:feature_id": "538",
+        "name": "Ajo",
+        "place": "town",
+        "population": "3039",
+        "population:date": "2020",
+        "source:population": "wikipedia",
+        "wikidata": "Q413082",
+        "wikipedia": "en:Ajo, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.864574,
+          32.3771926
+        ]
+      },
+      "id": "node/150963593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150963861",
+        "gnis:feature_id": "33948",
+        "name": "Sahuarita",
+        "place": "town",
+        "population": "25259",
+        "wikidata": "Q914860",
+        "wikipedia": "en:Sahuarita, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9556645,
+          31.9575305
+        ]
+      },
+      "id": "node/150963861"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150964034",
+        "capital": "6",
+        "ele": "759",
+        "gnis:feature_id": "43534",
+        "name": "Tucson",
+        "name:ar": "توسان",
+        "name:bn": "টাকসন",
+        "name:el": "Τουσόν",
+        "name:en": "Tucson",
+        "name:he": "טוסון",
+        "name:ru": "Тусон",
+        "name:uk": "Тусон",
+        "place": "city",
+        "population": "542629",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q18575",
+        "wikipedia": "en:Tucson, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.974847,
+          32.2228765
+        ]
+      },
+      "id": "node/150964034"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150964064",
+        "alt_name:es": "Fénix",
+        "capital": "4",
+        "ele": "331",
+        "gnis:feature_id": "44784",
+        "name": "Phoenix",
+        "name:ar": "فينيكس",
+        "name:bn": "ফিনিক্স",
+        "name:da": "Phoenix",
+        "name:de": "Phoenix",
+        "name:el": "Φοίνιξ",
+        "name:en": "Phoenix",
+        "name:eo": "Fenikso",
+        "name:es": "Phoenix",
+        "name:fr": "Phoenix",
+        "name:hak": "Phoenix",
+        "name:haw": "Pēniki",
+        "name:he": "פיניקס",
+        "name:hi": "फ़िनक्स",
+        "name:hr": "Phoenix",
+        "name:it": "Phoenix",
+        "name:ja": "フェニックス",
+        "name:kn": "ಫೀನಿಕ್ಸ್",
+        "name:ko": "피닉스",
+        "name:lt": "Finiksas",
+        "name:lv": "Fīniksa",
+        "name:nan": "Phoenix",
+        "name:nv": "Hoozdoh",
+        "name:oc": "Phoenix",
+        "name:pl": "Phoenix",
+        "name:pt": "Phoenix",
+        "name:ru": "Финикс",
+        "name:sr": "Финикс",
+        "name:sr-Latn": "Finiks",
+        "name:ta": "பீனிக்ஸ்",
+        "name:uk": "Фінікс",
+        "name:zh": "菲尼克斯 / 鳳凰城",
+        "name:zh-Hans": "菲尼克斯",
+        "name:zh-Hant": "鳳凰城",
+        "place": "city",
+        "population": "1608139",
+        "population:date": "2020",
+        "source:name:oc": "Lo Congrès",
+        "source:population": "United States Census",
+        "state_capital": "yes",
+        "website": "https://phoenix.gov/",
+        "wikidata": "Q16556",
+        "wikipedia": "en:Phoenix, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.074141,
+          33.4484367
+        ]
+      },
+      "id": "node/150964064"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150965272",
+        "capital": "6",
+        "ele": "1168",
+        "gnis:feature_id": "32336",
+        "name": "Nogales",
+        "name:el": "Νογκάλες",
+        "name:en": "Nogales",
+        "name:ru": "Ногалес",
+        "name:uk": "Ногалес",
+        "place": "town",
+        "population": "20768",
+        "population:date": "2006",
+        "source:population": "US Census",
+        "wikidata": "Q79783",
+        "wikipedia": "en:Nogales, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.936081,
+          31.3402134
+        ]
+      },
+      "id": "node/150965272"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150966739",
+        "ele": "378",
+        "gnis:feature_id": "7890",
+        "name": "Mesa",
+        "name:en": "Mesa",
+        "name:ru": "Меса",
+        "name:uk": "Меса",
+        "place": "city",
+        "population": "504258",
+        "population:date": "2020-04-01",
+        "population:source": "US Census Population and Housing Unit Estimates",
+        "source:population": "wikipedia",
+        "website": "https://www.mesaaz.gov/",
+        "wikidata": "Q49261",
+        "wikipedia": "en:Mesa, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.831455,
+          33.4151005
+        ]
+      },
+      "id": "node/150966739"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150969901",
+        "alt_name": "City of Glendale",
+        "ele": "351",
+        "gnis:feature_id": "5060",
+        "name": "Glendale",
+        "name:en": "Glendale",
+        "name:lt": "Glendeilas",
+        "name:ru": "Глендейл",
+        "name:uk": "Глендейл",
+        "place": "city",
+        "population": "248325",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q51682",
+        "wikimedia_commons": "File:Glendale-Downtown Glendale.jpg",
+        "wikipedia": "en:Glendale, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.185994,
+          33.5386858
+        ]
+      },
+      "id": "node/150969901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150971699",
+        "ele": "607",
+        "gnis:feature_id": "7681",
+        "name": "Marana",
+        "place": "town",
+        "population": "51908",
+        "population:date": "2020",
+        "wikidata": "Q762743",
+        "wikipedia": "en:Marana, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.211475,
+          32.4483736
+        ]
+      },
+      "id": "node/150971699"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/150975216",
+        "ele": "1412",
+        "gnis:feature_id": "11284",
+        "name": "Sierra Vista",
+        "place": "city",
+        "population": "45308",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q79891"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.2997756,
+          31.5545973
+        ]
+      },
+      "id": "node/150975216"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151345703",
+        "ele": "1221",
+        "gnis:feature_id": "4069",
+        "name": "Douglas",
+        "name:ru": "Дуглас",
+        "name:uk": "Дуґлас",
+        "place": "town",
+        "population": "16534",
+        "population:date": "2020",
+        "source:population": "US Census",
+        "wikidata": "Q79878"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.5545036,
+          31.3447174
+        ]
+      },
+      "id": "node/151345703"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/151408617",
+        "alt_name": "City of Bisbee",
+        "capital": "6",
+        "ele": "1688",
+        "gnis:feature_id": "1436",
+        "name": "Bisbee",
+        "place": "town",
+        "wikidata": "Q79720",
+        "wikipedia": "en:Bisbee, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.9159946,
+          31.4417165
+        ]
+      },
+      "id": "node/151408617"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/273589245",
+        "name": "Magdalena de Kino",
+        "place": "town",
+        "population": "26605",
+        "source": "https://mexico.pueblosamerica.com/i/magdalena-de-kino/",
+        "wikidata": "Q1572516",
+        "wikipedia": "es:Magdalena de Kino"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9614533,
+          30.6268798
+        ]
+      },
+      "id": "node/273589245"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/297223557",
+        "name": "Santa Ana",
+        "place": "town",
+        "population": "11864",
+        "source": "https://mexico.pueblosamerica.com/i/santa-ana-88/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.1184881,
+          30.5410922
+        ]
+      },
+      "id": "node/297223557"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/299491891",
+        "name": "Agua Prieta",
+        "name:en": "Agua Prieta",
+        "name:ru": "Агуа-Приета",
+        "place": "city",
+        "population": "91029",
+        "population:date": "2020",
+        "source:population": "https://mexico.pueblosamerica.com/i/agua-prieta-14/",
+        "wikidata": "Q397759",
+        "wikipedia": "es:Agua Prieta"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.5564331,
+          31.3305591
+        ]
+      },
+      "id": "node/299491891"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/299494746",
+        "is_in": "Sonora, México",
+        "name": "Cananea",
+        "name:ru": "Кананеа",
+        "place": "town",
+        "population": "31560",
+        "source": "https://mexico.pueblosamerica.com/i/heroica-ciudad-de-cananea/",
+        "wikidata": "Q176924"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.2888925,
+          30.986517
+        ]
+      },
+      "id": "node/299494746"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/316791163",
+        "alt_name": "Nogales",
+        "name": "Heroica Nogales",
+        "name:ru": "Эройка-Ногалес",
+        "place": "city",
+        "population": "261137",
+        "population:date": "2020",
+        "source": "https://mexico.pueblosamerica.com/i/heroica-nogales/",
+        "source:population": "https://www.inegi.org.mx/programas/ccpv/2020/#Datos_abiertos",
+        "wikidata": "Q990001",
+        "wikipedia": "en:Nogales, Sonora"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9450472,
+          31.3285057
+        ]
+      },
+      "id": "node/316791163"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/318098970",
+        "is_in": "Imuris, Sonora, México",
+        "name": "Imuris",
+        "place": "town",
+        "population": "6841"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.8463861,
+          30.7874899
+        ]
+      },
+      "id": "node/318098970"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132849",
+        "addr:postcode": "83600",
+        "alt_name": "Caborca",
+        "name": "Heroica Caborca",
+        "name:ru": "Эройка-Каборка",
+        "place": "city",
+        "population": "59922",
+        "website": "http://www.caborca.gob.mx/",
+        "wikidata": "Q1024929",
+        "wikipedia": "es:Caborca"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.1562598,
+          30.7166014
+        ]
+      },
+      "id": "node/333132849"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132897",
+        "addr:postcode": "83570",
+        "alt_name": "Sonoita",
+        "name": "Sonoyta",
+        "name:en": "Sonoyta",
+        "name:es": "Sonoyta",
+        "place": "town",
+        "population": "11440",
+        "population:date": "2020",
+        "source:population": "https://www.inegi.org.mx/programas/ccpv/2020/#Datos_abiertos",
+        "website": "https://sonoyta.gob.mx/",
+        "wikidata": "Q992883",
+        "wikipedia": "es:Sonoyta"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.849739,
+          31.863444
+        ]
+      },
+      "id": "node/333132897"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132913",
+        "is_in": "Fronteras,Sonora,Mexico",
+        "name": "Esqueda",
+        "place": "town",
+        "population": "6479"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.5880669,
+          30.7232067
+        ]
+      },
+      "id": "node/333132913"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132923",
+        "name": "Naco",
+        "place": "town",
+        "population": "5485",
+        "population:date": "2020",
+        "source": "https://mexico.pueblosamerica.com/i/naco/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.9459547,
+          31.3229703
+        ]
+      },
+      "id": "node/333132923"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333132948",
+        "name": "Pitiquito",
+        "place": "town",
+        "population": "5410",
+        "wikidata": "Q2991688"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0546569,
+          30.6775289
+        ]
+      },
+      "id": "node/333132948"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333154553",
+        "addr:postcode": "83550",
+        "name": "Puerto Peñasco",
+        "name:en": "Rocky Point",
+        "name:es": "Puerto Peñasco",
+        "place": "city",
+        "population": "56756",
+        "wikidata": "Q746968",
+        "wikipedia": "es:Puerto Peñasco"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.531819,
+          31.3170867
+        ]
+      },
+      "id": "node/333154553"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333154563",
+        "name": "Altar",
+        "place": "town",
+        "population": "7927",
+        "source": "https://mexico.pueblosamerica.com/i/altar/",
+        "wikidata": "Q434440",
+        "wikipedia": "en:Altar, Sonora"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.8380038,
+          30.7170323
+        ]
+      },
+      "id": "node/333154563"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/333154585",
+        "name": "Golfo de Santa Clara",
+        "place": "town",
+        "population": "3967",
+        "source:population": "https://mexico.pueblosamerica.com/i/golfo-de-santa-clara/",
+        "wikidata": "Q5882441"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.494228,
+          31.687739
+        ]
+      },
+      "id": "node/333154585"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/335576581",
+        "ele": "295",
+        "gnis:feature_id": "5172",
+        "name": "Goodyear",
+        "name:ru": "Гудиер",
+        "name:uk": "Гуд'їр",
+        "place": "city",
+        "population": "95294",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q79457",
+        "wikimedia_commons": "File:Goodyear City Hall 2023.jpg",
+        "wikipedia": "en:Goodyear, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.3842224,
+          33.4674695
+        ]
+      },
+      "id": "node/335576581"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336167204",
+        "is_in": "Bacoachi,Sonora,Mexico",
+        "name": "Bacoachi",
+        "place": "town",
+        "population": "1036",
+        "population:date": "2020",
+        "source:population": "INEGI",
+        "wikidata": "Q3844346",
+        "wikipedia": "en:Bacoachi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.9689518,
+          30.6330595
+        ]
+      },
+      "id": "node/336167204"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336169913",
+        "is_in": "Fronteras,Sonora,Mexico",
+        "name": "Fronteras",
+        "place": "town",
+        "population": "834"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.5594592,
+          30.896346
+        ]
+      },
+      "id": "node/336169913"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185221",
+        "name": "El Sásabe",
+        "name:es": "El Sásabe",
+        "place": "town",
+        "population": "1295",
+        "wikidata": "Q2377929"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.5450714,
+          31.4742939
+        ]
+      },
+      "id": "node/336185221"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/336185777",
+        "name": "Santa Cruz",
+        "name:el": "Σάντα Κρουζ",
+        "place": "town",
+        "population": "1038",
+        "source": "https://mexico.pueblosamerica.com/i/santa-cruz-249/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.596568,
+          31.2325445
+        ]
+      },
+      "id": "node/336185777"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/608510493",
+        "ele": "370",
+        "gnis:feature_id": "2748",
+        "name": "Chandler",
+        "name:en": "Chandler",
+        "name:lt": "Čandleris",
+        "name:ru": "Чандлер",
+        "name:uk": "Чандлер",
+        "place": "city",
+        "population": "275987",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q49272",
+        "wikimedia_commons": "File:Neighborhoods in the City of Chandler.jpg",
+        "wikipedia": "en:Chandler, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.841185,
+          33.3062031
+        ]
+      },
+      "id": "node/608510493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1340670207",
+        "ele": "348",
+        "gnis:feature_id": "9318",
+        "name": "Peoria",
+        "name:en": "Peoria",
+        "name:ru": "Пеория",
+        "name:uk": "Піорія",
+        "place": "city",
+        "population": "190985",
+        "population:date": "2020-04-01",
+        "source:population": "wikipedia",
+        "wikidata": "Q51686",
+        "wikipedia": "en:Peoria, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.237294,
+          33.5806115
+        ]
+      },
+      "id": "node/1340670207"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1989023349",
+        "addr:postcode": "85643",
+        "name": "Willcox",
+        "name:uk": "Віллкокс",
+        "place": "town",
+        "population": "3769",
+        "website": "https://www.cityofwillcox.org/",
+        "wikidata": "Q79450",
+        "wikipedia": "en:Willcox, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.8315759,
+          32.2529138
+        ]
+      },
+      "id": "node/1989023349"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6815052561",
+        "alt_name": "City of Buckeye",
+        "ele": "265",
+        "gnis:feature_id": "2081",
+        "name": "Buckeye",
+        "place": "city",
+        "population": "91502",
+        "population:date": "2020",
+        "population:source": "2020 Census",
+        "source:population": "wikipedia",
+        "wikidata": "Q986528",
+        "wikimedia_commons": "File:Buckeye-Downtown Monroe Ave.jpg",
+        "wikipedia": "en:Buckeye, Arizona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.583776,
+          33.3703197
+        ]
+      },
+      "id": "node/6815052561"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6952960938",
+        "name": "La Mesa",
+        "place": "town",
+        "population": "2996",
+        "source": "https://mexico.pueblosamerica.com/i/la-mesa-178/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.9774779,
+          31.1586462
+        ]
+      },
+      "id": "node/6952960938"
+    }
+  ]
+}

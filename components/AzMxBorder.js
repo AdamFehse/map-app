@@ -8,7 +8,7 @@ export default function AzBorderD3Layer() {
   const canvasRenderer = L.canvas();
 
   useEffect(() => {
-    fetch('/export(0).geojson')
+    fetch('/export (8).geojson')
       .then(res => res.json())
       .then(setGeojson);
   }, []);

@@ -13,11 +13,10 @@ const TAB_WIDTH = 36;
 
 const MapLegend = () => {
   const [open, setOpen] = useState(false);
-  // The total width is legend + tab + a small gap
-  const totalWidth = LEGEND_WIDTH + TAB_WIDTH + 8;
+  
   return (
     <div style={{
-      position: 'absolute',
+      position: 'fixed', // Changed from absolute to fixed
       top: 150,
       right: 0,
       zIndex: 1000,
@@ -25,8 +24,7 @@ const MapLegend = () => {
       alignItems: 'flex-start',
       height: 'auto',
       pointerEvents: 'none',
-      width: totalWidth,
-      transform: open ? 'translateX(0)' : `translateX(${LEGEND_WIDTH + 8}px)`,
+      transform: open ? 'translateX(0)' : `translateX(${LEGEND_WIDTH}px)`, // Simplified transform
       transition: 'transform 0.5s cubic-bezier(.77,0,.18,1)',
     }}>
       {/* Tab Button */}
@@ -41,10 +39,10 @@ const MapLegend = () => {
           border: '1px solid rgba(255, 255, 255, 0.44)',
           borderRight: 'none',
           boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
-          color: '#222',
+          color: '#fff',
           fontFamily: 'Cinzel, serif',
           fontWeight: 700,
-          fontSize: 22,
+          fontSize: 14,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -56,10 +54,15 @@ const MapLegend = () => {
           transition: 'background 0.2s, color 0.2s',
           position: 'relative',
           top: 14,
+          letterSpacing: '0.05em',
+          padding: 0,
+          writingMode: 'vertical-rl',
+          textOrientation: 'mixed',
+          textShadow: '0px 0px 3px rgba(0,0,0,0.9), 0px 0px 8px rgba(0,0,0,0.7)',
         }}
         title={open ? 'Hide legend' : 'Show legend'}
       >
-        <span style={{transform: open ? 'rotate(180deg)' : 'none', display: 'block', transition: 'transform 0.5s cubic-bezier(.77,0,.18,1)'}}>&#x25C0;</span>
+        <span style={{fontWeight: 700, fontFamily: 'Cinzel, serif', fontSize: 16, letterSpacing: '0.05em', userSelect: 'none', color: '#fff', textShadow: '0px 0px 3px rgba(0,0,0,0.9), 0px 0px 8px rgba(0,0,0,0.7)'}}>{open ? 'Close' : 'Legend'}</span>
       </button>
       {/* Legend Panel */}
       <div
@@ -129,4 +132,4 @@ const MapLegend = () => {
   );
 };
 
-export default MapLegend; 
+export default MapLegend;

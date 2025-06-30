@@ -10,18 +10,16 @@ const ProjectConnectionLine = ({
 }) => {
   const [lineCoords, setLineCoords] = useState(null);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [targetClusterBadge, setTargetClusterBadge] = useState(null);
 
   useEffect(() => {
     // Reset initialization state when visibility changes
     if (!isVisible) {
       setIsInitialized(false);
       setLineCoords(null);
-      setTargetClusterBadge(null);
       return;
     }
 
-    if (!galleryItemRef?.current || !mapRef?.current) {
+    if (!galleryItemRef?.current || !markerRef?.current || !mapRef?.current) {
       setLineCoords(null);
       return;
     }
@@ -41,7 +39,8 @@ const ProjectConnectionLine = ({
         const galleryX = galleryRect.left + galleryRect.width / 2;
         const galleryY = galleryRect.top; // Top of gallery item
 
-        // Get marker or cluster position on screen
+        // Get marker position on screen
+        const marker = markerRef.current;
         const map = mapRef.current;
         
         // Get the leaflet map instance
@@ -58,98 +57,48 @@ const ProjectConnectionLine = ({
           return;
         }
 
-        // First try to find the individual marker
-        const marker = markerRef?.current;
-        let targetX, targetY, foundBadge = null;
-
-        if (marker && marker._icon) {
-          // If marker is visible, use its position
-          const markerIcon = marker._icon;
-          const markerRect = markerIcon.getBoundingClientRect();
-          targetX = markerRect.left + markerRect.width / 2;
-          targetY = markerRect.top + markerRect.height / 2;
-        } else {
-          // If marker is not visible (probably in a cluster), find the cluster
-          // Enhanced cluster finding with badge targeting
-          const lat = parseFloat(hoveredProject.Latitude);
-          const lng = parseFloat(hoveredProject.Longitude);
-          
-          if (isNaN(lat) || isNaN(lng)) {
-            console.warn('Invalid coordinates:', hoveredProject);
-            return;
-          }
-
-          const point = leafletMap.latLngToContainerPoint([lat, lng]);
-          const mapContainer = leafletMap.getContainer();
-          const mapRect = mapContainer.getBoundingClientRect();
-          
-          const projectScreenX = mapRect.left + point.x;
-          const projectScreenY = mapRect.top + point.y;
-
-          // Find the closest cluster badge
-          const clusterBadges = document.querySelectorAll('.cluster-count-badge');
-          let closestBadge = null;
-          let minDistance = Infinity;
-
-          clusterBadges.forEach(badge => {
-            const badgeRect = badge.getBoundingClientRect();
-            const badgeCenterX = badgeRect.left + badgeRect.width / 2;
-            const badgeCenterY = badgeRect.top + badgeRect.height / 2;
-            
-            // Calculate distance from project to badge center
-            const distance = Math.sqrt(
-              Math.pow(projectScreenX - badgeCenterX, 2) + 
-              Math.pow(projectScreenY - badgeCenterY, 2)
-            );
-            
-            if (distance < minDistance && distance < 100) { // Only consider badges within 100px
-              minDistance = distance;
-              closestBadge = badge;
-            }
-          });
-
-          if (closestBadge) {
-            const badgeRect = closestBadge.getBoundingClientRect();
-            targetX = badgeRect.left + badgeRect.width / 2;
-            targetY = badgeRect.top + badgeRect.height / 2;
-            foundBadge = closestBadge;
-            
-            // Highlight the cluster badge
-            closestBadge.classList.add('highlighted');
-            
-            // Also highlight the parent cluster if it exists
-            const parentCluster = closestBadge.closest('.storybook-cluster, .desert-cluster, .border-cluster');
-            if (parentCluster) {
-              parentCluster.classList.add('highlighted');
-            }
-          } else {
-            // Fallback to project coordinates
-            targetX = projectScreenX;
-            targetY = projectScreenY;
-          }
+        // Convert lat/lng to screen coordinates
+        const lat = parseFloat(hoveredProject.Latitude);
+        const lng = parseFloat(hoveredProject.Longitude);
+        
+        if (isNaN(lat) || isNaN(lng)) {
+          console.warn('Invalid coordinates:', hoveredProject);
+          return;
         }
 
+        const point = leafletMap.latLngToContainerPoint([lat, lng]);
+        const mapContainer = leafletMap.getContainer();
+        const mapRect = mapContainer.getBoundingClientRect();
+        
+        // Check if map container is properly positioned
+        if (mapRect.width === 0 || mapRect.height === 0) {
+          console.log('Map container not properly positioned yet');
+          return;
+        }
+        
+        const markerX = mapRect.left + point.x;
+        const markerY = mapRect.top + point.y;
+
         // Validate coordinates are within reasonable bounds
-        if (targetX < 0 || targetY < 0 || targetX > window.innerWidth || targetY > window.innerHeight) {
-          console.log('Target coordinates outside viewport:', { targetX, targetY });
+        if (markerX < 0 || markerY < 0 || markerX > window.innerWidth || markerY > window.innerHeight) {
+          console.log('Marker coordinates outside viewport:', { markerX, markerY });
           return;
         }
 
         console.log('Line coordinates calculated:', {
           gallery: { x: galleryX, y: galleryY },
-          target: { x: targetX, y: targetY },
-          project: projectName,
-          hasClusterBadge: !!foundBadge
+          marker: { x: markerX, y: markerY },
+          project: projectName
         });
 
         setLineCoords({
           x1: galleryX,
           y1: galleryY,
-          x2: targetX,
-          y2: targetY
+          x2: markerX,
+          y2: markerY
         });
         
-        setTargetClusterBadge(foundBadge);
+        // Mark as initialized only after successful calculation
         setIsInitialized(true);
 
       } catch (error) {
@@ -168,7 +117,7 @@ const ProjectConnectionLine = ({
     const leafletMap = mapRef.current?._leaflet_map || mapRef.current;
     if (leafletMap) {
       const handleMapUpdate = () => {
-        setTimeout(calculateLineCoords, 10);
+        setTimeout(calculateLineCoords, 10); // Small delay to ensure DOM is updated
       };
 
       leafletMap.on('zoom', handleMapUpdate);
@@ -178,44 +127,14 @@ const ProjectConnectionLine = ({
         clearTimeout(timeoutId);
         leafletMap.off('zoom', handleMapUpdate);
         leafletMap.off('move', handleMapUpdate);
-        
-        // Clean up cluster badge highlighting
-        if (targetClusterBadge) {
-          targetClusterBadge.classList.remove('highlighted');
-          const parentCluster = targetClusterBadge.closest('.storybook-cluster, .desert-cluster, .border-cluster');
-          if (parentCluster) {
-            parentCluster.classList.remove('highlighted');
-          }
-        }
       };
     }
 
     return () => {
       clearTimeout(timeoutId);
-      // Clean up cluster badge highlighting
-      if (targetClusterBadge) {
-        targetClusterBadge.classList.remove('highlighted');
-        const parentCluster = targetClusterBadge.closest('.storybook-cluster, .desert-cluster, .border-cluster');
-        if (parentCluster) {
-          parentCluster.classList.remove('highlighted');
-        }
-      }
     };
 
   }, [isVisible, galleryItemRef, markerRef, mapRef, projectName, hoveredProject]);
-
-  // Clean up highlighting when component unmounts or visibility changes
-  useEffect(() => {
-    return () => {
-      if (targetClusterBadge) {
-        targetClusterBadge.classList.remove('highlighted');
-        const parentCluster = targetClusterBadge.closest('.storybook-cluster, .desert-cluster, .border-cluster');
-        if (parentCluster) {
-          parentCluster.classList.remove('highlighted');
-        }
-      }
-    };
-  }, [targetClusterBadge]);
 
   // Only render if visible, initialized, and have valid coordinates
   if (!isVisible || !isInitialized || !lineCoords) {
@@ -236,101 +155,48 @@ const ProjectConnectionLine = ({
       }}
     >
       <defs>
-        {/* Enhanced gradient with cluster badge color */}
-        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 1 }} />
-          <stop offset="50%" style={{ stopColor: '#8B5CF6', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: targetClusterBadge ? '#F59E0B' : '#8B5CF6', stopOpacity: 1 }} />
-        </linearGradient>
-        
-        {/* Enhanced glow filter */}
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-          <feColorMatrix in="blur" mode="matrix" values="
-            1 0 0 0 0
-            0 1 0 0 0
-            0 0 1 0 0
-            0 0 0 20 -8
-          " result="glow" />
-          <feMerge>
-            <feMergeNode in="glow" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-
-        {/* Enhanced arrow marker */}
         <marker
           id="arrowhead"
-          markerWidth="14"
-          markerHeight="10"
-          refX="12"
-          refY="5"
+          markerWidth="10"
+          markerHeight="7"
+          refX="9"
+          refY="3.5"
           orient="auto"
         >
-          <path
-            d="M0 0, L14 5, L0 10 L4 5 Z"
-            fill="url(#lineGradient)"
-            filter="url(#glow)"
+          <polygon
+            points="0 0, 10 3.5, 0 7"
+            fill="#3B82F6"
           />
         </marker>
       </defs>
-
-      {/* Enhanced glow effect base */}
       <line
         x1={lineCoords.x1}
         y1={lineCoords.y1}
         x2={lineCoords.x2}
         y2={lineCoords.y2}
-        stroke="url(#lineGradient)"
-        strokeWidth="10"
-        strokeLinecap="round"
-        opacity="0.3"
-        filter="url(#glow)"
-      />
-
-      {/* Main line with enhanced animation */}
-      <line
-        x1={lineCoords.x1}
-        y1={lineCoords.y1}
-        x2={lineCoords.x2}
-        y2={lineCoords.y2}
-        stroke="url(#lineGradient)"
-        strokeWidth="3"
-        strokeDasharray="8,6"
+        stroke="#3B82F6"
+        strokeWidth="2"
+        strokeDasharray="5,5"
         markerEnd="url(#arrowhead)"
-        filter="url(#glow)"
-        opacity="0.9"
+        opacity="0.8"
       >
         <animate
           attributeName="stroke-dashoffset"
-          values="0;14"
-          dur="1.2s"
+          values="0;10"
+          dur="1s"
           repeatCount="indefinite"
         />
       </line>
-
-      {/* Enhanced pulse effect at cluster end */}
-      <circle
-        cx={lineCoords.x2}
-        cy={lineCoords.y2}
-        r="8"
-        fill="url(#lineGradient)"
-        opacity="0.7"
-        filter="url(#glow)"
-      >
-        <animate
-          attributeName="r"
-          values="4;12;4"
-          dur="1.2s"
-          repeatCount="indefinite"
-        />
-        <animate
-          attributeName="opacity"
-          values="0.7;0;0.7"
-          dur="1.2s"
-          repeatCount="indefinite"
-        />
-      </circle>
+      {/* Glow effect using existing CSS */}
+      <line
+        x1={lineCoords.x1}
+        y1={lineCoords.y1}
+        x2={lineCoords.x2}
+        y2={lineCoords.y2}
+        stroke="#3B82F6"
+        strokeWidth="4"
+        opacity="0.2"
+      />
     </svg>
   );
 };

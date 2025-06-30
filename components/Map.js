@@ -22,8 +22,8 @@ const mapCenter = [31.333699, -110.950821 - .3];
 // Define bounds for the Fronteridades border region (Arizona-Sonora border)
 // This covers the main border region between Arizona and Sonora, Mexico
 const fronteridadesBounds = [
-  [22.0, -120.0], // Southwest corner (south of Cabo San Lucas, Baja California Sur)
-  [40.0, -100.0], // Northeast corner (north of Denver, CO)
+  [23.5, -118.5], // Southwest corner (a bit tighter north/east)
+  [38.5, -101.5], // Northeast corner (a bit tighter south/west)
 ];
 
 export default function Map() {
@@ -45,7 +45,7 @@ export default function Map() {
   const mapRef = useRef(null);
 
   // State for dropdown
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(true);
   const [wasDropdownOpen, setWasDropdownOpen] = useState(false);
   const [lastDropdownHoveredProject, setLastDropdownHoveredProject] = useState(null);
 
@@ -276,22 +276,22 @@ export default function Map() {
       <MapContainer
         ref={mapRef}
         center={mapCenter}
-        zoom={8}
+        zoom={7}
         style={{ height: "100vh", width: "100%" }}
         maxBounds={fronteridadesBounds}
         bounds={fronteridadesBounds}
-        minZoom={5}
-        maxZoom={19}
+        minZoom={6}
+        maxZoom={17}
       >
         <TileLayer
           url={
             isDarkMode
-              ? "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              ? "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
               : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           }
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           minZoom={0}
-          maxZoom={20}
+          maxZoom={16}
         />
 
         <div
