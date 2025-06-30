@@ -47,8 +47,10 @@
     "react-leaflet-markercluster": "^5.0.0-rc.0",
     "react-masonry-css": "^1.0.16",
     "react-medium-image-zoom": "^5.2.13",
+    "react-modal": "^3.16.3",
     "react-papaparse": "^4.4.0",
     "react-pro-sidebar": "^1.1.0",
+    "react-sliding-pane": "^7.3.0",
     "react-tsparticles": "^2.12.2",
     "rewind-ui": "^0.0.6",
     "tsparticles": "^3.8.1"

@@ -17,7 +17,7 @@ import Export4BorderLayer from "./Export4BorderLayer";
 import TownsLabelLayer from "./TownsLabelLayer";
 
 // default center
-const mapCenter = [31.333699, -110.950821 - .05];
+const mapCenter = [31.333699, -110.950821 - .3];
 
 // Define bounds for the Fronteridades border region (Arizona-Sonora border)
 // This covers the main border region between Arizona and Sonora, Mexico
@@ -345,10 +345,24 @@ export default function Map() {
       {/* Gallery Toggle Button */}
       <button
         onClick={handleGalleryToggle}
-        className="absolute bottom-4 left-4 z-[9999] bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 p-3 transition-all duration-200 hover:shadow-xl"
+        className="z-[9999] rounded-lg"
+        style={{
+          position: 'absolute',
+          left: 16,
+          bottom: isGalleryOpen && !isProjectLayoutOpen ? 105 : 16, // 105px = gallery bar height
+          background: 'rgba(255,255,255,0.18)',
+          border: '1.5px solid rgba(255,255,255,0.35)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          boxShadow: '0 2px 16px rgba(0,0,0,0.12)',
+          color: isDarkMode ? '#fff' : '#222',
+          fontFamily: 'sans-serif',
+          padding: 14,
+          transition: 'box-shadow 0.2s, bottom 0.3s',
+        }}
         title="Toggle Project Gallery"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: isDarkMode ? '#fff' : '#222' }}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>
       </button>

@@ -20,11 +20,10 @@ export default function Export4BorderLayer() {
       data={geojson}
       renderer={canvasRenderer}
       style={{
-        color: '#00ffea',      // Border color (bright cyan)
-        weight: 4,             // Border thickness
-        fillColor: '#00fff7',  // Fill color (lighter cyan)
-        fillOpacity: 0,        // Adjust for desired transparency
-        opacity: 0.9,
+        color: 'darkslategray',      // Border color (bright cyan)
+        weight: 3,             // Border thickness
+        fillOpacity: .5,        // Adjust for desired transparency
+        opacity: .5,
       }}
     />
   );

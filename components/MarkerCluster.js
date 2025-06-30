@@ -459,6 +459,7 @@ const MarkerCluster = ({ projects, onMarkerClick, selectedProject, markerRefs })
         // Ensure marker has the project data attached for cluster function to access
         const markerElement = (
           <Marker
+            riseOnHover={true}
             key={`${project.Name}-${index}`}
             position={[project.Latitude, project.Longitude]}
             icon={createCategoryIcon(category, false, false, project)}
@@ -507,6 +508,7 @@ const MarkerCluster = ({ projects, onMarkerClick, selectedProject, markerRefs })
               closeButton={true}
               autoPan={true}
               maxWidth={300}
+              riseOnHover={true}
             >
               <div dangerouslySetInnerHTML={{ __html: createPopupContent(project) }} />
             </Popup>

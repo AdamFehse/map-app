@@ -215,7 +215,7 @@ export default function SearchBar({
               setIsFlying(true);
               
               // Basic flyTo: center directly on the clicked project
-              map.flyTo([lat, lng], targetZoom, {
+              map.flyTo([lat, lng - .05], targetZoom, {
                 duration: 1.5,
                 easeLinearity: 0.25
               });
@@ -309,6 +309,18 @@ export default function SearchBar({
 
   return (
     <>
+      <style>
+        {`
+          .searchbar-input::placeholder {
+            color: #222;
+            opacity: 1;
+          }
+          body.dark-mode .searchbar-input::placeholder {
+            color: #fff;
+            opacity: 1;
+          }
+        `}
+      </style>
       {/* Search Bar */}
       <div
         style={{
@@ -322,16 +334,18 @@ export default function SearchBar({
         <div
           style={{
             width: "100%",
-            background: isDarkMode ? "#181c24" : "#ffffff",
+            background: 'rgba(255,255,255,0.18)',
             borderRadius: 14,
-            boxShadow: isDarkMode 
-              ? "0 2px 12px rgba(0,0,0,0.13)" 
-              : "0 2px 12px rgba(0,0,0,0.1)",
+            boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
             display: "flex",
             alignItems: "center",
             padding: "0 10px",
             minHeight: 48,
-            border: isDarkMode ? "1.5px solid #23293a" : "1.5px solid #e0e0e0",
+            border: '1.5px solid rgba(255,255,255,0.35)',
+            fontFamily: 'sans-serif',
+            color: isDarkMode ? '#fff' : '#222',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
           }}
         >
           {/* Menu button */}
@@ -345,14 +359,14 @@ export default function SearchBar({
                 padding: "8px",
                 borderRadius: "8px",
                 marginRight: "8px",
-                color: isDarkMode ? "#fff" : "#000",
+                color: isDarkMode ? "#fff" : "#222",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 transition: "background-color 0.2s",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = isDarkMode ? "#23293a" : "#f5f5f5";
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.13)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "transparent";
@@ -374,15 +388,17 @@ export default function SearchBar({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={handleInputFocus}
+            className="searchbar-input"
             style={{
               border: "none",
               outline: "none",
               fontSize: 17,
               width: "100%",
               background: "transparent",
-              color: isDarkMode ? "#fff" : "#000",
+              color: isDarkMode ? "#fff" : "#222",
               padding: "12px 0",
               fontWeight: 500,
+              fontFamily: 'inherit',
             }}
           />
         </div>
@@ -416,9 +432,8 @@ export default function SearchBar({
             width: 400,
             borderRadius: 16,
             boxShadow: isDarkMode 
-              ? '0 8px 32px rgba(0,0,0,0.22)' 
-              : '0 8px 32px rgba(0,0,0,0.1)',
-            background: isDarkMode ? '#181c24' : '#ffffff',
+              ? '0 8px 32px rgba(0, 21, 255, 0.21)' 
+              : '0 8px 32px rgb(248, 2, 227)',
           }}
           justRestored={justRestoredAt}
         />
@@ -426,21 +441,3 @@ export default function SearchBar({
     </>
   );
 }
-
-// Helper function for more accurate longitude span calculation
-const calculateLongitudeSpan = (map, targetZoom, latitude) => {
-  const currentBounds = map.getBounds();
-  const currentZoom = map.getZoom();
-  const mapContainer = map.getContainer();
-  const mapWidth = mapContainer.offsetWidth;
-  
-  // More accurate calculation considering Mercator projection
-  const metersPerPixel = 156543.03392 * Math.cos(latitude * Math.PI / 180) / Math.pow(2, targetZoom);
-  const metersWidth = mapWidth * metersPerPixel;
-  
-  // Convert meters to longitude degrees (approximate)
-  const metersPerLngDegree = 111320 * Math.cos(latitude * Math.PI / 180);
-  const lngSpan = metersWidth / metersPerLngDegree;
-  
-  return lngSpan;
-};

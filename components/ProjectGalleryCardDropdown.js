@@ -278,15 +278,26 @@ const ProjectGalleryCardDropdown = ({
       {isOpen && (
         <motion.div
           ref={dropdownRef}
-          className="fixed z-[9999] left-1/2 top-28 -translate-x-1/2 bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 rounded-2xl p-4 w-[480px] max-w-full max-h-[80vh] flex flex-col"
+          className="fixed z-[9999] left-1/2 top-28 -translate-x-1/2 flex flex-col"
           style={{
             position: 'absolute',
-            top: 80, // adjust as needed for your SearchBar position
-            left: dropdownLeft !== null ? dropdownLeft : 50, // fallback to 50 if not calculated
-            width: 400, // adjust as needed
+            top: 80,
+            left: dropdownLeft !== null ? dropdownLeft : 50,
+            width: 400,
             zIndex: 2000,
-            borderRadius: 16,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+            borderRadius: 14,
+            background: 'rgba(255,255,255,0.18)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+            border: '1.5px solid rgba(255,255,255,0.35)',
+            color: isDarkMode ? '#fff' : '#222',
+            fontFamily: 'sans-serif',
+            fontSize: 15,
+            letterSpacing: '0.01em',
+            padding: '18px',
+            maxWidth: '100%',
+            maxHeight: '80vh',
             overflow: 'hidden',
             ...style,
           }}
@@ -298,14 +309,27 @@ const ProjectGalleryCardDropdown = ({
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md z-10"
+            className="absolute top-3 right-3 rounded-full w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md z-10"
             title="Close dropdown"
+            style={{ fontWeight: 700, fontSize: 22, color: isDarkMode ? '#fff' : '#222', background: 'none', border: 'none', boxShadow: 'none' }}
           >
             ×
           </button>
 
           {/* Tab Navigation */}
-          <div className="flex gap-1 mb-3 overflow-x-auto">
+          <div style={{
+            display: 'flex',
+            gap: 6,
+            marginBottom: 18,
+            overflowX: 'auto',
+            background: 'rgba(255,255,255,0.35)',
+            borderRadius: 10,
+            padding: '6px 8px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+            border: '1px solid rgba(255,255,255,0.18)',
+            position: 'relative',
+            zIndex: 2,
+          }}>
             {getCategories().map((category) => {
               const config = getCategoryConfig(category);
               const isActive = activeTab === category;
@@ -313,20 +337,42 @@ const ProjectGalleryCardDropdown = ({
                 <button
                   key={category}
                   onClick={() => handleTabSelect(category)}
-                  className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
-                    isActive
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
-                  }`}
+                  style={{
+                    padding: '7px 14px',
+                    borderRadius: 8,
+                    fontSize: 13,
+                    fontWeight: isActive ? 700 : 500,
+                    background: isActive
+                      ? '#fff'
+                      : 'rgba(255,255,255,0.18)',
+                    color: isActive
+                      ? '#222'
+                      : (isDarkMode ? '#222' : '#374151'),
+                    border: isActive
+                      ? '1.5px solid rgba(255,255,255,0.35)'
+                      : '1.5px solid transparent',
+                    transition: 'all 0.18s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    cursor: 'pointer',
+                  }}
                 >
                   {config.icon && (
-                    <span className="text-sm">{config.icon}</span>
+                    <span style={{ fontSize: 15 }}>{config.icon}</span>
                   )}
-                  <span className="capitalize">
+                  <span style={{ textTransform: 'capitalize' }}>
                     {category === 'all' ? 'All' : category === 'local' ? 'Local' : category}
                   </span>
                   {category === 'local' && (
-                    <span className="text-xs bg-gray-200 dark:bg-gray-600 px-1 rounded">
+                    <span style={{
+                      fontSize: 11,
+                      background: isActive ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.28)',
+                      color: isActive ? '#222' : (isDarkMode ? '#222' : '#374151'),
+                      borderRadius: 6,
+                      padding: '1px 6px',
+                      marginLeft: 4,
+                    }}>
                       {visibleProjects.length}
                     </span>
                   )}
@@ -352,7 +398,14 @@ const ProjectGalleryCardDropdown = ({
                   <motion.div
                     key={`${project.Name}-${index}`}
                     ref={el => { galleryItemRefs.current[`${project.Name}-${index}`] = el; }}
-                    className="bg-white dark:bg-gray-700 rounded-lg shadow-md border border-gray-200 dark:border-gray-600 hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col overflow-hidden group"
+                    className="rounded-lg border hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col overflow-hidden group"
+                    style={{
+                      background: isDarkMode ? 'rgba(0, 195, 255, 0.3)' : 'rgba(255, 140, 0, 0.82)',
+                      border: isDarkMode ? '1.5px solid rgba(255, 0, 0, 0.19)' : '1.5px solid rgba(255,255,255,0.35)',
+                      color: isDarkMode ? '#fff' : '#222',
+                      fontFamily: 'inherit',
+                      fontWeight: 500,
+                    }}
                     onClick={() => handleProjectClick(project)}
                     onMouseEnter={() => handleProjectHover(project, index)}
                     onMouseLeave={() => handleProjectLeave(project)}
@@ -375,14 +428,9 @@ const ProjectGalleryCardDropdown = ({
                       />
                       {/* Project name overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
-                        <h4 className="text-white text-xs font-medium leading-tight">
+                        <h4 className="text-white text-xs font-medium leading-tight" style={{ fontFamily: 'inherit', fontWeight: 600 }}>
                           {project.Name}
                         </h4>
-                        {project.ProjectCategory && (
-                          <span className="text-gray-300 text-xs">
-                            {project.ProjectCategory}
-                          </span>
-                        )}
                       </div>
                       {/* Hover indicator */}
                       {hoveredProject?.Name === project.Name && (
