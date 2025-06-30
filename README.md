@@ -95,3 +95,50 @@ npm run build
 
 This project is licensed under [MIT License](https://opensource.org/license/mit).
 
+# El ChisMapa
+
+## Overview
+El ChisMapa is a modern, interactive map application for exploring borderlands stories, projects, and connections. It features a beautiful, glassy UI, dynamic project gallery, advanced search, and custom map overlays. The app is designed for both storytelling and data exploration, with a focus on usability and visual appeal.
+
+## Tech Stack
+- **React** (Next.js app directory)
+- **Leaflet** (react-leaflet) for interactive mapping
+- **Framer Motion** for smooth UI animations
+- **Material-UI (MUI)** for sidebar and controls
+- **Tailwind CSS** and custom CSS for modern, glassy styling
+- **GeoJSON** for map data (projects, towns, borders)
+- **GitHub Pages** for static hosting and data delivery
+
+## Key Features
+- Glassy, modern UI with dark mode
+- Search bar with dropdown and project filtering
+- Project gallery bar with animated connection lines
+- Map legend and title styled for clarity and branding
+- Town and city labels with improved readability
+- Responsive design for desktop and mobile
+- Modular component structure for easy extension
+
+## Recent Improvements
+- Unified glassy look for all overlays and dropdowns
+- Fixed gallery bar scroll and legend interaction
+- Improved town label visibility and style
+- Tighter map bounds and zoom for better focus
+- Sidebar toggle added to dropdown for quick access
+- Fetches data from GitHub Pages for easy updates
+
+## 🎯 Next Cool Features to Add
+- Heatmap layer for project density
+- Drawing tools for custom areas
+- Geolocation to find user's location
+- Route planning between projects
+- 3D terrain with elevation data
+- Custom map styles (satellite, terrain, etc.)
+
+## How to Run
+1. Clone the repo and install dependencies (`npm install`)
+2. Start the dev server (`npm run dev`)
+3. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+---
+For more info or to contribute, see the codebase or contact the maintainer.
+
