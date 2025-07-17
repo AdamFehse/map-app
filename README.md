@@ -1,6 +1,6 @@
-# Confluencenter Story Map
+# El ChisMapa
 
-An interactive story map application built with **Next.js**, **React**, **Leaflet**, and **Bootstrap**. It features a dynamic, responsive interface for exploring projects visually on a map.
+A modern, interactive story map application for exploring borderlands stories, projects, and connections. Built with **Next.js**, **React**, **Leaflet**, and featuring a beautiful glassy UI design.
 
 **Live demo:** [https://adamfehse.github.io/map-app/](https://adamfehse.github.io/map-app/)
 
@@ -8,50 +8,33 @@ An interactive story map application built with **Next.js**, **React**, **Leafle
 
 ## Features
 
-- Interactive map powered by **Leaflet** with markers for project locations.
-- Dynamic project filtering and categorization.
-- Responsive UI with **Bootstrap**
-- Modals and accordions to display project information.
-- Dark mode toggle.
-- C# / ASP.NET Core - Backend API serving project data (JSON) dynamically.
-- Data loaded from a local JSON file on the backend and exposed via a REST API endpoint.
-- Frontend fetches project data from the backend API to ensure up-to-date information.
+- **Interactive Mapping**: Powered by Leaflet with dynamic markers and project locations
+- **Modern UI**: Glassy, responsive design with dark mode support
+- **Smart Search**: Search bar with dropdown filtering and project discovery
+- **Project Gallery**: Animated gallery bar with connection lines between projects
+- **Dynamic Data**: Backend API serving project data via REST endpoints
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Advanced Filtering**: Project categorization and dynamic filtering options
 
 ---
 
-## Development & Deployment
+## Tech Stack
 
-- Frontend developed with Next.js and React.
-- Backend API developed with .NET 6 minimal API.
-- Data stored as JSON and served via `/api/projects` endpoint.
-- To run locally:
-  - Start backend server with `dotnet run` in the API project directory.
-  - Run frontend with `npm run dev`.
-- For production deployment:
-  - Frontend can be built and deployed on GitHub Pages or some static host.
-  - Backend API must be hosted separately to serve dynamic project data.
-  - Frontend fetch URL should point to the hosted backend API.
-
----
-
-## Notes
-
-- SQLite or other databases can be added for scalable backend data storage if needed.
-- API and frontend are loosely coupled; frontend can switch data sources by updating the fetch URL.
+- **Next.js**: React framework with app directory structure
+- **React**: Component-based UI with react-leaflet for mapping
+- **Leaflet**: Interactive maps and custom overlays
+- **Framer Motion**: Smooth UI animations and transitions
+- **Material-UI (MUI)**: Sidebar components and controls
+- **Tailwind CSS**: Modern styling with custom glassy effects
+- **C# / ASP.NET Core**: Backend API (.NET 6 minimal API)
+- **JSON/GeoJSON**: Data format for projects, towns, and map overlays
+- **GitHub Pages**: Static hosting and data delivery
 
 ---
 
-## Future Improvements
-
-- Add authentication and authorization for managing project data.
-- Integrate a cloud-hosted database.
-- Implement offline caching for the frontend.
-- Enhance map interactions and features/UI/UX.
-- Integrate AI-powered analysis and project management features.
+## Getting Started
 
 ### Development Server
-
-To run the project locally:
 
 ```bash
 npm install
@@ -60,85 +43,70 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Editing the Project
+### Full Stack Development
 
-Modify components in the `components/` directory to customize the app.
+- **Backend**: Start the API server with `dotnet run` in the API project directory
+- **Frontend**: Run `npm run dev` for the Next.js development server
+- **Data**: Projects are served via `/api/projects` endpoint
 
 ### Deployment
-
-Deploy your application on **Vercel** for seamless hosting.
 
 ```bash
 npm run build
 ```
 
-## Technologies Used
+Deploy on **Vercel** for seamless hosting or GitHub Pages for static deployment.
 
-- **Next.js**: React framework for server-side rendering, routing, and building the frontend.
-- **React**: Component-based UI library powering the interactive interface.
-- **Leaflet**: JavaScript library for interactive maps and markers.
-- **Bootstrap**: CSS framework for responsive, mobile-first styling.
-- **.NET 6 Minimal API**: Lightweight backend API serving project data dynamically.
-- **C#**: Backend language used for API implementation.
-- **JSON**: Data format used for project data storage and transmission.
+---
 
 ## Project Structure
 
 ```
-/components    # Reusable React components (Map, Sidebar, Modal, etc.)
-/pages         # Next.js pages
-/public        # Static assets like images and JSON data
-/styles        # CSS and SCSS stylesheets
+/components    # Reusable React components (Map, Sidebar, Gallery, etc.)
+/pages         # Next.js pages and API routes
+/public        # Static assets, images, and JSON data
+/styles        # CSS, SCSS, and Tailwind configurations
 ```
+
+---
+
+## Recent Improvements
+
+- Unified glassy UI design across all components
+- Enhanced search functionality with dropdown filtering
+- Fixed gallery bar scroll and legend interactions
+- Improved town label visibility and map styling
+- Tighter map bounds and optimized zoom levels
+- Responsive sidebar with toggle controls
+- GitHub Pages integration for easy data updates
+
+---
+
+## 🎯 Upcoming Features
+
+- **Heatmap layer** for project density visualization
+- **Drawing tools** for custom area selection
+- **Geolocation** to find user's current location
+- **Route planning** between project locations
+- **3D terrain** with elevation data
+- **Custom map styles** (satellite, terrain, street views)
+- **Authentication** for project management
+- **Cloud database** integration
+- **Offline caching** capabilities
+- **AI-powered analysis** and project insights
+
+---
+
+## Contributing
+
+Modify components in the `components/` directory to customize the app. The frontend and backend are loosely coupled, making it easy to switch data sources by updating the fetch URL.
+
+---
 
 ## License
 
 This project is licensed under [MIT License](https://opensource.org/license/mit).
 
-# El ChisMapa
-
-## Overview
-El ChisMapa is a modern, interactive map application for exploring borderlands stories, projects, and connections. It features a beautiful, glassy UI, dynamic project gallery, advanced search, and custom map overlays. The app is designed for both storytelling and data exploration, with a focus on usability and visual appeal.
-
-## Tech Stack
-- **React** (Next.js app directory)
-- **Leaflet** (react-leaflet) for interactive mapping
-- **Framer Motion** for smooth UI animations
-- **Material-UI (MUI)** for sidebar and controls
-- **Tailwind CSS** and custom CSS for modern, glassy styling
-- **GeoJSON** for map data (projects, towns, borders)
-- **GitHub Pages** for static hosting and data delivery
-
-## Key Features
-- Glassy, modern UI with dark mode
-- Search bar with dropdown and project filtering
-- Project gallery bar with animated connection lines
-- Map legend and title styled for clarity and branding
-- Town and city labels with improved readability
-- Responsive design for desktop and mobile
-- Modular component structure for easy extension
-
-## Recent Improvements
-- Unified glassy look for all overlays and dropdowns
-- Fixed gallery bar scroll and legend interaction
-- Improved town label visibility and style
-- Tighter map bounds and zoom for better focus
-- Sidebar toggle added to dropdown for quick access
-- Fetches data from GitHub Pages for easy updates
-
-## 🎯 Next Cool Features to Add
-- Heatmap layer for project density
-- Drawing tools for custom areas
-- Geolocation to find user's location
-- Route planning between projects
-- 3D terrain with elevation data
-- Custom map styles (satellite, terrain, etc.)
-
-## How to Run
-1. Clone the repo and install dependencies (`npm install`)
-2. Start the dev server (`npm run dev`)
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
-
 ---
-For more info or to contribute, see the codebase or contact the maintainer.
 
+*For more info or to contribute, see the codebase or contact the maintainer.*
