@@ -3,7 +3,8 @@
 A modern, interactive story map application for exploring borderlands stories, projects, and connections. Built with **Next.js**, **React**, **Leaflet**, and featuring a beautiful glassy UI design.
 
 **Live demo:** [https://adamfehse.github.io/map-app/](https://adamfehse.github.io/map-app/)
-**Check out V2** [https://github.com/AdamFehse/mapAppV2](https://github.com/AdamFehse/mapAppV2)
+
+**Check out V2:** [https://github.com/AdamFehse/mapAppV2](https://github.com/AdamFehse/mapAppV2)
 
 ---
 
