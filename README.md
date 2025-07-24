@@ -84,7 +84,7 @@ Deploy on **Vercel** for seamless hosting or GitHub Pages for static deployment.
 
 ---
 
-## 🎯 Upcoming Features
+## Upcoming Features
 
 - **Heatmap layer** for project density visualization
 - **Drawing tools** for custom area selection
